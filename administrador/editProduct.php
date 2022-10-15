@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',descripcion='{$description}',precio_normal='{$price}',precio_rebajado='{$discount}',cantidad='{$stock}',id_categoria='{$category}' WHERE id='{$idEdit}'";
   if ($result = $conn->query($query)) {
-    echo '<meta http-equiv="refresh" content="0; url=index.php?module=product&mensaje=Producto '.$name.' editado exitosamente" />  ';
+    echo '<meta http-equiv="refresh" content="0; url=index.php?module=product&mensaje=Producto ' . $name . ' editado exitosamente" />  ';
   } else {
 ?>
     <div class="alert alert-danger" role="alert">
@@ -23,13 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php
   }
 }
-$id = isset($_REQUEST['id'])?$conn->real_escape_string($_REQUEST['id']):"";
+$id = isset($_REQUEST['id']) ? $conn->real_escape_string($_REQUEST['id']) : "";
 
 $query = "SELECT * FROM productos WHERE id='{$id}'";
 $result = $conn->query($query);
 $row = $result->fetch_assoc();
 
 ?>
+
+
 
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -122,6 +124,26 @@ $row = $result->fetch_assoc();
                         </div>
                       </div>
                     </div>
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <label>Imagen</label>
+                        <input type="file" class="form-control" name="image" accept="image/*">
+                        <?php
+                        $path = "../imgProducts/" . $row['id'];
+                        echo $path;
+                        if (file_exists($path)) {
+                          $directory = opendir($path);
+                          while ($archivo = readdir($directory)) {
+                            if (!is_dir($archivo)) {
+                              echo "<div data='" . $path . "/" . $archivo . "'><a href='" . $path . "/" . $archivo . "' title='Ver Archivo Adjunto'><span class='fas fa-file-image'></span></a>";
+                              echo "$archivo <button type='button' class='delete' title='Ver Archivo Adjunto'><i class='fas fa-trash' aria-hidden='true'></i></button></div>";
+                              echo "<img src='../imgProducts/" . $row['id'] . "/$archivo' width='300'/>";
+                            }
+                          }
+                        }
+                        ?>
+                      </div>
+                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
 
                   </form>
@@ -145,3 +167,22 @@ $row = $result->fetch_assoc();
 
 </div>
 <!-- ./wrapper -->
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.delete').click(function() {
+      var parent = $(this).parent().attr('id');
+      var service = $(this).parent().attr('data');
+      var dataString = 'id=' + service;
+      $.ajax({
+        type: "POST",
+        url: "del_file.php",
+        data: dataString,
+        success: function() {
+          location.reload();
+        }
+      });
+    });
+  });
+</script>

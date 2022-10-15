@@ -46,6 +46,7 @@ $results = $conn->query($query)
                 <thead>
                   <tr>
                     <th>ID</th>
+                    <th>Imagen</th>
                     <th>Nombre</th>
                     <th>Descripccion</th>
                     <th>Precio</th>
@@ -63,6 +64,7 @@ $results = $conn->query($query)
                     <tr>
 
                       <td><?php echo $row['id'] ?></td>
+                      <td><img class="img-thumbnail" src="../imgProducts/<?php echo $row['id'] ?>/<?php echo $row['imagen']; ?>" width="50"></td>
                       <td><?php echo $row['nombre'] ?></td>
                       <td><?php echo $row['descripcion'] ?></td>
                       <td><?php echo $row['precio_normal'] ?></td>
