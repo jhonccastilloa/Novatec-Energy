@@ -5,14 +5,14 @@ include("conection.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $name = $conn->real_escape_string($_REQUEST['name']);
   $category = $conn->real_escape_string($_REQUEST['category']);
+  $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
   $description = $conn->real_escape_string($_REQUEST['description']);
   $price = $conn->real_escape_string($_REQUEST['price']);
-  $discount = $conn->real_escape_string($_REQUEST['discount']);
   $stock = $conn->real_escape_string($_REQUEST['stock']);
   $image = $_FILES['image']['name'];
 
 
-  $query = "INSERT INTO productos(id,nombre,descripcion,precio_normal,precio_rebajado,cantidad,imagen,id_categoria) VALUES (NULL,'{$name}','{$description}',{$price},{$discount},{$stock},'{$image}','{$category}')";
+  $query = "INSERT INTO productos(id,nombre,descripcion,precio_normal,cantidad,imagen,id_categoria,id_subcategory) VALUES (NULL,'{$name}','{$description}',{$price},{$stock},'{$image}','{$category}',{$subcategory})";
   $result = $conn->query($query);
 
   $id_insert = $conn->insert_id;
@@ -28,12 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mkdir($ruta);
       }
       if (!file_exists($archivo)) {
-        $result=@move_uploaded_file($_FILES['image']['tmp_name'],$archivo);
-        if($result){
+        $result = @move_uploaded_file($_FILES['image']['tmp_name'], $archivo);
+        if ($result) {
           echo "la imagen se guardo correctamente";
-        }else{
+        } else {
           echo "la imagen no  se guardo ";
-
         }
       }
     } else {
@@ -49,9 +48,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </div>
 <?php
   }
-
- 
 }
+
+$queryCategory = "SELECT * FROM category";
+$resultCategory = $conn->query($queryCategory)
 
 ?>
 
@@ -82,9 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <!-- /.card-header -->
             <div class="card-body">
 
-              <div class="card card-warning">
+              <div class="card card-success">
                 <div class="card-header">
-                  <h3 class="card-title">Producto</h3>
+                  <h3 class="card-title">Añadir</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -93,17 +93,34 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                   <form action="index.php" method="post" enctype="multipart/form-data">
                     <input type="text" name="module" value="createProduct" hidden>
                     <div class="row">
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
                         <!-- text input -->
                         <div class="form-group">
-                          <label>Nombre del Producto</label>
+                          <label>Nombre del Producto:</label>
                           <input type="text" class="form-control" name="name" placeholder="Ingerse un nombre">
                         </div>
                       </div>
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
                         <div class="form-group">
-                          <label>Categoria</label>
-                          <input type="text" class="form-control" name="category" placeholder="Enter ...">
+                          <label>Categoria:</label>
+                          <select name="category" class="form-control">
+                            <?php
+                            while ($row = $resultCategory->fetch_assoc()) {
+
+                            ?>
+                            <option value="<?php echo $row['id']?>"><?php echo $row['category']?></option>
+                            <?php
+                            }
+                            ?>
+
+                          </select>
+                          <!-- <input type="text" class="form-control" name="category" placeholder="Ingrese una Categoria"> -->
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label>Sub Categoria:</label>
+                          <input type="text" class="form-control" name="subcategory" placeholder="Ingrese la SubCategoria">
                         </div>
                       </div>
                     </div>
@@ -111,13 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                       <div class="col-sm-12">
                         <div class="form-group">
-                          <label>Descripccion</label>
-
-                          <!-- <div id="editor">
-                            <p>Hello World!</p>
-                            <p>Some initial <strong>bold</strong> text</p>
-                            <p><br></p>
-                          </div> -->
+                          <label>Descripccion del Producto:</label>
                           <textarea name="description" id="editor" rows="10" cols="80"> </textarea>
                         </div>
                       </div>
@@ -128,34 +139,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                       <div class="col-sm-4">
                         <!-- text input -->
                         <div class="form-group">
-                          <label>Precio del Producto</label>
+                          <label>Precio del Producto:</label>
                           <input type="number" class="form-control" name="price" placeholder="Ingrese un precio">
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label>Stock del Producto:</label>
+                          <input type="number" class="form-control" name="stock" placeholder="Ingrese el Stock">
                         </div>
                       </div>
                       <div class="col-sm-4">
                         <!-- text input -->
                         <div class="form-group">
-                          <label>Rebaja</label>
-                          <input type="number" class="form-control" name="discount" placeholder="Ingrese la Rebaja">
-                        </div>
-                      </div>
-                      <div class="col-sm-4">
-                        <div class="form-group">
-                          <label>Cantidad del Producto</label>
-                          <input type="number" class="form-control" name="stock" placeholder="Ingrese el Stock">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-
-                      <div class="col-sm-12">
-                        <div class="form-group">
-                          <label>Imagen</label>
+                          <label>Imagen del Producto</label>
                           <input type="file" class="form-control" name="image" accept="image/*">
                         </div>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                    <button type="submit" class="btn btn-primary">Añadir Producto</button>
 
                   </form>
                 </div>

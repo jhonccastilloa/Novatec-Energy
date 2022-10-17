@@ -5,16 +5,43 @@ include("conection.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $name = $conn->real_escape_string($_REQUEST['name']);
   $category = $conn->real_escape_string($_REQUEST['category']);
+  $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
   $description = $conn->real_escape_string($_REQUEST['description']);
   $price = $conn->real_escape_string($_REQUEST['price']);
-  $discount = $conn->real_escape_string($_REQUEST['discount']);
   $stock = $conn->real_escape_string($_REQUEST['stock']);
   $idEdit = $conn->real_escape_string($_REQUEST['idEdit']);
+  $image = $_FILES['image']['name'];
 
 
-  $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',descripcion='{$description}',precio_normal='{$price}',precio_rebajado='{$discount}',cantidad='{$stock}',id_categoria='{$category}' WHERE id='{$idEdit}'";
-  if ($result = $conn->query($query)) {
-    echo '<meta http-equiv="refresh" content="0; url=index.php?module=product&mensaje=Producto ' . $name . ' editado exitosamente" />  ';
+  $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',descripcion='{$description}',precio_normal='{$price}',cantidad='{$stock}',imagen='{$image}',id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
+  $id_insert = $idEdit;
+  if ($_FILES['image']['error'] > 0) {
+    echo "Error al cargar Archivo";
+  } else {
+    $permitidos = array("image/jpg", "image/jpeg", "image/png");
+    $limit_kb = 50000;
+    if (in_array($_FILES['image']['type'], $permitidos) and $_FILES['image']['size'] <= $limit_kb * 1024) {
+      $ruta = '../imgProducts/' . $id_insert . '/';
+      $archivo = $ruta . $_FILES['image']['name'];
+      if (!file_exists($ruta)) {
+        mkdir($ruta);
+      }
+      if (!file_exists($archivo)) {
+        $result = @move_uploaded_file($_FILES['image']['tmp_name'], $archivo);
+        if ($result) {
+          echo "la imagen se guardo correctamente";
+        } else {
+          echo "la imagen no  se guardo ";
+        }
+      }
+    } else {
+      echo "Archivo no permitido o excede el tamaño";
+    }
+  }
+  $result = $conn->query($query);
+
+  if ($result) {
+    echo '<meta http-equiv="refresh" content="0; url=index.php?module=product&mensaje=Producto editado exitosamente" />  ';
   } else {
 ?>
     <div class="alert alert-danger" role="alert">
@@ -23,11 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php
   }
 }
+
 $id = isset($_REQUEST['id']) ? $conn->real_escape_string($_REQUEST['id']) : "";
 
 $query = "SELECT * FROM productos WHERE id='{$id}'";
 $result = $conn->query($query);
 $row = $result->fetch_assoc();
+
+$queryCategory = "SELECT * FROM category";
+$resultCategory = $conn->query($queryCategory)
 
 ?>
 
@@ -68,20 +99,39 @@ $row = $result->fetch_assoc();
                 <div class="card-body">
 
 
-                  <form action="index.php?module=editProduct" method="post">
+                  <form action="index.php?module=editProduct" method="post" enctype="multipart/form-data">
                     <input type="text" name="idEdit" value="<?php echo $row['id'] ?>" hidden>
                     <div class="row">
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
                         <!-- text input -->
                         <div class="form-group">
-                          <label>Nombre del Producto</label>
-                          <input type="text" class="form-control" name="name" value="<?php echo $row['nombre'] ?>" placeholder="Ingerse un nombre">
+                          <label>Nombre del Producto:</label>
+                          <input type="text" class="form-control" name="name" value="<?php echo $row['nombre'] ?>" placeholder="Enter ...">
+                          
                         </div>
                       </div>
-                      <div class="col-sm-6">
+                      <div class="col-sm-4">
                         <div class="form-group">
-                          <label>Categoria</label>
-                          <input type="text" class="form-control" name="category" value="<?php echo $row['id_categoria'] ?>" placeholder="Enter ...">
+                          <label>Categoria:</label>
+                          <select name="category" class="form-control">
+                            <?php
+                            while ($rowCategory = $resultCategory->fetch_assoc()) {
+
+                            ?>
+                            <option value="<?php echo $rowCategory['id']?>" <?php echo ($row['id_categoria']==$rowCategory['id']?'selected':'')?>><?php echo $rowCategory['category']?></option>
+                            <?php
+                            }
+                            ?>
+
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label>Sub Categoria:</label>
+                          <input type="text" class="form-control" name="subcategory" value="<?php echo $row['id_subcategory'] ?>" placeholder="Enter ...">
+
+                          
                         </div>
                       </div>
                     </div>
@@ -90,12 +140,6 @@ $row = $result->fetch_assoc();
                       <div class="col-sm-12">
                         <div class="form-group">
                           <label>Descripccion</label>
-
-                          <!-- <div id="editor">
-                            <p>Hello World!</p>
-                            <p>Some initial <strong>bold</strong> text</p>
-                            <p><br></p>
-                          </div> -->
                           <textarea name="description" id="editor" rows="10" cols="80"> <?php echo $row['descripcion'] ?></textarea>
                         </div>
                       </div>
@@ -103,6 +147,28 @@ $row = $result->fetch_assoc();
 
 
                     <div class="row">
+
+                      <div class="col-sm-4">
+                        <!-- text input -->
+                        <div class="form-group">
+                          <label>Imagen</label>
+                          <input type="file" class="form-control" name="image" accept="image/*">
+                          <?php
+                          $path = "../imgProducts/" . $row['id'];
+                          echo $path;
+                          if (file_exists($path)) {
+                            $directory = opendir($path);
+                            while ($archivo = readdir($directory)) {
+                              if (!is_dir($archivo)) {
+                                echo "<div data='" . $path . "/" . $archivo . "'><a href='" . $path . "/" . $archivo . "' title='Ver Archivo Adjunto'><span class='fas fa-file-image'></span></a>";
+                                echo "$archivo <button type='button' class='delete' title='Ver Archivo Adjunto'><i class='fas fa-trash' aria-hidden='true'></i></button></div>";
+                                echo "<img src='../imgProducts/" . $row['id'] . "/$archivo' width='300'/>";
+                              }
+                            }
+                          }
+                          ?>
+                        </div>
+                      </div>
                       <div class="col-sm-4">
                         <!-- text input -->
                         <div class="form-group">
@@ -110,13 +176,7 @@ $row = $result->fetch_assoc();
                           <input type="number" class="form-control" name="price" value="<?php echo $row['precio_normal'] ?>" placeholder="Ingrese un precio">
                         </div>
                       </div>
-                      <div class="col-sm-4">
-                        <!-- text input -->
-                        <div class="form-group">
-                          <label>Rebaja</label>
-                          <input type="number" class="form-control" name="discount" value="<?php echo $row['precio_rebajado'] ?>" placeholder="Ingrese la Rebaja">
-                        </div>
-                      </div>
+
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label>Cantidad del Producto</label>
@@ -126,22 +186,7 @@ $row = $result->fetch_assoc();
                     </div>
                     <div class="col-sm-12">
                       <div class="form-group">
-                        <label>Imagen</label>
-                        <input type="file" class="form-control" name="image" accept="image/*">
-                        <?php
-                        $path = "../imgProducts/" . $row['id'];
-                        echo $path;
-                        if (file_exists($path)) {
-                          $directory = opendir($path);
-                          while ($archivo = readdir($directory)) {
-                            if (!is_dir($archivo)) {
-                              echo "<div data='" . $path . "/" . $archivo . "'><a href='" . $path . "/" . $archivo . "' title='Ver Archivo Adjunto'><span class='fas fa-file-image'></span></a>";
-                              echo "$archivo <button type='button' class='delete' title='Ver Archivo Adjunto'><i class='fas fa-trash' aria-hidden='true'></i></button></div>";
-                              echo "<img src='../imgProducts/" . $row['id'] . "/$archivo' width='300'/>";
-                            }
-                          }
-                        }
-                        ?>
+
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>

@@ -1,5 +1,11 @@
+<?php
+require("./administrador/conection.php");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -32,16 +38,17 @@
 	<link rel="stylesheet" href="assets/css/responsive.css">
 
 </head>
+
 <body>
-	
+
 	<!--PreLoader-->
-    <div class="loader">
-        <div class="loader-inner">
-            <div class="circle"></div>
-        </div>
-    </div>
-    <!--PreLoader Ends-->
-	
+	<div class="loader">
+		<div class="loader-inner">
+			<div class="circle"></div>
+		</div>
+	</div>
+	<!--PreLoader Ends-->
+
 	<!-- header -->
 	<div class="top-header-area" id="sticker">
 		<div class="container">
@@ -96,7 +103,7 @@
 									</ul>
 								</li> -->
 								<li><a href="#">Contactenos</a></li>
-								
+
 								<li>
 									<div class="header-icons">
 										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
@@ -133,7 +140,7 @@
 		</div>
 	</div>
 	<!-- end search arewa -->
-	
+
 	<!-- breadcrumb-section -->
 	<div class="breadcrumb-section breadcrumb-bg">
 		<div class="container">
@@ -154,19 +161,48 @@
 		<div class="container">
 
 			<div class="row">
-                <div class="col-md-12">
-                    <div class="product-filters">
-                        <ul>
-                            <li class="active" data-filter="*">Todo</li>
-                            <li data-filter=".strawberry">Termas Solares</li>
-                            <li data-filter=".berry">Paneles Solares</li>
-                            <li data-filter=".lemon">Bombas para irrigaciones</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+				<div class="col-md-12">
+					<div class="product-filters">
+						<ul>
+
+							<li class="active" data-filter="*">Todo</li>
+							<?php
+							$query = "SELECT * FROM category";
+							$result = $conn->query($query);
+							while ($row = $result->fetch_assoc()) {
+							?>
+								<li data-filter=".<?php echo $row['id'] ?>"><?php echo $row['category'] ?></li>
+
+							<?php
+							}
+							?>
+							<li data-filter=".strawberry">strawberry</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
 
 			<div class="row product-lists">
+				<?php
+				$query = "SELECT * FROM productos";
+				$result = $conn->query($query);
+				while ($row = $result->fetch_assoc()) {
+				?>
+					<div class="col-lg-4 col-md-6 text-center <?php echo $row['id_categoria'] ?> ">
+						<div class="single-product-item">
+							<div class="product-image">
+								<a href="single-product.html"><img src="./imgProducts/<?php echo $row['id'] ?>/<?php echo $row['imagen']; ?>" alt=""></a>
+							</div>
+							<h3><?php echo $row['nombre'] ?></h3>
+							<p class="product-price"><span>S/.</span> S/.<?php echo $row['precio_normal'] ?> </p>
+							<a href="producto.php?id=<?php echo $row['id']?>" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer Mas</a>
+						</div>
+					</div>
+
+				<?php
+				}
+				?>
 				<div class="col-lg-4 col-md-6 text-center strawberry">
 					<div class="single-product-item">
 						<div class="product-image">
@@ -177,46 +213,10 @@
 						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Contactar via WhatsApp</a>
 					</div>
 				</div>
-				<div class="col-lg-4 col-md-6 text-center berry">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-2.jpeg" alt=""></a>
-						</div>
-						<h3>Producto</h3>
-						<p class="product-price"><span>Per </span> 70$ </p>
-						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Contactar via WhatsApp</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center lemon">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-3.jpg" alt=""></a>
-						</div>
-						<h3>Producto</h3>
-						<p class="product-price"><span>Per </span> 35$ </p>
-						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Contactar via WhatsApp</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-4.jpg" alt=""></a>
-						</div>
-						<h3>Producto</h3>
-						<p class="product-price"><span>Per </span> 50$ </p>
-						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Contactar via WhatsApp</a>
-					</div>
-				</div>
-				<div class="col-lg-4 col-md-6 text-center">
-					<div class="single-product-item">
-						<div class="product-image">
-							<a href="single-product.html"><img src="assets/img/products/product-img-5.jpg" alt=""></a>
-						</div>
-						<h3>Producto</h3>
-						<p class="product-price"><span>Per </span> 45$ </p>
-						<a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Contactar via WhatsApp</a>
-					</div>
-				</div>
+				
+				
+				
+				
 				<div class="col-lg-4 col-md-6 text-center strawberry">
 					<div class="single-product-item">
 						<div class="product-image">
@@ -319,13 +319,13 @@
 		</div>
 	</div>
 	<!-- end footer -->
-	
+
 	<!-- copyright -->
 	<div class="copyright">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Novatec</a>,  Todos Los Derechos Reservados.<br>
+					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Novatec</a>, Todos Los Derechos Reservados.<br>
 						<!-- Distributed By - <a href="https://themewagon.com/">Themewagon</a> -->
 					</p>
 				</div>
@@ -344,7 +344,7 @@
 		</div>
 	</div>
 	<!-- end copyright -->
-	
+
 	<!-- jquery -->
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<!-- bootstrap -->
@@ -367,4 +367,5 @@
 	<script src="assets/js/main.js"></script>
 
 </body>
+
 </html>

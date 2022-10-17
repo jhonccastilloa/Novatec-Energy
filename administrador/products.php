@@ -1,7 +1,42 @@
 <?php
 include("conection.php");
 $query = "SELECT * FROM productos";
-$results = $conn->query($query)
+$results = $conn->query($query);
+if (isset($_REQUEST['idDelete'])) {
+  $id = $conn->real_escape_string($_REQUEST['idDelete'] ?? '');
+  $query = "DELETE from productos where id='{$id}'";
+  $result = $conn->query($query);
+
+  deleteDir("../imgProducts/" . $id);
+
+
+
+  if ($result) {
+?>
+    <div class="alert alert-warning float-right" role="alert">
+      Producto borrado con exito
+    </div>
+  <?php
+  } else {
+  ?>
+    <div class="alert alert-danger float-right" role="alert">
+      Error al borrar <?php echo mysqli_error($con); ?>
+    </div>
+<?php
+  }
+}
+function deleteDir($directory)
+{
+  foreach (glob($directory . "/*") as $file_directory) {
+    if (is_dir($file_directory)) {
+      deleteDir($directory);
+    } else {
+      unlink($file_directory);
+    }
+    # code...
+  }
+  rmdir($directory);
+}
 ?>
 
 <div class="content-wrapper">
@@ -50,10 +85,9 @@ $results = $conn->query($query)
                     <th>Nombre</th>
                     <th>Descripccion</th>
                     <th>Precio</th>
-                    <th>Precio Rebajado</th>
                     <th>Cantidad</th>
-                    <th>Imagen</th>
                     <th>Categoria</th>
+                    <th>Sub Categoria</th>
                     <th>Editar</th>
                     <th>Elimnar</th>
                   </tr>
@@ -66,14 +100,14 @@ $results = $conn->query($query)
                       <td><?php echo $row['id'] ?></td>
                       <td><img class="img-thumbnail" src="../imgProducts/<?php echo $row['id'] ?>/<?php echo $row['imagen']; ?>" width="50"></td>
                       <td><?php echo $row['nombre'] ?></td>
-                      <td><?php echo $row['descripcion'] ?></td>
+                      <td><?php echo strip_tags(substr($row['descripcion'],0,250))."..."  ?></td>
                       <td><?php echo $row['precio_normal'] ?></td>
-                      <td><?php echo $row['precio_rebajado'] ?></td>
                       <td><?php echo $row['cantidad'] ?></td>
-                      <td><?php echo $row['imagen'] ?></td>
                       <td><?php echo $row['id_categoria'] ?></td>
-                      <td><a href="index.php?module=editProduct&id=<?php echo $row['id']?>" class="p-3 py-6" ><i class="fas fa-edit" title="Editar"></i></a></td>
-                      <td><a href="index.php?module=product&idDelete=<?php echo $row['id']?>" class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "  ></i></a></td>
+                      <td><?php echo $row['id_subcategory'] ?></td>
+
+                      <td><a href="index.php?module=editProduct&id=<?php echo $row['id'] ?>" class="p-3 py-6"><i class="fas fa-edit" title="Editar"></i></a></td>
+                      <td><a href="index.php?module=product&idDelete=<?php echo $row['id'] ?>" class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "></i></a></td>
                     </tr>
                   <?php } ?>
 
