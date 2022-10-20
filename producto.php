@@ -1,5 +1,8 @@
 <?php 
 require("./administrador/conection.php");
+if(!isset($_REQUEST['id'])){
+	header("location: productos.php");
+}
 
 $id = isset($_REQUEST['id']) ? $conn->real_escape_string($_REQUEST['id']) : "";
 
@@ -7,6 +10,9 @@ $query = "SELECT * FROM productos WHERE id='{$id}'";
 
 $result = $conn->query($query);
 $row = $result->fetch_assoc();
+
+$url=$_SERVER["HTTP_HOST"].$host= $_SERVER["REQUEST_URI"];
+$message='Estoy interesado en el '.$row['nombre'].'%0A'.'https://'.$url;
 
 ?>
 
@@ -42,6 +48,7 @@ $row = $result->fetch_assoc();
 	<link rel="stylesheet" href="assets/css/main.css">
 	<!-- responsive -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
+  <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
 
 </head>
 <body>
@@ -179,7 +186,7 @@ $row = $result->fetch_assoc();
 							<form action="index.html">
 								<input type="number" placeholder="0">
 							</form>
-							<a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Contactar via WhatsApp</a>
+							<a href="https://api.whatsapp.com/send?phone=941882754&text=<?php echo $message ?>" class="cart-btn" target="_blank"><i class="fas fa-shopping-cart"></i> Contactar via WhatsApp</a>
 							<!-- <p><strong>Categories: </strong>Fruits, Organic</p> -->
 						</div>
 						<h4>Share:</h4>
@@ -368,6 +375,34 @@ $row = $result->fetch_assoc();
 	<script src="assets/js/sticker.js"></script>
 	<!-- main js -->
 	<script src="assets/js/main.js"></script>
+  <script src="./administrador/ckeditor/ckeditor.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#tableProducts').DataTable();
+    });
+
+    // var quill = new Quill('#editor', {
+    //   theme: 'snow'
+    // });
+    ClassicEditor
+      .create(document.querySelector('#editor'))
+      .catch(error => {
+        console.error(error);
+      });
+
+      document.querySelectorAll( 'oembed[url]' ).forEach( element => {
+        // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
+        // to discover the media.
+        const anchor = document.createElement( 'a' );
+
+        anchor.setAttribute( 'href', element.getAttribute( 'url' ) );
+        anchor.className = 'embedly-card';
+
+        element.appendChild( anchor );
+    } );
+  </script>
+
 
 </body>
 </html>

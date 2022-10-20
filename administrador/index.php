@@ -44,7 +44,8 @@ if (!isset($_SESSION['id'])) {
   <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
   <!-- Editor de descripcion -->
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
+  <!-- ck editor video frame -->
+  <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -179,13 +180,15 @@ if (!isset($_SESSION['id'])) {
     } elseif ($_REQUEST['module'] == 'product') {
       require_once('products.php');
     } elseif ($_REQUEST['module'] == 'category') {
-      echo "categoria";
+      require_once('category.php');
     } elseif ($_REQUEST['module'] == 'subcategory') {
-      echo "subcategoria";
+      require_once('subcategory.php');
     } elseif ($_REQUEST['module'] == 'createProduct') {
       require_once('createProduct.php');
-    }elseif ($_REQUEST['module'] == 'editProduct') {
+    } elseif ($_REQUEST['module'] == 'editProduct') {
       require_once('editProduct.php');
+    } elseif ($_REQUEST['module'] == 'categoryEvalua') {
+      require_once('categoryEvalua.php');
     }
 
     ?>
@@ -206,6 +209,7 @@ if (!isset($_SESSION['id'])) {
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
+  <script src="./js/main.js"></script>
 
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
@@ -256,7 +260,22 @@ if (!isset($_SESSION['id'])) {
     // var quill = new Quill('#editor', {
     //   theme: 'snow'
     // });
-    CKEDITOR.replace('editor');
+    ClassicEditor
+      .create(document.querySelector('#editor'))
+      .catch(error => {
+        console.error(error);
+      });
+
+    document.querySelectorAll('oembed[url]').forEach(element => {
+      // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
+      // to discover the media.
+      const anchor = document.createElement('a');
+
+      anchor.setAttribute('href', element.getAttribute('url'));
+      anchor.className = 'embedly-card';
+
+      element.appendChild(anchor);
+    });
   </script>
 </body>
 

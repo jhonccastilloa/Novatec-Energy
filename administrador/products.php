@@ -1,6 +1,7 @@
 <?php
 include("conection.php");
-$query = "SELECT * FROM productos";
+$query = "SELECT productos.id,productos.nombre,productos.descripcion,productos.precio_normal,productos.cantidad,productos.imagen,category.category,subcategory.subcategory 
+FROM productos LEFT JOIN category ON productos.id_categoria = category.id LEFT JOIN subcategory ON productos.id_subcategory=subcategory.id";
 $results = $conn->query($query);
 if (isset($_REQUEST['idDelete'])) {
   $id = $conn->real_escape_string($_REQUEST['idDelete'] ?? '');
@@ -100,11 +101,11 @@ function deleteDir($directory)
                       <td><?php echo $row['id'] ?></td>
                       <td><img class="img-thumbnail" src="../imgProducts/<?php echo $row['id'] ?>/<?php echo $row['imagen']; ?>" width="50"></td>
                       <td><?php echo $row['nombre'] ?></td>
-                      <td><?php echo strip_tags(substr($row['descripcion'],0,250))."..."  ?></td>
+                      <td><?php echo strip_tags(substr($row['descripcion'], 0, 250)) . "..."  ?></td>
                       <td><?php echo $row['precio_normal'] ?></td>
                       <td><?php echo $row['cantidad'] ?></td>
-                      <td><?php echo $row['id_categoria'] ?></td>
-                      <td><?php echo $row['id_subcategory'] ?></td>
+                      <td><?php echo $row['category'] ?></td>
+                      <td><?php echo $row['subcategory'] ?></td>
 
                       <td><a href="index.php?module=editProduct&id=<?php echo $row['id'] ?>" class="p-3 py-6"><i class="fas fa-edit" title="Editar"></i></a></td>
                       <td><a href="index.php?module=product&idDelete=<?php echo $row['id'] ?>" class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "></i></a></td>

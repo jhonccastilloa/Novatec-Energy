@@ -11,7 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $stock = $conn->real_escape_string($_REQUEST['stock']);
   $idEdit = $conn->real_escape_string($_REQUEST['idEdit']);
   $image = $_FILES['image']['name'];
-
+  $imageAux=$conn->real_escape_string($_REQUEST['imageAux']);
+  if(!$image){
+    $image=$imageAux;
+  }
 
   $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',descripcion='{$description}',precio_normal='{$price}',cantidad='{$stock}',imagen='{$image}',id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
   $id_insert = $idEdit;
@@ -58,8 +61,7 @@ $result = $conn->query($query);
 $row = $result->fetch_assoc();
 
 $queryCategory = "SELECT * FROM category";
-$resultCategory = $conn->query($queryCategory)
-
+$resultCategory = $conn->query($queryCategory);
 ?>
 
 
@@ -107,7 +109,7 @@ $resultCategory = $conn->query($queryCategory)
                         <div class="form-group">
                           <label>Nombre del Producto:</label>
                           <input type="text" class="form-control" name="name" value="<?php echo $row['nombre'] ?>" placeholder="Enter ...">
-                          
+
                         </div>
                       </div>
                       <div class="col-sm-4">
@@ -118,7 +120,7 @@ $resultCategory = $conn->query($queryCategory)
                             while ($rowCategory = $resultCategory->fetch_assoc()) {
 
                             ?>
-                            <option value="<?php echo $rowCategory['id']?>" <?php echo ($row['id_categoria']==$rowCategory['id']?'selected':'')?>><?php echo $rowCategory['category']?></option>
+                              <option value="<?php echo $rowCategory['id'] ?>" <?php echo ($row['id_categoria'] == $rowCategory['id'] ? 'selected' : '') ?>><?php echo $rowCategory['category'] ?></option>
                             <?php
                             }
                             ?>
@@ -131,7 +133,7 @@ $resultCategory = $conn->query($queryCategory)
                           <label>Sub Categoria:</label>
                           <input type="text" class="form-control" name="subcategory" value="<?php echo $row['id_subcategory'] ?>" placeholder="Enter ...">
 
-                          
+
                         </div>
                       </div>
                     </div>
@@ -152,6 +154,7 @@ $resultCategory = $conn->query($queryCategory)
                         <!-- text input -->
                         <div class="form-group">
                           <label>Imagen</label>
+                          <input type="text" name="imageAux" value="<?php echo $row['imagen'] ?>">
                           <input type="file" class="form-control" name="image" accept="image/*">
                           <?php
                           $path = "../imgProducts/" . $row['id'];

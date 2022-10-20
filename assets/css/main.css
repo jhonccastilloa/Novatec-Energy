@@ -41,7 +41,7 @@ a {
 }
 
 a:hover {
-  color: #F28123;
+  color: #8BC34A;
   text-decoration: none;
 }
 
@@ -205,7 +205,7 @@ p:last-child {
   position: absolute;
   top: calc(50% - 3vmax);
   left: calc(50% - 3vmax);
-  border-left: 3px solid #F28123;
+  border-left: 3px solid #8BC34A;
   border-radius: 100%;
   -webkit-animation: spinLeft 800ms linear infinite;
   animation: spinLeft 800ms linear infinite;
@@ -219,7 +219,7 @@ p:last-child {
   position: absolute;
   top: calc(50% - 3vmax);
   left: calc(50% - 3vmax);
-  border-left: 3px solid #F28123;
+  border-left: 3px solid #8BC34A;
   border-radius: 100%;
   -webkit-animation: spinLeft 800ms linear infinite;
   animation: spinLeft 800ms linear infinite;
@@ -402,7 +402,7 @@ p:last-child {
 }
 
 .orange-text {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .blue-bg {
@@ -412,7 +412,7 @@ p:last-child {
 a.boxed-btn {
   font-family: 'Poppins', sans-serif;
   display: inline-block;
-  background-color: #F28123;
+  background-color: #8BC34A;
   color: #fff;
   padding: 10px 20px;
 }
@@ -421,7 +421,7 @@ a.bordered-btn {
   font-family: 'Poppins', sans-serif;
   display: inline-block;
   color: #fff;
-  border: 2px solid #F28123;
+  border: 2px solid #8BC34A;
   padding: 7px 20px;
 }
 
@@ -436,7 +436,7 @@ a.read-more-btn {
 }
 
 a.read-more-btn:hover {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 a.boxed-btn, a.bordered-btn, a.cart-btn {
@@ -457,7 +457,7 @@ a.boxed-btn, a.bordered-btn, a.cart-btn {
   bottom: 0px;
   width: 50px;
   height: 2px;
-  background-color: #F28123;
+  background-color: #8BC34A;
   margin: 0 auto;
 }
 
@@ -474,12 +474,8 @@ a.boxed-btn, a.bordered-btn, a.cart-btn {
   margin-bottom: 80px;
 }
 
-.breadcrumb-bg {
-  background-image: url(../img/breadcrumb-bg.jpg);
-}
-
 .breadcrumb-text p {
-  color: #F28123;
+  color: #8BC34A;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 7px;
@@ -494,13 +490,13 @@ a.boxed-btn, a.bordered-btn, a.cart-btn {
 }
 
 .breadcrumb-section {
-  padding: 150px 0;
+  padding: 100px 0;
   background-size: cover;
   background-position: center center;
   position: relative;
   z-index: 1;
   background-attachment: fixed;
-  padding-top: 200px;
+  padding-top: 150px;
 }
 
 .breadcrumb-section:after {
@@ -626,7 +622,7 @@ ul.sub-menu li:last-child {
 }
 
 .mean-bar a.meanmenu-reveal {
-  background-color: #F28123;
+  background-color: #8BC34A;
 }
 
 .main-menu-wrap {
@@ -690,11 +686,11 @@ nav.main-menu ul ul.sub-menu li a {
 }
 
 nav.main-menu ul li.current-list-item > a {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 nav.main-menu li:hover > a {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 nav.main-menu li a {
@@ -710,7 +706,7 @@ nav.main-menu li a {
 }
 
 .top-header-area .header-icons a:hover {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .sticky-wrapper {
@@ -784,7 +780,7 @@ a.mobile-show {
   padding: 15px;
   width: 60%;
   background-color: transparent;
-  border-bottom: 1px solid #F28123;
+  border-bottom: 1px solid #8BC34A;
   display: block;
   margin: 0 auto;
   text-align: center;
@@ -796,7 +792,7 @@ a.mobile-show {
 
 .search-bar-tablecell button[type=submit] {
   border: none;
-  background-color: #F28123;
+  background-color: #8BC34A;
   padding: 15px 30px;
   cursor: pointer;
   display: inline-block;
@@ -881,7 +877,7 @@ h2.widget-title:after {
   bottom: 0;
   width: 20px;
   height: 2px;
-  background-color: #F28123;
+  background-color: #8BC34A;
   content: "";
 }
 
@@ -921,7 +917,7 @@ h2.widget-title:after {
   width: 20%;
   border: none;
   background-color: #012738;
-  color: #F28123;
+  color: #8BC34A;
   padding: 14px 0;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
@@ -946,7 +942,7 @@ h2.widget-title:after {
 }
 
 .copyright a {
-  color: #F28123;
+  color: #8BC34A;
   font-weight: 700;
 }
 
@@ -988,7 +984,7 @@ h2.widget-title:after {
   content: "\f105";
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
-  color: #F28123;
+  color: #8BC34A;
 }
 
 /* -----------------------------------------------------------------------------
@@ -1014,7 +1010,7 @@ a.boxed-btn {
 
 a.boxed-btn:hover {
   background-color: #051922;
-  color: #F28123;
+  color: #8BC34A;
 }
 
 a.bordered-btn {
@@ -1024,7 +1020,7 @@ a.bordered-btn {
 }
 
 a.bordered-btn:hover {
-  background-color: #F28123;
+  background-color: #8BC34A;
   color: #fff;
 }
 
@@ -1035,7 +1031,7 @@ ul.sub-menu a {
 }
 
 ul.sub-menu li:hover a {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .single-tof-box {
@@ -1057,7 +1053,7 @@ a.video-play-btn {
 
 a.video-play-btn:hover {
   background-color: #333;
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .latest-news-bg {
@@ -1083,7 +1079,7 @@ a.tof-btn i {
 }
 
 a.tof-btn:hover {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 a.tof-btn:hover i {
@@ -1122,7 +1118,7 @@ a.tof-btn:hover i {
 }
 
 .footer-box.pages ul li:hover a {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .footer-box.subscribe form button {
@@ -1132,12 +1128,12 @@ a.tof-btn:hover i {
 }
 
 .footer-box.subscribe form button:hover {
-  background-color: #F28123;
+  background-color: #8BC34A;
   color: #051922;
 }
 
 .social-icons ul li:hover a {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .social-icons ul li a {
@@ -1154,7 +1150,7 @@ ul.social-link-team li a {
 
 ul.social-link-team li a:hover {
   background-color: #051922;
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .counter-box {
@@ -1177,7 +1173,7 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
   background-color: #051922;
-  color: #F28123;
+  color: #8BC34A;
 }
 
 div.owl-controls, .owl-controls div {
@@ -1197,7 +1193,7 @@ div.owl-controls div.owl-nav div:hover {
 }
 
 .pagination-wrap ul li:hover a {
-  background-color: #F28123;
+  background-color: #8BC34A;
 }
 
 .icons a i {
@@ -1207,7 +1203,7 @@ div.owl-controls div.owl-nav div:hover {
 }
 
 .icons a:hover i {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .tof-text a.tof-btn {
@@ -1245,7 +1241,7 @@ a.cart-btn {
 
 a.cart-btn:hover {
   background-color: #051922;
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .recent-posts ul li {
@@ -1265,7 +1261,7 @@ ul.sub-menu li a {
 }
 
 ul.sub-menu li:hover a {
-  color: #F28123 !important;
+  color: #8BC34A !important;
 }
 
 .sidebar-section ul li a {
@@ -1285,7 +1281,7 @@ ul.sub-menu li:hover a {
 }
 
 .comment-text-body h4 a:hover {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 ul.product-share li a {
@@ -1295,7 +1291,7 @@ ul.product-share li a {
 }
 
 ul.product-share li:hover a {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .service-menu ul li a {
@@ -1352,7 +1348,7 @@ a.mobile-show.search-bar-icon {
 }
 
 a.mobile-show.search-bar-icon:hover {
-  color: #F28123;
+  color: #8BC34A;
 }
 
 /* -----------------------------------------------------------------------------
@@ -1399,7 +1395,7 @@ html, body {
 }
 
 .hero-text p.subtitle {
-  color: #F28123;
+  color: #8BC34A;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 7px;
@@ -1456,7 +1452,7 @@ html, body {
 }
 
 input[type="submit"] {
-  background-color: #F28123;
+  background-color: #8BC34A;
   color: #051922;
   font-weight: 700;
   text-transform: uppercase;
@@ -1525,7 +1521,7 @@ input[type="submit"] {
 div.owl-controls, .owl-controls div {
   height: auto;
   top: 50%;
-  color: #F28123;
+  color: #8BC34A;
   font-size: 48px;
 }
 
@@ -1575,12 +1571,12 @@ div.owl-controls, .owl-controls div {
   display: block;
   font-size: 24px;
   margin-right: 15px;
-  color: #F28123;
+  color: #8BC34A;
   width: 65px;
   height: 65px;
   text-align: center;
   line-height: 60px;
-  border: 2px #F28123 dotted;
+  border: 2px #8BC34A dotted;
   border-radius: 999px;
 }
 
@@ -1699,7 +1695,7 @@ p.excerpt {
 }
 
 .pagination-wrap ul li a.active {
-  background-color: #F28123;
+  background-color: #8BC34A;
 }
 
 .single-artcile-bg {
@@ -1922,7 +1918,7 @@ span.comment-date {
   margin-top: 8px;
   text-align: center;
   border-radius: 50%;
-  background-color: #F28123;
+  background-color: #8BC34A;
 }
 
 .cart-banner .image-column .price-box .inner-price .price {
@@ -1980,7 +1976,7 @@ span.comment-date {
   padding: 8px 20px 14px;
   text-transform: capitalize;
   text-align: center;
-  border: 2px solid #F28123;
+  border: 2px solid #8BC34A;
 }
 
 .time-countdown .counter-column .count {
@@ -1989,7 +1985,7 @@ span.comment-date {
   font-size: 30px;
   line-height: 1.4em;
   padding: 0px 0px;
-  color: #F28123;
+  color: #8BC34A;
   font-weight: 700;
   letter-spacing: 1px;
 }
@@ -2046,7 +2042,7 @@ p.testimonial-body {
 ----------------------------------------------------------------------------- */
 a.video-play-btn {
   position: absolute;
-  background-color: #F28123;
+  background-color: #8BC34A;
   color: #051922;
   width: 90px;
   height: 90px;
@@ -2133,7 +2129,7 @@ a.video-play-btn {
   position: relative;
   font-size: 60px;
   font-weight: 700;
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .shop-banner .sale-percent span {
@@ -2233,7 +2229,7 @@ ul.social-link-team li {
 
 ul.social-link-team li a {
   color: #fff;
-  background-color: #F28123;
+  background-color: #8BC34A;
   width: 32px;
   height: 32px;
   line-height: 32px;
@@ -2298,7 +2294,7 @@ ul.social-link-team li a {
 .contact-form-box h4 i {
   position: absolute;
   left: -13%;
-  color: #F28123;
+  color: #8BC34A;
   top: 2px;
 }
 
@@ -2321,7 +2317,7 @@ ul.social-link-team li a {
 
 .find-location p i {
   margin-right: 10px;
-  color: #F28123;
+  color: #8BC34A;
 }
 
 #form_status span {
@@ -2373,7 +2369,7 @@ ul.social-link-team li a {
 
 ----------------------------------------------------------------------------- */
 .product-filters {
-  margin-bottom: 80px;
+  margin-bottom: 40px;
 }
 
 .product-filters ul {
@@ -2386,18 +2382,47 @@ ul.social-link-team li a {
 .product-filters ul li {
   display: inline-block;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 14px;
   margin: 15px;
   border: 2px solid #051922;
   color: #323232;
   cursor: pointer;
-  padding: 8px 20px;
+  padding: 2px 10px;
   border-radius: 25px;
 }
 
 .product-filters ul li.active {
-  border: 2px solid #F28123;
-  background-color: #F28123;
+  border: 2px solid #8BC34A;
+  background-color: #8BC34A;
+  color: #fff;
+}
+.product-category {
+  margin-bottom: 40px;
+  margin-top: 40px;
+}
+
+.product-category ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.product-category ul li {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 18px;
+  margin: 5px;
+  border: 2px solid #051922;
+  color: #323232;
+  cursor: pointer;
+  padding: 2px 10px;
+  border-radius: 5px;
+}
+
+.product-category ul li.active {
+  border: 2px solid #689F38;
+  background-color: #689F38;
   color: #fff;
 }
 
@@ -2439,7 +2464,7 @@ p.product-price span {
 a.cart-btn {
   font-family: 'Poppins', sans-serif;
   display: inline-block;
-  background-color: #F28123;
+  background-color: #8BC34A;
   color: #fff;
   padding: 10px 20px;
 }
@@ -2685,7 +2710,7 @@ tr.total-data td strong {
   font-weight: 900;
   line-height: 22px;
   margin-top: -11px;
-  color: #F28123;
+  color: #8BC34A;
 }
 
 .billing-address-form form p:last-child {
