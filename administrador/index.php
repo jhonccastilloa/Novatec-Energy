@@ -136,7 +136,7 @@ if (!isset($_SESSION['id'])) {
               <ul class="nav nav-treeview">
 
                 <li class="nav-item">
-                  <a href="index.php?module=product" class="nav-link  <?php echo (isset($_REQUEST['module']) and $_REQUEST['module'] == 'product' or $_REQUEST['module'] == 'createProduct') ? 'active' : '' ?> ">
+                  <a href="index.php?module=product" class="nav-link  ">
                     <i class="fa fa-shopping-cart av-icon " aria-hidden="true"></i>
                     <p>Productos</p>
                   </a>

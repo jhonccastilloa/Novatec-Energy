@@ -7,11 +7,7 @@ if (isset($_REQUEST['idDelete'])) {
   $id = $conn->real_escape_string($_REQUEST['idDelete'] ?? '');
   $query = "DELETE from productos where id='{$id}'";
   $result = $conn->query($query);
-
   deleteDir("../imgProducts/" . $id);
-
-
-
   if ($result) {
 ?>
     <div class="alert alert-warning float-right" role="alert">
@@ -51,7 +47,7 @@ function deleteDir($directory)
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="./">Inicio</a></li>
-            <li class="breadcrumb-item active">DataTables</li>
+            <li class="breadcrumb-item active">Productos</li>
           </ol>
         </div>
       </div>
@@ -67,7 +63,7 @@ function deleteDir($directory)
             <div class="card-header">
               <div class="row mb-2">
                 <div class="col-sm-6">
-                  <h3 class="card-title">Agregue Edite o Elimine sus productos</h3>
+                  <h3 class="card-title">Panel de los Productos</h3>
                 </div>
                 <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
@@ -81,7 +77,6 @@ function deleteDir($directory)
               <table id="tableProducts" class="table table-bordered table-hover">
                 <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Imagen</th>
                     <th>Nombre</th>
                     <th>Descripccion</th>
@@ -98,7 +93,6 @@ function deleteDir($directory)
                   ?>
                     <tr>
 
-                      <td><?php echo $row['id'] ?></td>
                       <td><img class="img-thumbnail" src="../imgProducts/<?php echo $row['id'] ?>/<?php echo $row['imagen']; ?>" width="50"></td>
                       <td><?php echo $row['nombre'] ?></td>
                       <td><?php echo strip_tags(substr($row['descripcion'], 0, 250)) . "..."  ?></td>

@@ -1,70 +1,15 @@
 <?php
 include("conection.php");
-
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $name = $conn->real_escape_string($_REQUEST['name']);
-  $category = $conn->real_escape_string($_REQUEST['category']);
-  $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
-  $description = $conn->real_escape_string($_REQUEST['description']);
-  $price = $conn->real_escape_string($_REQUEST['price']);
-  $stock = $conn->real_escape_string($_REQUEST['stock']);
-  $idEdit = $conn->real_escape_string($_REQUEST['idEdit']);
-  $image = $_FILES['image']['name'];
-  $imageAux=$conn->real_escape_string($_REQUEST['imageAux']);
-  if(!$image){
-    $image=$imageAux;
-  }
-
-  $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',descripcion='{$description}',precio_normal='{$price}',cantidad='{$stock}',imagen='{$image}',id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
-  $id_insert = $idEdit;
-  if ($_FILES['image']['error'] > 0) {
-    echo "Error al cargar Archivo";
-  } else {
-    $permitidos = array("image/jpg", "image/jpeg", "image/png");
-    $limit_kb = 50000;
-    if (in_array($_FILES['image']['type'], $permitidos) and $_FILES['image']['size'] <= $limit_kb * 1024) {
-      $ruta = '../imgProducts/' . $id_insert . '/';
-      $archivo = $ruta . $_FILES['image']['name'];
-      if (!file_exists($ruta)) {
-        mkdir($ruta);
-      }
-      if (!file_exists($archivo)) {
-        $result = @move_uploaded_file($_FILES['image']['tmp_name'], $archivo);
-        if ($result) {
-          echo "la imagen se guardo correctamente";
-        } else {
-          echo "la imagen no  se guardo ";
-        }
-      }
-    } else {
-      echo "Archivo no permitido o excede el tamaño";
-    }
-  }
-  $result = $conn->query($query);
-
-  if ($result) {
-    echo '<meta http-equiv="refresh" content="0; url=index.php?module=product&mensaje=Producto editado exitosamente" />  ';
-  } else {
-?>
-    <div class="alert alert-danger" role="alert">
-      Error al editar producto <?php echo mysqli_error($conn); ?>
-    </div>
-<?php
-  }
-}
+include("editProductEvalua.php");
 
 $id = isset($_REQUEST['id']) ? $conn->real_escape_string($_REQUEST['id']) : "";
-
 $query = "SELECT * FROM productos WHERE id='{$id}'";
 $result = $conn->query($query);
 $row = $result->fetch_assoc();
-
 $queryCategory = "SELECT * FROM category";
 $resultCategory = $conn->query($queryCategory);
+
 ?>
-
-
 
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -95,7 +40,7 @@ $resultCategory = $conn->query($queryCategory);
 
               <div class="card card-warning">
                 <div class="card-header">
-                  <h3 class="card-title">Producto</h3>
+                  <h3 class="card-title">Editar</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
@@ -115,7 +60,7 @@ $resultCategory = $conn->query($queryCategory);
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label>Categoria:</label>
-                          <select name="category" class="form-control">
+                          <select name="category" class="form-control" id="productCategory">
                             <?php
                             while ($rowCategory = $resultCategory->fetch_assoc()) {
 
@@ -131,8 +76,18 @@ $resultCategory = $conn->query($queryCategory);
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label>Sub Categoria:</label>
-                          <input type="text" class="form-control" name="subcategory" value="<?php echo $row['id_subcategory'] ?>" placeholder="Enter ...">
+                          <select name="subcategory" class="form-control" id="productSubcategory">
+                            <?php
+                            $querySubcategory='SELECT * FROM subcategory ';
+                            $resultSubcategory=$conn->query($querySubcategory);
+                            while ($rowSubcategory = $resultSubcategory->fetch_assoc()) {
 
+                            ?>
+                              <option value="<?php echo $rowSubcategory['id'] ?>" <?php echo ($rowSubcategory['id'] == $row['id_subcategory'] ? 'selected' : '') ?>><?php echo $rowSubcategory['subcategory'] ?></option>
+                            <?php
+                            }
+                            ?>
+                          </select>
 
                         </div>
                       </div>
@@ -146,10 +101,7 @@ $resultCategory = $conn->query($queryCategory);
                         </div>
                       </div>
                     </div>
-
-
                     <div class="row">
-
                       <div class="col-sm-4">
                         <!-- text input -->
                         <div class="form-group">
@@ -193,7 +145,6 @@ $resultCategory = $conn->query($queryCategory);
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
-
                   </form>
                 </div>
                 <!-- /.card-body -->

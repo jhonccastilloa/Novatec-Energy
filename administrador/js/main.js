@@ -14,7 +14,6 @@ const dataEdit = (event) => {
 let subCategoryName = document.getElementById("subCategory");
 let categorySubName = document.getElementById("selectCategory");
 let idCatName = document.getElementById("idCat");
-console.log((categorySubName.innerHTML));
 const dataEditSub = (event) => {
   let category = event.target.getAttribute("category");
   let subcategory = event.target.getAttribute("subcategory");
@@ -23,4 +22,26 @@ const dataEditSub = (event) => {
   subCategoryName.value = subcategory;
   categorySubName.value = category;
   idCatName.value = id;
+};
+
+//Select funcion
+let productCategory = document.getElementById("productCategory");
+let productSubcategory=document.getElementById('productSubcategory')
+productCategory.oninput = () => {
+  productSubcategory.innerHTML=''
+  getSubcategory(productCategory.value)
+};
+
+const getSubcategory = async (id) => {
+  try {
+    const res = await fetch("getSubcategory?idCategory="+id);
+    const data = await res.json();
+    data.map(el => {
+      productSubcategory.innerHTML+=`
+      <option value='${el.id}'>${el.subcategory}</option>
+      `
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

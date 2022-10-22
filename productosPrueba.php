@@ -13,7 +13,7 @@ include_once("head.php");
 		<div class="row">
 			<div class="col-lg-8 offset-lg-2 text-center">
 				<div class="breadcrumb-text">
-					<p>Contamos con los mejores Productos</p>
+					<p>Productos de Calidad</p>
 					<h1>Productos</h1>
 				</div>
 			</div>
@@ -33,18 +33,14 @@ include_once("head.php");
 				<div class="product-category">
 					<h3>Categoria:</h3>
 					<ul>
-						<a href="productos.php">
-							<li class="<?php echo (!isset($_REQUEST['categoria']) ? 'active' : '') ?>" data-filter="*">Todo</li>
-						</a>
+							<li class="category_item" category="all">Todo</li>
 
 						<?php
 						$query = "SELECT * FROM category";
 						$result = $conn->query($query);
 						while ($row = $result->fetch_assoc()) {
 						?>
-							<a href="productos.php?categoria=<?php echo $row['id'] ?>">
-								<li class="<?php echo ((isset($_REQUEST['categoria']) and ($row['id'] == $_REQUEST['categoria'])) ? 'active' : '') ?>"><?php echo $row['category'] ?></li>
-							</a>
+								<li class="category_item" category="<?php echo $row['id'] ?>"><?php echo $row['category'] ?></li>
 
 						<?php
 						}
@@ -56,15 +52,13 @@ include_once("head.php");
 			</div>
 		</div>
 
-		<?php
-		if (isset($_REQUEST['categoria'])) {
-		?>
+	
 			<div class="row">
 				<div class="col-md-12">
-					<div class="product-filters">
+					<div class="product-filters products-list">
 						<ul>
 
-							<li class="active" data-filter="*">Todo</li>
+							<li class="active"  data-filter=".1 .5">Todo</li>
 							<?php
 							$query = "SELECT * FROM subcategory";
 							if (isset($_REQUEST['categoria'])) {
@@ -73,7 +67,7 @@ include_once("head.php");
 							$result = $conn->query($query);
 							while ($row = $result->fetch_assoc()) {
 							?>
-								<li data-filter=".<?php echo $row['id'] ?>"><?php echo $row['subcategory'] ?></li>
+								<li class="product-item"  category="<?php echo $row['id_category'] ?>" data-filter=".<?php echo $row['id'] ?>"><?php echo $row['subcategory'] ?></li>
 
 							<?php
 							}
@@ -82,10 +76,9 @@ include_once("head.php");
 					</div>
 				</div>
 			</div>
-		<?php } ?>
 
 
-		<div class="row product-lists">
+		<div class="row product-lists ">
 			<?php
 			$query = "SELECT * FROM productos ";
 
@@ -95,13 +88,13 @@ include_once("head.php");
 			$result = $conn->query($query);
 			while ($row = $result->fetch_assoc()) {
 			?>
-				<div class="col-lg-4 col-md-6 text-center card-content <?php echo $row['id_subcategory'] ?> ">
+				<div class="col-lg-4 col-md-6 text-center   <?php echo $row['id_subcategory'] ?> " >
 					<div class="single-product-item">
-						<div class="product-image" width="300" height="300">
-							<a href="single-product.html"><img src="./imgProducts/<?php echo $row['id'] ?>/<?php echo $row['imagen']; ?>" alt="" width="300" height="300"></a>
+						<div class="product-image">
+							<a href="single-product.html"><img src="./imgProducts/<?php echo $row['id'] ?>/<?php echo $row['imagen']; ?>" alt=""></a>
 						</div>
 						<h3><?php echo $row['nombre'] ?></h3>
-						<p class="product-price"> S/.<?php echo $row['precio_normal'] ?> </p>
+						<p class="product-price"><span>S/.</span> S/.<?php echo $row['precio_normal'] ?> </p>
 						<a href="producto.php?id=<?php echo $row['id'] ?>" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer Mas</a>
 					</div>
 				</div>
@@ -112,7 +105,19 @@ include_once("head.php");
 
 		</div>
 
-	
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<div class="pagination-wrap">
+					<ul>
+						<li><a href="#">Prev</a></li>
+						<li><a href="#">1</a></li>
+						<li><a class="active" href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">Next</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
 <!-- end products -->

@@ -1464,15 +1464,15 @@ input[type="submit"] {
 }
 
 .homepage-bg-1 {
-  background-image: url(../img/hero-bg.jpg);
+  background-image: url(../img/background1.jpg);
 }
 
 .homepage-bg-2 {
-  background-image: url(../img/hero-bg-2.jpg);
+  background-image: url(../img/background2.jpg);
 }
 
 .homepage-bg-3 {
-  background-image: url(../img/hero-bg-3.jpg);
+  background-image: url(../img/background3.jpg);
 }
 
 .homepage-slider {
@@ -2154,7 +2154,7 @@ a.video-play-btn {
 }
 
 .feature-bg:after {
-  background-image: url(../img/feature-bg.jpg);
+  background-image: url(../img/technician-g1889b88a5_1280.jpg);
   position: absolute;
   right: 0;
   top: 0;
@@ -2428,6 +2428,8 @@ ul.social-link-team li a {
 
 .single-product-item {
   margin-bottom: 30px;
+  height: 600px;
+  
 }
 
 .product-image {
@@ -2780,3 +2782,9 @@ table.order-details tbody td {
   vertical-align: middle;
   width: 100%;
 }
+
+.productData {
+  position: static !important;
+  height: auto !important;
+}
+

@@ -1,6 +1,6 @@
 <?php
 require("./administrador/conection.php");
-$url=$_SERVER["REQUEST_URI"];
+$url = $_SERVER["REQUEST_URI"];
 
 
 
@@ -43,13 +43,7 @@ $url=$_SERVER["REQUEST_URI"];
 
 <body>
 
-	<!--PreLoader-->
-	<!-- <div class="loader">
-		<div class="loader-inner">
-			<div class="circle"></div>
-		</div>
-	</div> -->
-	<!--PreLoader Ends-->
+
 
 	<!-- header -->
 	<div class="top-header-area" id="sticker">
@@ -59,8 +53,8 @@ $url=$_SERVER["REQUEST_URI"];
 					<div class="main-menu-wrap">
 						<!-- logo -->
 						<div class="site-logo">
-							<a href="index.html">
-								<img src="assets/img/logo.png" alt="">
+							<a href="index">
+								<img src="assets/img/logo.png" alt="Logo de Novatec Energy">
 							</a>
 						</div>
 						<!-- logo -->
@@ -68,57 +62,31 @@ $url=$_SERVER["REQUEST_URI"];
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li class="<?php echo (stripos($url, "index")?'current-list-item':'') ?>"><a href="index.php">Inicio</a>
-									<!-- <ul class="sub-menu">
-										<li><a href="index.html">Static Home</a></li>
-										<li><a href="index_2.html">Slider Home</a></li>
-									</ul> -->
+								<li class="<?php echo (stripos($url, "index") ? 'current-list-item' : '') ?>"><a href="index">Inicio</a>
+
 								</li>
-								<li class="<?php echo (stripos($url, "productos")?'current-list-item':'') ?>"><a href="productos.php">Productos</a>
+								<li class="<?php echo (stripos($url, "productos") ? 'current-list-item' : '') ?>"><a href="productos">Productos</a>
 									<ul class="sub-menu">
 										<?php
 										$query = "SELECT * FROM category";
 										$result = $conn->query($query);
 										while ($row = $result->fetch_assoc()) {
 										?>
-										<li ><a href="productos.php?categoria=<?php echo $row['id']?>"><?php echo $row['category'] ?></a></li>
-										
+											<li><a href="productos?categoria=<?php echo $row['id'] ?>"><?php echo $row['category'] ?></a></li>
+
 										<?php
 										}
 										?>
-										<!-- <li><a href="shop.html">Termas Solares</a></li>
-										<li><a href="shop.html">Paneles Solares</a></li>
-										<li><a href="shop.html">Bombas para irrigaciones</a></li> -->
-
-										<!-- <li><a href="shop.html">Shop</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="single-product.html">Single Product</a></li>
-										<li><a href="cart.html">Cart</a></li> -->
 									</ul>
 								</li>
-								<li class="<?php echo (stripos($url, "nosotros")?'current-list-item':'') ?>"><a href="nosotros.php">Nosotros</a></li>
-								<!-- <li><a href="#">Pages</a>
-									<ul class="sub-menu">
-										<li><a href="404.html">404 page</a></li>
-										<li><a href="about.html">About</a></li>
-										<li><a href="cart.html">Cart</a></li>
-										<li><a href="checkout.html">Check Out</a></li>
-										<li><a href="contact.html">Contact</a></li>
-										<li><a href="news.html">News</a></li>
-										<li><a href="shop.html">Shop</a></li>
-									</ul>
-								</li> -->
-								<!-- <li><a href="news.html">News</a>
-									<ul class="sub-menu">
-										<li><a href="news.html">News</a></li>
-										<li><a href="single-news.html">Single News</a></li>
-									</ul>
-								</li> -->
-								<li class="<?php echo (stripos($url, "contacto")?'current-list-item':'') ?>"><a href="contacto.php">Contactenos</a></li>
+								<li class="<?php echo (stripos($url, "nosotros") ? 'current-list-item' : '') ?>"><a href="nosotros">Nosotros</a></li>
+
+								<li class="<?php echo (stripos($url, "contacto") ? 'current-list-item' : '') ?>"><a href="contacto">Contactenos</a></li>
 
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a href="https://api.whatsapp.com/send?phone=941882754&text=Hola, deseo adquirir un producto con ustedes"  target="_blank"><i class="fab fa-whatsapp "></i> 951 828 275</a>
+
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>

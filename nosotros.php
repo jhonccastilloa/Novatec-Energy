@@ -10,7 +10,7 @@ include_once("head.php")
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
 					<div class="breadcrumb-text">
-						<p>Vendemos Productos de Calidad</p>
+						<p>Contamos con un equipo profesional</p>
 						<h1>Sobre nosotros</h1>
 					</div>
 				</div>

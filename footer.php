@@ -29,10 +29,10 @@
 	<div class="footer-area">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-3 col-md-6">
+				<div class="col-lg-6 col-md-6">
 					<div class="footer-box about-widget">
 						<h2 class="widget-title">Acerca de Nosotos</h2>
-						<p>Ut enim ad minim veniam perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae.</p>
+						<p>Elaboramos proyectos a base de energía solar, instalamos termas solares, iluminaciones domésticas, bombas para irrigaciones, congeladores solares, temperadores de piscinas. Se hace elaboración de proyectos para empresas privadas, entidades públicas, municipalidades y gobiernos regionales</p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
@@ -40,8 +40,10 @@
 						<h2 class="widget-title">Contactenos</h2>
 						<ul>
 							<li>Av. El Sol N° 986 - Puno, Puno, Peru</li>
-							<li>support@novatec.com</li>
-							<li>+00 111 222 3333</li>
+							<li>CEL: 951 828 275</li>
+							<li>TELF: 51 603989</li>
+							<li>Email: cafecu@outlook.com</li>
+							<li>facebook: Novatec Energy</li>
 						</ul>
 					</div>
 				</div>
@@ -49,10 +51,10 @@
 					<div class="footer-box pages">
 						<h2 class="widget-title">Paginas</h2>
 						<ul>
-							<li><a href="index.html">Inicio</a></li>
-							<li><a href="about.html">Nosotros</a></li>
-							<li><a href="services.html">Productos</a></li>
-							<li><a href="contact.html">Contacto</a></li>
+							<li><a href="index">Inicio</a></li>
+							<li><a href="productos">Productos</a></li>
+							<li><a href="nosotros">Nosotros</a></li>
+							<li><a href="contacto">Contacto</a></li>
 						</ul>
 					</div>
 				</div>
@@ -96,6 +98,8 @@
 	</div>
 	<!-- end copyright -->
 
+	<!-- <script src="assets/js/js.js"></script> -->
+	<script src="assets/js/js.js"></script>
 
 
 	<!-- jquery -->
@@ -119,6 +123,7 @@
 	<script src="assets/js/sticker.js"></script>
 	<!-- main js -->
 	<script src="assets/js/main.js"></script>
+
 
 
 	</body>

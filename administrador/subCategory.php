@@ -40,7 +40,7 @@ include("conection.php");
               <div class="row">
                 <div class="col-sm-4">
                   <form class="form-horizontal" action="subCategoryEvalua.php" method="GET">
-                    <input type="hidden" name="idCat" id="idCat" value="">
+                    <input type="hidden" name="idEdit" id="idCat" value="">
                     <div class="form-group">
                       <label for="nombres" class="col-sm-12 ">Sub Categoria: </label>
                       <div class="col-sm-12">
@@ -93,7 +93,7 @@ include("conection.php");
                           <td><?php echo $row['subcategory'] ?></td>
                           <td><?php echo $row['category'] ?></td>
                           <td><i class="fas fa-edit " onclick="dataEditSub(event)" id='<?php echo $row['id'] ?>' category='<?php echo $row['idCategoria'] ?>' subcategory="<?php echo $row['subcategory'] ?>" title="Editar"></i></td>
-                          <td><a href="subCategoryEvalua.php?op=delete&id=<?php echo $row['id'] ?>" class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "></i></a></td>
+                          <td><a href="subCategoryEvalua.php?op=delete&idEdit=<?php echo $row['id'] ?>" class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "></i></a></td>
                         </tr>
                       <?php
                       }
