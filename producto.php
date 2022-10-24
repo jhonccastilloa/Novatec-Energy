@@ -50,7 +50,7 @@ $message='Estoy interesado en el '.$row['nombre'].'%0A'.'https://'.$url;
 						<div class="single-product-form">
 						<p><strong>Categoria: </strong><?php echo $row['category']."/".$row['subcategory']?></p>
 							<br>
-							<a href="https://api.whatsapp.com/send?phone=941882754&text=<?php echo $message ?>" class="cart-btn" target="_blank"><i class="fab fa-whatsapp"></i> Contactar via WhatsApp</a>
+							<a href="https://api.whatsapp.com/send?phone=941882754&text=<?php echo $message ?>" class="cart-btn" target="_blank"><i class="fab fa-whatsapp "></i> Contactar via WhatsApp</a>
 							<!-- <p><strong>Categories: </strong>Fruits, Organic</p> -->
 						</div>
 						<!-- <h4>Share:</h4>

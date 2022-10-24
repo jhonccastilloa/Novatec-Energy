@@ -1,15 +1,16 @@
 <?php
 require "conection.php";
 session_start();
-$name = $_SESSION['name'];
 
 if (isset($_REQUEST['session']) and $_REQUEST['session'] == 'exit') {
   session_destroy();
-  header("location: login.php");
+  header("location: login");
 }
 if (!isset($_SESSION['id'])) {
-  header("location: login.php");
+  header("location: login");
 }
+$name = $_SESSION['name'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,7 +25,6 @@ if (!isset($_SESSION['id'])) {
   <!-- Font Awesome -->
   <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
@@ -38,7 +38,6 @@ if (!isset($_SESSION['id'])) {
   <!-- Daterange picker -->
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
-  <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
 
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
@@ -251,7 +250,6 @@ if (!isset($_SESSION['id'])) {
 
   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 
-  <script src="ckeditor/ckeditor.js"></script>
   <script>
     $(document).ready(function() {
       $('#tableProducts').DataTable();
@@ -260,11 +258,7 @@ if (!isset($_SESSION['id'])) {
     // var quill = new Quill('#editor', {
     //   theme: 'snow'
     // });
-    ClassicEditor
-      .create(document.querySelector('#editor'))
-      .catch(error => {
-        console.error(error);
-      });
+    
 
     document.querySelectorAll('oembed[url]').forEach(element => {
       // Create the <a href="..." class="embedly-card"></a> element that Embedly uses

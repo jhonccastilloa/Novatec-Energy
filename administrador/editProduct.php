@@ -167,6 +167,7 @@ $resultCategory = $conn->query($queryCategory);
 </div>
 <!-- ./wrapper -->
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="ckeditor/ckeditor.js"></script>
 
 <script type="text/javascript">
   $(document).ready(function() {
@@ -184,4 +185,9 @@ $resultCategory = $conn->query($queryCategory);
       });
     });
   });
+  ClassicEditor
+      .create(document.querySelector('#editor'))
+      .catch(error => {
+        console.error(error);
+      });
 </script>

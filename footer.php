@@ -58,16 +58,6 @@
 						</ul>
 					</div>
 				</div>
-				<!-- <div class="col-lg-3 col-md-6">
-					<div class="footer-box subscribe">
-						<h2 class="widget-title">Subscribe</h2>
-						<p>Subscribe to our mailing list to get the latest updates.</p>
-						<form action="index.html">
-							<input type="email" placeholder="Email">
-							<button type="submit"><i class="fas fa-paper-plane"></i></button>
-						</form>
-					</div>
-				</div> -->
 			</div>
 		</div>
 	</div>
@@ -78,8 +68,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; 2019 - <a href="https://imransdesign.com/">Novatec</a>, Todos Los Derechos Reservados.<br>
-						<!-- Distributed By - <a href="https://themewagon.com/">Themewagon</a> -->
+					<p>Copyrights &copy; <script>document.write(new Date().getFullYear());</script> - <a href="https://imransdesign.com/">Novatec</a>, Todos Los Derechos Reservados.<br>
 					</p>
 				</div>
 				<div class="col-lg-6 text-right col-md-12">

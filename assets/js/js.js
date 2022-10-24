@@ -2,17 +2,13 @@ let subcategoryData = document.querySelector(".subcategoryData");
 let productData = document.querySelector(".productData");
 const fragmentProduct = document.createDocumentFragment();
 
-const template = document.getElementById("template-card").content;
-
 const handleOnclick = (event) => {
-  productData.innerHTML='hola';
+  productData.innerHTML = "hola";
 
   subcategoryData.innerHTML = '<li class="active" data-filter="*">Todo</li>';
 
   getProducts(event.target.id);
   getSubcategory(event.target.id);
-
-
 };
 
 const getSubcategory = async (id) => {
@@ -36,7 +32,7 @@ const getProducts = async (id) => {
     const res = await fetch("administrador/getDataProducts?idProduct=" + id);
     const data = await res.json();
     console.log(data);
-    productData.innerHTML="";
+    productData.innerHTML = "";
 
     data.map((el) => {
       productData.innerHTML += `
@@ -50,15 +46,7 @@ const getProducts = async (id) => {
         <a class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer Mas</a>
       </div>
     </div>
-      
       `;
-      // template.querySelectorAll("div")[0].setAttribute("class",`col-lg-4 col-md-6 text-center ${el.subcategory}`)
-      // template.querySelector("img").setAttribute("src",`./imgProducts/${el.id}/${el.image}`)
-      // template.querySelector("h3").textContent=el.name
-      // template.querySelector("p").textContent=el.price
-      // const clone = template.cloneNode(true);
-
-      // fragmentProduct.appendChild(clone)
     });
   } catch (error) {
     console.log(error);

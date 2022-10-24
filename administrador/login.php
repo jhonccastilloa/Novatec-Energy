@@ -1,9 +1,7 @@
 <?php
 require "conection.php";
 session_start();
-// if(isset($_SESSION['id'])){
-//   header("Location: index.php");
-// }
+
 if (isset($_REQUEST['login'])) {
   $usuario = $_REQUEST['usuario'];
   $password = $_REQUEST['password'];
@@ -39,7 +37,7 @@ if (isset($_REQUEST['login'])) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SISConvocatorias DREP</title>
+  <title>SISNovatec</title>
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -50,17 +48,18 @@ if (isset($_REQUEST['login'])) {
   <div class="text-center card bg-white bodyLogin">
     <main class="form-signin w-100 m-auto">
       <form action="login.php" method="POST">
-        <img class="mb-4" src="../logos/logogrdrep.png" alt="Logo de la DREP">
-        <h1 class="h3 mb-3 fw-normal">Login <br>SISConvocatorias</h1>
+        <img class="mb-4" src="../assets/img/logo.png" alt="Logo de la DREP" width="200">
+        <h1 class="h3 mb-3 fw-normal">Login <br>SISNovatec</h1>
         <?php echo (isset($alert)) ? $alert : ''; ?>
         <div class="form-floating">
-          <input type="text" class="form-control" id="floatingInput" placeholder="Usuario" name="usuario">
           <label for="floatingInput">Usuario</label>
+          <input type="text" class="form-control" id="floatingInput" placeholder="Usuario" name="usuario">
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
           <label for="floatingPassword">Contraseña</label>
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
         </div>
+        <br>
         <button class="w-100 btn btn-lg btn-primary" type="submit" name="login">Ingresar</button>
       </form>
     </main>

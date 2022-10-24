@@ -92,7 +92,6 @@ function deleteDir($directory)
                   <?php while ($row = $results->fetch_assoc()) {
                   ?>
                     <tr>
-
                       <td><img class="img-thumbnail" src="../imgProducts/<?php echo $row['id'] ?>/<?php echo $row['imagen']; ?>" width="50"></td>
                       <td><?php echo $row['nombre'] ?></td>
                       <td><?php echo strip_tags(substr($row['descripcion'], 0, 250)) . "..."  ?></td>
@@ -100,29 +99,11 @@ function deleteDir($directory)
                       <td><?php echo $row['cantidad'] ?></td>
                       <td><?php echo $row['category'] ?></td>
                       <td><?php echo $row['subcategory'] ?></td>
-
                       <td><a href="index.php?module=editProduct&id=<?php echo $row['id'] ?>" class="p-3 py-6"><i class="fas fa-edit" title="Editar"></i></a></td>
                       <td><a href="index.php?module=product&idDelete=<?php echo $row['id'] ?>" class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "></i></a></td>
                     </tr>
                   <?php } ?>
-
                 </tbody>
-
-
-                <tfoot>
-                  <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Descripccion</th>
-                    <th>Precio</th>
-                    <th>Precio Rebajado</th>
-                    <th>Cantidad</th>
-                    <th>Imagen</th>
-                    <th>Categoria</th>
-                    <th>Editar</th>
-                    <th>Elimnar</th>
-                  </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.card-body -->

@@ -68,7 +68,6 @@ include_once("head.php");
 <!-- features list section -->
 <div class="list-section pt-80 pb-80">
 	<div class="container">
-
 		<div class="row">
 			<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
 				<div class="list-box d-flex align-items-center">
@@ -109,7 +108,7 @@ include_once("head.php");
 </div>
 <!-- end features list section -->
 
-<!-- latest news -->
+<!-- product category start -->
 <div class="latest-news pt-150 pb-150">
 	<div class="container">
 
@@ -122,47 +121,42 @@ include_once("head.php");
 			</div>
 		</div>
 		<div class="row">
-
-		<?php
-		$query = "SELECT  category.id,category.category,category.description,productos.id as 'idProduct',productos.imagen FROM category LEFT JOIN productos ON category.id=productos.id_categoria";
-		$result = $conn->query($query);
-		$aux='';
-		while ($row = $result->fetch_assoc()) {
-			if($row['id']==$aux){
-				continue;
-			}
-		?>
-			
+			<?php
+			$query = "SELECT  category.id,category.category,category.description,productos.id as 'idProduct',productos.imagen FROM category LEFT JOIN productos ON category.id=productos.id_categoria";
+			$result = $conn->query($query);
+			$aux = '';
+			while ($row = $result->fetch_assoc()) {
+				if ($row['id'] == $aux) {
+					continue;
+				}
+			?>
 				<div class="col-lg-4 col-md-6">
 					<div class="single-latest-news">
 						<div class="product-image">
 							<img src="./imgProducts/<?php echo $row['idProduct'] ?>/<?php echo $row['imagen']; ?>" alt="" width="200" height="260">
 						</div>
 						<div class="news-text-box">
-							<h3><?php echo $row['category']?></h3>
-							<p class="excerpt">En esta sección va encontrar gran variedad de <strong><?php echo $row['category']?></strong> , de buena calidad y a precios muy comodos<p>
-							<a href="productos?categoria=<?php echo $row['id']?>" class="read-more-btn">Ver Mas <i class="fas fa-angle-right"></i></a>
+							<h3><?php echo $row['category'] ?></h3>
+							<p class="excerpt">En esta sección va encontrar gran variedad de <strong><?php echo $row['category'] ?></strong> , de buena calidad y a precios muy comodos
+							<p>
+								<a href="productos?categoria=<?php echo $row['id'] ?>" class="read-more-btn">Ver Mas <i class="fas fa-angle-right"></i></a>
 						</div>
 					</div>
 				</div>
 			<?php
-			$aux=$row['id'];
-		}
+				$aux = $row['id'];
+			}
 			?>
 
-
-
+		</div>
+		<div class="row">
+			<div class="col-lg-12 text-center">
+				<a href="productos" class="boxed-btn">Ver Todo los Productos</a>
 			</div>
-			<div class="row">
-				<div class="col-lg-12 text-center">
-					<a href="productos" class="boxed-btn">Ver Todo los Productos</a>
-				</div>
-			</div>
+		</div>
 	</div>
 </div>
-<!-- end latest news -->
-
-
+<!-- end product category  -->
 
 <!-- advertisement section -->
 <div class="abt-section mb-150">
@@ -176,19 +170,16 @@ include_once("head.php");
 			<div class="col-lg-6 col-md-12">
 				<div class="abt-text">
 					<p class="top-sub">Desde el año del 2018 </p>
-					<h2>Somos <span class="orange-text">Novatec</span></h2>
+					<h2>Somos <span class="orange-text">Novatec Energy</span></h2>
 					<p>Una empresa comprometida con la intencion de ayudar a la poblacion en general a tener una mejor calidad de vida a través del aprovechamiento de energía solar para las viviendas, brindando el mejor servicio de la mano de especialistas a un precio accesible.</p>
 					<p>Nos guiamos por la confianza y el compromiso. Apostamos por la confianza mutua como principio esencial de las relaciones con nuestros colaboradores, con los socios estratégicos y con nuestro clientes.</p>
-					<a href="about.html" class="boxed-btn mt-4">Saber mas</a>
+					<a href="nosotros" class="boxed-btn mt-4">Saber mas</a>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 <!-- end advertisement section -->
-
-
-
 
 
 <?php

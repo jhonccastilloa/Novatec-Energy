@@ -27,10 +27,13 @@ const dataEditSub = (event) => {
 //Select funcion
 let productCategory = document.getElementById("productCategory");
 let productSubcategory=document.getElementById('productSubcategory')
-productCategory.oninput = () => {
-  productSubcategory.innerHTML=''
-  getSubcategory(productCategory.value)
-};
+if (productSubcategory) {
+  productCategory.oninput = () => {
+    productSubcategory.innerHTML=''
+    getSubcategory(productCategory.value)
+  };
+}
+
 
 const getSubcategory = async (id) => {
   try {
