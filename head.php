@@ -15,7 +15,7 @@ $url = $_SERVER["REQUEST_URI"];
 	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
 
 	<!-- title -->
-	<title>Novatec-Energy</title>
+	<title>Novatec Energy</title>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
@@ -42,9 +42,6 @@ $url = $_SERVER["REQUEST_URI"];
 </head>
 
 <body>
-
-
-
 	<!-- header -->
 	<div class="top-header-area" id="sticker">
 		<div class="container">
@@ -110,9 +107,11 @@ $url = $_SERVER["REQUEST_URI"];
 					<span class="close-btn"><i class="fas fa-window-close"></i></span>
 					<div class="search-bar">
 						<div class="search-bar-tablecell">
-							<h3>Search For:</h3>
-							<input type="text" placeholder="Keywords">
-							<button type="submit">Search <i class="fas fa-search"></i></button>
+							<form action="buscar" method="get">
+								<h3>Buesque en Novatec Energy:</h3>
+								<input type="text" name="producto" placeholder="Digite un producto">
+								<button type="submit">Buscar <i class="fas fa-search"></i></button>
+							</form>
 						</div>
 					</div>
 				</div>

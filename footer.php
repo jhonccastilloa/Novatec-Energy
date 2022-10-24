@@ -68,7 +68,9 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; <script>document.write(new Date().getFullYear());</script> - <a href="https://imransdesign.com/">Novatec</a>, Todos Los Derechos Reservados.<br>
+					<p>Copyrights &copy; <script>
+							document.write(new Date().getFullYear());
+						</script> - <a href="https://imransdesign.com/">Novatec</a>, Todos Los Derechos Reservados.<br>
 					</p>
 				</div>
 				<div class="col-lg-6 text-right col-md-12">

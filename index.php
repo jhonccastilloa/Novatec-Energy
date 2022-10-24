@@ -116,7 +116,7 @@ include_once("head.php");
 			<div class="col-lg-8 offset-lg-2 text-center">
 				<div class="section-title">
 					<h3><span class="orange-text">Nuestros</span> Productos</h3>
-					<p>En <strong>Novatec Energy</strong> contamos con los productos mas sofisticados del mercado de la energía solar donde encontraras una gran selección de productos de buena indole</p>
+					<p>En <strong>Novatec Energy</strong> contamos con los productos más sofisticados del mercado de la energía solar donde encontraras una gran selección de productos de buena índole</p>
 				</div>
 			</div>
 		</div>
@@ -185,3 +185,4 @@ include_once("head.php");
 <?php
 include_once("footer.php")
 ?>
+

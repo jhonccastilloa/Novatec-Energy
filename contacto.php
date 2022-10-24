@@ -24,22 +24,21 @@ include_once("head.php")
 			<div class="col-lg-8 mb-5 mb-lg-0">
 				<div class="form-title">
 					<h2>¿Tiene alguna duda?</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, ratione! Laboriosam est, assumenda. Perferendis, quo alias quaerat aliquid. Corporis ipsum minus voluptate? Dolore, esse natus!</p>
+					<p>No dude en contactarnos, le responderemos lo mas rapido posible.</p>
 				</div>
 				<div id="form_status"></div>
 				<div class="contact-form">
-					<form type="POST" id="fruitkha-contact" onSubmit="return valid_datas( this );">
+					<form  id="fruitkha-contact" action="sendEmail.php" method="POST">
 						<p>
-							<input type="text" placeholder="Name" name="name" id="Nombre">
-							<input type="email" placeholder="Email" name="email" id="Correo Electrónico">
+							<input type="text" placeholder="Nombre" name="name" id="Nombre" require>
+							<input type="email" placeholder="Correo Electrónico" name="email" id="Correo Electrónico" require>
 						</p>
 						<p>
-							<input type="tel" placeholder="Phone" name="phone" id="Celular">
-							<input type="text" placeholder="Subject" name="subject" id="Asunto">
+							<input type="tel" placeholder="Celular" name="phone" id="Celular">
+							<input type="text" placeholder="Asunto" name="subject" id="Asunto" require>
 						</p>
-						<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Mensaje"></textarea></p>
-						<input type="hidden" name="token" value="FsWga4&@f6aw" />
-						<p><input type="submit" value="Submit"></p>
+						<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Mensaje" require></textarea></p>
+						<p><input type="submit" value="Enviar"></p>
 					</form>
 				</div>
 			</div>
@@ -50,7 +49,7 @@ include_once("head.php")
 						<p>Av. El Sol <br> N° 986. <br> Puno-Perú</p>
 					</div>
 					<div class="contact-form-box">
-						<h4><i class="far fa-clock"></i> Hora de Atencion</h4>
+						<h4><i class="far fa-clock"></i> Hora de Atención</h4>
 						<p>Lunes - viernes: 8 AM hasta las 9 PM  </p>
 					</div>
 					<div class="contact-form-box">

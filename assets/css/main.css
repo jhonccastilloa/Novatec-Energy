@@ -784,7 +784,7 @@ a.mobile-show {
   display: block;
   margin: 0 auto;
   text-align: center;
-  font-size: 50px;
+  font-size: 20px;
   font-weight: 700;
   margin-bottom: 40px;
   color: #fff;
@@ -2788,3 +2788,8 @@ table.order-details tbody td {
   height: auto !important;
 }
 
+.text-search{
+  font-size: 24px;
+  font-weight: bold;
+
+}
