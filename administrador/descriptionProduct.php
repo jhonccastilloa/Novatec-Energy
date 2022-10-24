@@ -1,5 +1,5 @@
 <?php 
-require("./administrador/conection.php");
+require("conection.php");
 include_once("head.php");
 if(!isset($_REQUEST['id'])){
 	header("location: productos.php");

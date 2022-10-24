@@ -74,7 +74,7 @@ $resultCategory = $conn->query($queryCategory)
                         <div class="form-group">
                           <label>Sub Categoria:</label>
                           <select name="subcategory" id="productSubcategory" class="form-control">
-                            
+
                           </select>
                         </div>
                       </div>
@@ -140,7 +140,11 @@ $resultCategory = $conn->query($queryCategory)
   //     .catch(error => {
   //       console.error(error);
   //     });
-  CKEDITOR.replace( 'editor' );
+  // CKEDITOR.replace( 'editor' );
+  CKEDITOR.replace('editor', {
+        filebrowserUploadUrl: 'ckeditor/ck_upload.php',
+        filebrowserUploadMethod: 'form'
+    });
     //   tinymce.init({
     //   selector: 'textarea',
     //   plugins: 'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage tinycomments tableofcontents footnotes mergetags autocorrect',
