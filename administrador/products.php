@@ -32,7 +32,7 @@ function deleteDir($directory)
     }
     # code...
   }
-  rmdir($directory);
+  // rmdir($directory);
 }
 ?>
 
@@ -67,14 +67,14 @@ function deleteDir($directory)
                 </div>
                 <div class="col-sm-6">
                   <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="index.php?module=createProduct"><i class="fa fa-plus"></i> Agregar Nuevo Producto</a></li>
+                    <li class="breadcrumb-item"><a href="../createProduct.php"><i class="fa fa-plus"></i> Agregar Nuevo Producto</a></li>
                   </ol>
                 </div>
               </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <table id="tableProducts" class="table table-bordered table-hover">
+              <table id="tableProducts" class="table table-bordered table-hover table-responsive " style="width:100%">
                 <thead>
                   <tr>
                     <th>Imagen</th>
@@ -99,7 +99,7 @@ function deleteDir($directory)
                       <td><?php echo $row['cantidad'] ?></td>
                       <td><?php echo $row['category'] ?></td>
                       <td><?php echo $row['subcategory'] ?></td>
-                      <td><a href="index.php?module=editProduct&id=<?php echo $row['id'] ?>" class="p-3 py-6"><i class="fas fa-edit" title="Editar"></i></a></td>
+                      <td><a href="../editProduct?id=<?php echo $row['id'] ?>" class="p-3 py-6"><i class="fas fa-edit" title="Editar"></i></a></td>
                       <td><a href="index.php?module=product&idDelete=<?php echo $row['id'] ?>" class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "></i></a></td>
                     </tr>
                   <?php } ?>

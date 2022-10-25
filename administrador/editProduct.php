@@ -97,7 +97,7 @@ $resultCategory = $conn->query($queryCategory);
                       <div class="col-sm-12">
                         <div class="form-group">
                           <label>Descripccion</label>
-                          <textarea name="description" id="editor" rows="10" cols="80"> <?php echo $row['descripcion'] ?></textarea>
+                          <textarea name="description" id="editor" rows="100" cols="100"> <?php echo $row['descripcion'] ?></textarea>
                         </div>
                       </div>
                     </div>

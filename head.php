@@ -12,7 +12,7 @@ $url = $_SERVER["REQUEST_URI"];
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Responsive Bootstrap4 Shop Template, Created by Imran Hossain from https://imransdesign.com/">
+	<meta name="description" content="Novatec Energy | Tienda especializada en produtos de energias renovables">
 
 	<!-- title -->
 	<title>Novatec Energy</title>
@@ -82,7 +82,7 @@ $url = $_SERVER["REQUEST_URI"];
 
 								<li>
 									<div class="header-icons">
-										<a href="https://api.whatsapp.com/send?phone=941882754&text=Hola, deseo adquirir un producto con ustedes"  target="_blank"><i class="fab fa-whatsapp "></i> 951 828 275</a>
+										<a href="https://api.whatsapp.com/send?phone=+51 951828275&text=Hola, deseo adquirir un producto con ustedes"  target="_blank"><i class="fab fa-whatsapp "></i> 951 828 275</a>
 
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>

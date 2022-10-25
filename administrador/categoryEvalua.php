@@ -1,4 +1,5 @@
 <?php
+session_start();
 include("conection.php");
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $op = isset($_REQUEST['op']) ? $conn->real_escape_string($_REQUEST['op']) : '';
@@ -7,25 +8,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
   if ($op == 'delete') {
     $query = "DELETE FROM category WHERE id='{$id}'";
-    $estate=' eliminado ';
+    $_SESSION['estate']='danger';
+    $_SESSION['msg']="Registro Eliminado Correctamente.";
     $result=$conn->query($query);
   } elseif ($id) {
     $category = $conn->real_escape_string($_REQUEST['category']);
     $description = $conn->real_escape_string($_REQUEST['description']);
     $query = "UPDATE category SET category='{$category}',description='{$description}' WHERE id='{$id}'";
-    $estate=' editado ';
+    $_SESSION['msg']="Registro Editado Correctamente.";
+    $_SESSION['estate']='warning ';
     $result=$conn->query($query);
 
   } else {
     $category = $conn->real_escape_string($_REQUEST['category']);
     $description = $conn->real_escape_string($_REQUEST['description']);
     $query = "INSERT INTO category(id,category,description) VALUES(NULL,'{$category}','{$description}')";
-    $estate=' guardado ';
+    $_SESSION['estate']='success';
+    $_SESSION['msg']="Registro Guardado Correctamente.";
     $result=$conn->query($query);
   }
 
   if ($result) {
-    echo '<meta http-equiv="refresh" content="0; url=index.php?module=category&mensaje=Categoria '.$estate.' exitosamente" />  ';
+    header("location:index.php?module=category");
   } else {
 ?>
     <div class="alert alert-danger" role="alert">

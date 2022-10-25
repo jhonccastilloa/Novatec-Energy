@@ -1,4 +1,5 @@
 <?php
+require "conection.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $name = $conn->real_escape_string($_REQUEST['name']);
   $category = $conn->real_escape_string($_REQUEST['category']);

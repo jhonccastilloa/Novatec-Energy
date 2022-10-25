@@ -9,12 +9,12 @@ include("conection.php");
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Sub Categorias</h1>
+          <h1 class="font-weight-bold">Sub Categoria</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="./">Inicio</a></li>
-            <li class="breadcrumb-item active">Sub Categoria</li>
+            <li class="breadcrumb-item active">Sub Categorias</li>
           </ol>
         </div>
       </div>
@@ -30,23 +30,30 @@ include("conection.php");
             <div class="card-header">
               <div class="row mb-2">
                 <div class="col-sm-6">
-                  <h3 class="card-title">Agregue, Edite o Elimine sus SubCategorias</h3>
+                  <h3 class="card-title font-weight-bold title-subcategory">AGREGAR SUB CATEGORIA:</h3>
                 </div>
 
               </div>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
+              <?php
+              if (isset($_SESSION["msg"]) and isset($_SESSION['estate'])) {
+              ?>
+                <div class="alert alert-<?= $_SESSION["estate"] ?> alert-dismissible fade show" role="alert">
+                  <strong><?= $_SESSION["msg"] ?></strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              <?php
+                unset($_SESSION["msg"]);
+                unset($_SESSION["estate"]);
+              } ?>
               <div class="row">
                 <div class="col-sm-4">
                   <form class="form-horizontal" action="subCategoryEvalua.php" method="GET">
                     <input type="hidden" name="idEdit" id="idCat" value="">
-                    <div class="form-group">
-                      <label for="nombres" class="col-sm-12 ">Sub Categoria: </label>
-                      <div class="col-sm-12">
-                        <input type="text" class="form-control" id="subCategory" name="subcategory" placeholder="Escriba el Nombre de la SubCategoria">
-                      </div>
-                    </div>
                     <div class="form-group">
                       <label for="area" class="col-sm-12 ">Categoria:</label>
                       <div class="col-sm-12">
@@ -57,7 +64,7 @@ include("conection.php");
                           while ($rowCategory = $resultCategory->fetch_assoc()) {
 
                           ?>
-                            <option value="<?php echo $rowCategory['id'] ?>" ><?php echo $rowCategory['category'] ?></option>
+                            <option value="<?php echo $rowCategory['id'] ?>"><?php echo $rowCategory['category'] ?></option>
                           <?php
                           }
                           ?>
@@ -66,15 +73,21 @@ include("conection.php");
                       </div>
                     </div>
                     <div class="form-group">
+                      <label for="nombres" class="col-sm-12 ">Sub Categoria: </label>
+                      <div class="col-sm-12">
+                        <input type="text" class="form-control" id="subCategory" name="subcategory" placeholder="Escriba el Nombre de la SubCategoria">
+                      </div>
+                    </div>
+                    <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <a href="institucion_listado.php" class="btn btn-danger">Cancelar</a>
+                        <button type="button" onclick="erasedTextSub()" class="btn btn-danger">Borrar</button>
                       </div>
                     </div>
                   </form>
                 </div>
                 <div class="col-sm-8">
-                  <table class="table">
+                  <table class="table" id="tableSubcategory">
                     <thead>
                       <tr>
                         <th>Sub Categoria</th>

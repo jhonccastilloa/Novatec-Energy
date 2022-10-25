@@ -50,7 +50,7 @@ $name = $_SESSION['name'];
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
 
-    
+
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
@@ -130,7 +130,7 @@ $name = $_SESSION['name'];
               <ul class="nav nav-treeview">
 
                 <li class="nav-item">
-                  <a href="index.php?module=product" class="nav-link  ">
+                  <a href="index.php?module=product" class="nav-link <?php echo (isset($_REQUEST['module']) and $_REQUEST['module'] == 'product') ? 'active' : '' ?>  ">
                     <i class="fa fa-shopping-cart av-icon " aria-hidden="true"></i>
                     <p>Productos</p>
                   </a>
@@ -178,7 +178,7 @@ $name = $_SESSION['name'];
     } elseif ($_REQUEST['module'] == 'subcategory') {
       require_once('subcategory.php');
     } elseif ($_REQUEST['module'] == 'createProduct') {
-      require_once('createProduct.php');
+      require_once('../createProduct.php');
     } elseif ($_REQUEST['module'] == 'editProduct') {
       require_once('editProduct.php');
     } elseif ($_REQUEST['module'] == 'categoryEvalua') {
@@ -203,8 +203,6 @@ $name = $_SESSION['name'];
     <!-- /.control-sidebar -->
   </div>
   <!-- ./wrapper -->
-  <script src="./js/main.js"></script>
-
   <!-- jQuery -->
   <script src="plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
@@ -222,38 +220,22 @@ $name = $_SESSION['name'];
   <!-- JQVMap -->
   <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
   <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
-  <!-- jQuery Knob Chart -->
-  <!-- <script src="plugins/jquery-knob/jquery.knob.min.js"></script> -->
-  <!-- daterangepicker -->
-  <!-- <script src="plugins/moment/moment.min.js"></script>
-  <script src="plugins/daterangepicker/daterangepicker.js"></script> -->
-  <!-- Tempusdominus Bootstrap 4 -->
-  <!-- <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script> -->
-  <!-- Summernote -->
-  <!-- <script src="plugins/summernote/summernote-bs4.min.js"></script> -->
-  <!-- overlayScrollbars -->
-  <!-- <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script> -->
+
   <!-- AdminLTE App -->
   <script src="dist/js/adminlte.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <!-- <script src="dist/js/demo.js"></script> -->
-  <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-  <!-- <script src="dist/js/pages/dashboard.js"></script> -->
+
   <!-- query editor -->
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
   <!-- datatables query -->
 
   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script src="./js/main.js"></script>
 
   <script>
-    $(document).ready(function() {
-      $('#tableProducts').DataTable();
-    });
-
     // var quill = new Quill('#editor', {
     //   theme: 'snow'
     // });
-    
+
 
     document.querySelectorAll('oembed[url]').forEach(element => {
       // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
