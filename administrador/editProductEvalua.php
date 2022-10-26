@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
   $description = $conn->real_escape_string($_REQUEST['description']);
   $price = $conn->real_escape_string($_REQUEST['price']);
-  $stock = $conn->real_escape_string($_REQUEST['stock']);
+  $breve = $conn->real_escape_string($_REQUEST['breve']);
   $idEdit = $conn->real_escape_string($_REQUEST['idEdit']);
   $image = $_FILES['image']['name'];
   $imageAux = $conn->real_escape_string($_REQUEST['imageAux']);
@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $image = $imageAux;
   }
 
-  $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',descripcion='{$description}',precio_normal='{$price}',cantidad='{$stock}',imagen='{$image}',id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
+  $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',descripcion='{$description}',precio_normal='{$price}',breve_descripcion='{$breve}',imagen='{$image}',id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
   $id_insert = $idEdit;
   if ($_FILES['image']['error'] > 0) {
     echo "Error al cargar Archivo";

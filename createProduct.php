@@ -1,6 +1,8 @@
 <?php
+
 require "./administrador/conection.php";
 session_start();
+
 
 if (isset($_REQUEST['session']) and $_REQUEST['session'] == 'exit') {
   session_destroy();
@@ -13,7 +15,7 @@ $name = $_SESSION['name'];
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
@@ -27,8 +29,6 @@ $name = $_SESSION['name'];
   <!-- Ionicons -->
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="./administrador/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
-  <!-- iCheck -->
-  <link rel="stylesheet" href="./administrador/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
   <link rel="stylesheet" href="./administrador/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
@@ -37,8 +37,6 @@ $name = $_SESSION['name'];
   <link rel="stylesheet" href="./administrador/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
   <link rel="stylesheet" href="./administrador/plugins/daterangepicker/daterangepicker.css">
-  <!-- summernote -->
-
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
   <!-- Editor de descripcion -->
@@ -50,16 +48,13 @@ $name = $_SESSION['name'];
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
 
-
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-
       </ul>
-
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -89,7 +84,6 @@ $name = $_SESSION['name'];
         <img src="./administrador/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Novatec Energy</span>
       </a>
-
       <!-- Sidebar -->
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
@@ -155,9 +149,7 @@ $name = $_SESSION['name'];
       </div>
       <!-- /.sidebar -->
     </aside>
-
     <?php
-
     if (isset($_REQUEST['mensaje'])) {
     ?>
       <div class="alert alert-primary alert-dismissible fade show float-right" role="alert">
@@ -169,25 +161,20 @@ $name = $_SESSION['name'];
       </div>
     <?php
     }
-
-
     ?>
     <?php
 
     include("./administrador/createProductEvalua.php");
-
     $queryCategory = "SELECT * FROM category";
     $resultCategory = $conn->query($queryCategory)
-
     ?>
-
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Agregar un Nuevo Producto</h1>
+              <h1 class="font-weight-bold">Productos</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -198,7 +185,6 @@ $name = $_SESSION['name'];
           </div>
         </div><!-- /.container-fluid -->
       </section>
-
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
@@ -207,49 +193,49 @@ $name = $_SESSION['name'];
               <div class="card">
                 <!-- /.card-header -->
                 <div class="card-body">
-
                   <div class="card card-success">
                     <div class="card-header">
-                      <h3 class="card-title">Añadir</h3>
+                      <h3 class="card-title font-weight-bold">AGREGAR PRODUCTO:</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-
-
                       <form action="./administrador/createProductEvalua.php" method="post" enctype="multipart/form-data">
                         <input type="text" name="module" value="createProduct" hidden>
                         <div class="row">
-                          <div class="col-sm-4">
-                            <!-- text input -->
-                            <div class="form-group">
-                              <label>Nombre del Producto:</label>
-                              <input type="text" class="form-control" name="name" placeholder="Ingerse un nombre">
+                          <div class="col-sm-6">
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <label>Nombre del Producto:</label>
+                                <input type="text" class="form-control" name="name" placeholder="Ingrese un nombre" require>
+                              </div>
+                            </div>
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <label>Categoria:</label>
+                                <select name="category" id="productCategory" class="form-control" require>
+                                  <option value="">Seleccione Una Categoria</option>
+                                  <?php
+                                  while ($row = $resultCategory->fetch_assoc()) {
+                                  ?>
+                                    <option value="<?php echo $row['id'] ?>"><?php echo $row['category'] ?></option>
+                                  <?php } ?>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <label>Sub Categoria:</label>
+                                <select name="subcategory" id="productSubcategory" class="form-control" require>
+                                </select>
+                              </div>
                             </div>
                           </div>
-                          <div class="col-sm-4">
-                            <div class="form-group">
-                              <label>Categoria:</label>
-                              <select name="category" id="productCategory" class="form-control">
-                                <option value="">Seleccione Una Categoria</option>
-                                <?php
-                                while ($row = $resultCategory->fetch_assoc()) {
-
-                                ?>
-                                  <option value="<?php echo $row['id'] ?>"><?php echo $row['category'] ?></option>
-                                <?php
-                                }
-                                ?>
-
-                              </select>
-                              <!-- <input type="text" class="form-control" name="category" placeholder="Ingrese una Categoria"> -->
-                            </div>
-                          </div>
-                          <div class="col-sm-4">
-                            <div class="form-group">
-                              <label>Sub Categoria:</label>
-                              <select name="subcategory" id="productSubcategory" class="form-control">
-
-                              </select>
+                          <div class="col-sm-6">
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <label>Breve Descripción del Producto:</label>
+                                <textarea class="form-control" name="breve" rows="8"></textarea>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -263,40 +249,29 @@ $name = $_SESSION['name'];
                         </div>
                         <div class="row">
                           <div class="col-sm-4">
-                            <!-- text input -->
                             <div class="form-group">
                               <label>Precio del Producto:</label>
                               <input type="number" class="form-control" name="price" placeholder="Ingrese un precio">
                             </div>
                           </div>
+
                           <div class="col-sm-4">
                             <div class="form-group">
-                              <label>Stock del Producto:</label>
-                              <input type="number" class="form-control" name="stock" placeholder="Ingrese el Stock">
-                            </div>
-                          </div>
-                          <div class="col-sm-4">
-                            <!-- text input -->
-                            <div class="form-group">
-                              <label>Imagen del Producto</label>
-                              <input type="file" class="form-control" name="image" accept="image/*">
+                              <label>Imagen del Producto:</label>
+                              <input type="file" class="form-control-file" name="image" accept="image/*">
                             </div>
                           </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Añadir Producto</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                       </form>
                     </div>
                     <!-- /.card-body -->
                   </div>
-
                 </div>
                 <!-- /.card-body -->
               </div>
-
             </div>
-            <!-- /.col -->
           </div>
-          <!-- /.row -->
         </div>
         <!-- /.container-fluid -->
       </section>
@@ -318,9 +293,7 @@ $name = $_SESSION['name'];
   <footer class="main-footer">
     <strong>Copyright &copy; 2022 <a href="#">Novate Energy</a>.</strong>
     Todos los derechos Reservados
-    <!-- <div class="float-right d-none d-sm-inline-block">
-        <b>Version</b> 3.2.0
-      </div> -->
+
   </footer>
 
   <!-- Control Sidebar -->
@@ -331,15 +304,11 @@ $name = $_SESSION['name'];
   </div>
   <!-- ./wrapper -->
   <script src="./administrador/js/main.js"></script>
-
   <!-- jQuery -->
   <script src="./administrador/plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
   <script src="./administrador/plugins/jquery-ui/jquery-ui.min.js"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-  <!-- <script>
-    $.widget.bridge('uibutton', $.ui.button)
-  </script> -->
   <!-- Bootstrap 4 -->
   <script src="./administrador/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- ChartJS -->
@@ -354,30 +323,7 @@ $name = $_SESSION['name'];
 
   <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
   <!-- datatables query -->
-
   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-
-  <script>
-    $(document).ready(function() {
-      $('#tableProducts').DataTable();
-    });
-
-    // var quill = new Quill('#editor', {
-    //   theme: 'snow'
-    // });
-
-
-    document.querySelectorAll('oembed[url]').forEach(element => {
-      // Create the <a href="..." class="embedly-card"></a> element that Embedly uses
-      // to discover the media.
-      const anchor = document.createElement('a');
-
-      anchor.setAttribute('href', element.getAttribute('url'));
-      anchor.className = 'embedly-card';
-
-      element.appendChild(anchor);
-    });
-  </script>
 </body>
 
 </html>

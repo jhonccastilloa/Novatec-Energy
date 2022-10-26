@@ -49,17 +49,13 @@ $name = $_SESSION['name'];
 
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
-
-
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-
       </ul>
-
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
@@ -149,7 +145,6 @@ $name = $_SESSION['name'];
                 </li>
               </ul>
             </li>
-
         </nav>
         <!-- /.sidebar-menu -->
       </div>
@@ -169,10 +164,7 @@ $name = $_SESSION['name'];
       </div>
     <?php
     }
-
-
     ?>
-
     <?php
     include("./administrador/conection.php");
     include("./administrador/editProductEvalua.php");
@@ -192,7 +184,7 @@ $name = $_SESSION['name'];
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Edite el producto</h1>
+              <h1 class="font-weight-bold">Productos</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -215,58 +207,63 @@ $name = $_SESSION['name'];
 
                   <div class="card card-warning">
                     <div class="card-header">
-                      <h3 class="card-title">Editar</h3>
+                      <h3 class="card-title font-weight-bold">EDITAR PRODUCTO:</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-
-
-                      <form action="./administrador/editProductEvalua.php" method="post" enctype="multipart/form-data">
+                      <form action="./administrador/createProductEvalua.php" method="post" enctype="multipart/form-data">
                         <input type="text" name="idEdit" value="<?php echo $row['id'] ?>" hidden>
                         <div class="row">
-                          <div class="col-sm-4">
-                            <!-- text input -->
-                            <div class="form-group">
-                              <label>Nombre del Producto:</label>
-                              <input type="text" class="form-control" name="name" value="<?php echo $row['nombre'] ?>" placeholder="Enter ...">
+                          <div class="col-sm-6">
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <label>Nombre del Producto:</label>
+                                <input type="text" class="form-control" name="name" value="<?php echo $row['nombre'] ?>" require>
+                              </div>
+                            </div>
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <label>Categoria:</label>
+                                <select name="category" id="productCategory" class="form-control" require>
+                                  <option value="">Seleccione Una Categoria</option>
+                                  <?php
+                                  while ($rowCategory = $resultCategory->fetch_assoc()) {
+                                  ?>
+                                    <option value="<?php echo $rowCategory['id'] ?>" <?php echo ($row['id_categoria'] == $rowCategory['id'] ? 'selected' : '') ?>><?php echo $rowCategory['category'] ?></option>
+                                  <?php
+                                  }
+                                  ?>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <label>Sub Categoria:</label>
+                                <select name="subcategory" id="productSubcategory" class="form-control" require>
+                                  <?php
+                                  $querySubcategory = 'SELECT * FROM subcategory WHERE id_category=' . $row['id_categoria'];
+                                  $resultSubcategory = $conn->query($querySubcategory);
+                                  while ($rowSubcategory = $resultSubcategory->fetch_assoc()) {
 
+                                  ?>
+                                    <option value="<?php echo $rowSubcategory['id'] ?>" <?php echo ($rowSubcategory['id'] == $row['id_subcategory'] ? 'selected' : '') ?>><?php echo $rowSubcategory['subcategory'] ?></option>
+                                  <?php
+                                  }
+                                  ?>
+                                </select>
+                              </div>
                             </div>
                           </div>
-                          <div class="col-sm-4">
-                            <div class="form-group">
-                              <label>Categoria:</label>
-                              <select name="category" class="form-control" id="productCategory">
-                                <?php
-                                while ($rowCategory = $resultCategory->fetch_assoc()) {
-
-                                ?>
-                                  <option value="<?php echo $rowCategory['id'] ?>" <?php echo ($row['id_categoria'] == $rowCategory['id'] ? 'selected' : '') ?>><?php echo $rowCategory['category'] ?></option>
-                                <?php
-                                }
-                                ?>
-
-                              </select>
-                            </div>
-                          </div>
-                          <div class="col-sm-4">
-                            <div class="form-group">
-                              <label>Sub Categoria:</label>
-                              <select name="subcategory" class="form-control" id="productSubcategory">
-                                <?php
-                                $querySubcategory = 'SELECT * FROM subcategory ';
-                                $resultSubcategory = $conn->query($querySubcategory);
-                                while ($rowSubcategory = $resultSubcategory->fetch_assoc()) {
-
-                                ?>
-                                  <option value="<?php echo $rowSubcategory['id'] ?>" <?php echo ($rowSubcategory['id'] == $row['id_subcategory'] ? 'selected' : '') ?>><?php echo $rowSubcategory['subcategory'] ?></option>
-                                <?php
-                                }
-                                ?>
-                              </select>
-
+                          <div class="col-sm-6">
+                            <div class="col-sm-12">
+                              <div class="form-group">
+                                <label>Breve Descripción del Producto:</label>
+                                <textarea class="form-control" name="breve" rows="8"><?= $row['breve_descripcion'] ?></textarea>
+                              </div>
                             </div>
                           </div>
                         </div>
+
                         <div class="row">
 
                           <div class="col-sm-12">
@@ -283,20 +280,6 @@ $name = $_SESSION['name'];
                               <label>Imagen</label>
                               <input type="text" name="imageAux" value="<?php echo $row['imagen'] ?>" hidden>
                               <input type="file" class="form-control" name="image" accept="image/*">
-                              <?php
-                              $path = "../imgProducts/" . $row['id'];
-                              echo $path;
-                              if (file_exists($path)) {
-                                $directory = opendir($path);
-                                while ($archivo = readdir($directory)) {
-                                  if (!is_dir($archivo)) {
-                                    echo "<div data='" . $path . "/" . $archivo . "'><a href='" . $path . "/" . $archivo . "' title='Ver Archivo Adjunto'><span class='fas fa-file-image'></span></a>";
-                                    echo "$archivo <button type='button' class='delete' title='Ver Archivo Adjunto'><i class='fas fa-trash' aria-hidden='true'></i></button></div>";
-                                    echo "<img src='./imgProducts/" . $row['id'] . "/$archivo' width='300'/>";
-                                  }
-                                }
-                              }
-                              ?>
                             </div>
                           </div>
                           <div class="col-sm-4">
@@ -306,11 +289,16 @@ $name = $_SESSION['name'];
                               <input type="number" class="form-control" name="price" value="<?php echo $row['precio_normal'] ?>" placeholder="Ingrese un precio">
                             </div>
                           </div>
-
+                        </div>
+                        <div class="row">
+                          <?php
+                          $array = explode('.', $row['imagen']);
+                          $ext = end($array);
+                          ?>
                           <div class="col-sm-4">
                             <div class="form-group">
-                              <label>Cantidad del Producto</label>
-                              <input type="number" class="form-control" name="stock" value="<?php echo $row['cantidad'] ?>" placeholder="Ingrese el Stock">
+
+                              <img src="./productsImg/<?php echo $row['id'] . '.' . $ext ?> " alt="">
                             </div>
                           </div>
                         </div>
@@ -319,7 +307,7 @@ $name = $_SESSION['name'];
 
                           </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                       </form>
                     </div>
                     <!-- /.card-body -->
@@ -345,21 +333,7 @@ $name = $_SESSION['name'];
   <script src="ckeditor/ckeditor.js"></script>
 
   <script type="text/javascript">
-    $(document).ready(function() {
-      $('.delete').click(function() {
-        var parent = $(this).parent().attr('id');
-        var service = $(this).parent().attr('data');
-        var dataString = 'id=' + service;
-        $.ajax({
-          type: "POST",
-          url: "del_file.php",
-          data: dataString,
-          success: function() {
-            location.reload();
-          }
-        });
-      });
-    });
+   
     // ClassicEditor
     //     .create(document.querySelector('#editor'))
     //     .catch(error => {
@@ -377,7 +351,6 @@ $name = $_SESSION['name'];
       filebrowserUploadUrl: 'ckeditor/ck_upload.php',
       filebrowserUploadMethod: 'form'
     });
-   
   </script>
 
   <!-- /.content-wrapper -->
