@@ -44,9 +44,9 @@ include_once("head.php");
 				</div>
 			</div>
 		</div>
-<!-- category section end -->
+		<!-- category section end -->
 
-<!-- sub category section -->
+		<!-- sub category section -->
 		<?php
 		if (isset($_REQUEST['categoria'])) {
 		?>
@@ -72,10 +72,10 @@ include_once("head.php");
 				</div>
 			</div>
 		<?php } ?>
-<!-- sub category section end-->
+		<!-- sub category section end-->
 
 
-<!-- products -->
+		<!-- products -->
 
 		<div class="row product-lists">
 			<?php
@@ -86,14 +86,16 @@ include_once("head.php");
 			}
 			$result = $conn->query($query);
 			while ($row = $result->fetch_assoc()) {
-			$nameImage=$row['imagen'];
-			$imageExtencion=pathinfo($nameImage,PATHINFO_EXTENSION);
-			$image=basename($nameImage,'.'.$imageExtencion);
+				$array = explode('.', $row['imagen']);
+				$ext = end($array);
+				$nameImage = $row['imagen'];
+				$imageExtencion = pathinfo($nameImage, PATHINFO_EXTENSION);
+				$image = basename($nameImage, '.' . $imageExtencion);
 			?>
 				<div class="col-lg-4 col-md-6 text-center card-content <?php echo $row['id_subcategory'] ?> ">
 					<div class="single-product-item">
 						<div class="product-image" width="300" height="300">
-							<a href="producto.php?id=<?php echo $row['id'] ?>"><img src="./imgProducts/<?php echo $row['id'] ?>/<?php echo $row['imagen']; ?>" alt="<?php echo $image?>" width="300" height="300"></a>
+							<a href="producto.php?id=<?php echo $row['id'] ?>"><img src="./productsImg/<?php echo $row['id'].'.'.$ext ?>" alt="<?php echo $image ?>" width="300" height="300"></a>
 						</div>
 						<h3><?php echo $row['nombre'] ?></h3>
 						<p class="product-price"> S/.<?php echo $row['precio_normal'] ?> </p>

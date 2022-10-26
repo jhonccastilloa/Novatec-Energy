@@ -258,7 +258,7 @@ $name = $_SESSION['name'];
                             <div class="col-sm-12">
                               <div class="form-group">
                                 <label>Breve Descripción del Producto:</label>
-                                <textarea class="form-control" name="breve" rows="8"><?= $row['breve_descripcion'] ?></textarea>
+                                <textarea class="form-control" name="breve" maxlength="400" rows="8"><?= $row['breve_descripcion'] ?></textarea>
                               </div>
                             </div>
                           </div>

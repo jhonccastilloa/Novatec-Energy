@@ -1,5 +1,5 @@
 <?php
-require("./administrador/conection.php");
+// require("./administrador/conection.php");
 include_once("head.php");
 ?>
 
@@ -122,10 +122,12 @@ include_once("head.php");
 		</div>
 		<div class="row">
 			<?php
-			$query = "SELECT  category.id,category.category,category.description,productos.id as 'idProduct',productos.imagen FROM category LEFT JOIN productos ON category.id=productos.id_categoria";
+			$query = "SELECT  category.id,category.category,productos.id as 'idProduct',productos.imagen FROM category LEFT JOIN productos ON category.id=productos.id_categoria";
 			$result = $conn->query($query);
 			$aux = '';
 			while ($row = $result->fetch_assoc()) {
+				$array = explode('.', $row['imagen']);
+				$ext = end($array);
 				if ($row['id'] == $aux) {
 					continue;
 				}
@@ -133,7 +135,7 @@ include_once("head.php");
 				<div class="col-lg-4 col-md-6">
 					<div class="single-latest-news">
 						<div class="product-image">
-							<img src="./imgProducts/<?php echo $row['idProduct'] ?>/<?php echo $row['imagen']; ?>" alt="" width="200" height="260">
+							<img src="./productsImg/<?php echo $row['idProduct'] . '.' . $ext ?>"  alt="" width="200" height="260">
 						</div>
 						<div class="news-text-box">
 							<h3><?php echo $row['category'] ?></h3>

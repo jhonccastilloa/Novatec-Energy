@@ -1,79 +1,82 @@
-<?php 
+<?php
 require("./administrador/conection.php");
 include_once("head.php");
-if(!isset($_REQUEST['id'])){
+if (!isset($_REQUEST['id'])) {
 	header("location: productos.php");
 }
 
 $id = isset($_REQUEST['id']) ? $conn->real_escape_string($_REQUEST['id']) : "";
 
-$query = "SELECT productos.id,productos.nombre,productos.descripcion,productos.precio_normal,productos.cantidad,productos.imagen,category.category,subcategory.subcategory 
+$query = "SELECT productos.id,productos.nombre,productos.descripcion,productos.precio_normal,productos.breve_descripcion,productos.imagen,category.category,subcategory.subcategory 
 FROM productos LEFT JOIN category ON productos.id_categoria = category.id LEFT JOIN subcategory ON productos.id_subcategory=subcategory.id WHERE productos.id='{$id}'";
 
 $result = $conn->query($query);
 $row = $result->fetch_assoc();
 
-$url=$_SERVER["HTTP_HOST"].$host= $_SERVER["REQUEST_URI"];
-$message='Estoy interesado en el '.$row['nombre'].'%0A'.'https://'.$url;
+$array = explode('.', $row['imagen']);
+$ext = end($array);
+
+$url = $_SERVER["HTTP_HOST"] . $host = $_SERVER["REQUEST_URI"];
+$message = 'Estoy interesado en el ' . $row['nombre'] . '%0A' . 'https://' . $url;
 
 ?>
 
-	
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<h1> Detalles del producto</h1>
-					</div>
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="breadcrumb-text">
+					<h1> Detalles del producto</h1>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end breadcrumb section -->
+</div>
+<!-- end breadcrumb section -->
 
-	<!-- single product -->
-	<div class="single-product mt-150 mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-5">
-					<div class="product-image">
-						<img src="./imgProducts/<?php echo $row['id'] ?>/<?php echo $row['imagen']; ?>" alt="">
-					</div>
+<!-- single product -->
+<div class="single-product mt-150 mb-150">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="product-image">
+					<img src="./productsImg/<?php echo $row['id'] . '.' . $ext ?>" alt="">
 				</div>
-				<div class="col-md-7">
-					<div class="single-product-content">
-						<h3><?php echo $row['nombre'] ?></h3>
-						<p class="single-product-pricing">  S/.<?php echo $row['precio_normal'] ?></p>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta sint dignissimos, rem commodi cum voluptatem quae reprehenderit repudiandae ea tempora incidunt ipsa, quisquam animi perferendis eos eum modi! Tempora, earum.</p>
-						<div class="single-product-form">
-						<p><strong>Categoria: </strong><?php echo $row['category']."/".$row['subcategory']?></p>
-							<br>
-							<a href="https://api.whatsapp.com/send?phone=+51 951828275&text=<?php echo $message ?>" class="cart-btn" target="_blank"><i class="fab fa-whatsapp "></i> Contactar via WhatsApp</a>
-							<!-- <p><strong>Categories: </strong>Fruits, Organic</p> -->
-						</div>
-						<!-- <h4>Share:</h4>
+			</div>
+			<div class="col-md-7">
+				<div class="single-product-content">
+					<h3><?php echo $row['nombre'] ?></h3>
+					<p class="single-product-pricing"> S/.<?php echo $row['precio_normal'] ?></p>
+					<p><?= $row['breve_descripcion'] ?></p>
+					<div class="single-product-form">
+						<p><strong>Categoria: </strong><?php echo $row['category'] . "/" . $row['subcategory'] ?></p>
+						<br>
+						<a href="https://api.whatsapp.com/send?phone=+51 951828275&text=<?php echo $message ?>" class="cart-btn" target="_blank"><i class="fab fa-whatsapp "></i> Contactar via WhatsApp</a>
+						<!-- <p><strong>Categories: </strong>Fruits, Organic</p> -->
+					</div>
+					<!-- <h4>Share:</h4>
 						<ul class="product-share">
 							<li><a href=""><i class="fab fa-facebook-f"></i></a></li>
 							<li><a href=""><i class="fab fa-twitter"></i></a></li>
 							<li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
 							<li><a href=""><i class="fab fa-linkedin"></i></a></li>
 						</ul> -->
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end single product -->
+</div>
+<!-- end single product -->
 
-  <div class="single-product mt-150 mb-150">
-		<div class="container">
-    <?php echo $row['descripcion'] ?>
-		</div>
+<div class="single-product mt-150 mb-150">
+	<div class="container">
+		<?php echo $row['descripcion'] ?>
 	</div>
-	<!-- more products -->
-	<!-- <div class="more-products mb-150">
+</div>
+<!-- more products -->
+<!-- <div class="more-products mb-150">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
@@ -117,8 +120,8 @@ $message='Estoy interesado en el '.$row['nombre'].'%0A'.'https://'.$url;
 			</div>
 		</div>
 	</div> -->
-	<!-- end more products -->
+<!-- end more products -->
 
-	<?php 
-	include_once("footer.php")
-	?>
+<?php
+include_once("footer.php")
+?>
