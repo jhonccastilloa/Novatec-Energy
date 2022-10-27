@@ -80,7 +80,7 @@ $results = $conn->query($query);
                       <td><img class="img-thumbnail" src="../productsImg/<?php echo $row['id'].'.'.$ext ?> " width="50"></td>
                       <td><?php echo $row['nombre'] ?></td>
                       <td><?php echo strip_tags(substr($row['breve_descripcion'], 0, 250)) . "..."  ?></td>
-                      <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal<?= $row['id'] ?>">
+                      <td><button type="button" class="btn btn-primary font-weight-bold" data-toggle="modal" data-target="#Modal<?= $row['id'] ?>">
                           Ver Contenido
                         </button></td>
                       <td><?php echo $row['precio_normal'] ?></td>

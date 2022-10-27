@@ -9,7 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     echo $query;
     $_SESSION['estate']='danger';
     $_SESSION['msg']="Registro Eliminado Correctamente";
-    $result = $conn->query($query);
+    try {
+      $result=$conn->query($query);
+      //code...
+      } catch (\Throwable $th) {
+        $_SESSION['estate']='danger';
+        $_SESSION['msg']="ERROR. Tiene que Borrar Antes Todos los Productos Enlazados con esta Sub Categoria";
+      header("location:index.php?module=subcategory");
+      }
   } elseif ($id) {
     $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
     $category = $conn->real_escape_string($_REQUEST['category']);
