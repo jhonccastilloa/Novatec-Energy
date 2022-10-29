@@ -1,3 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- title -->
+	<title>Contacto | Novatec Energy</title>
+	<meta name="description" content="Usted puede contactarnos llamando al numer 951 828 275 si es que tiene alguna duda de nuestros productos">
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="assets/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="assets/css/responsive.css">
+
+</head>
 <?php
 include_once("head.php")
 ?>
@@ -30,14 +65,14 @@ include_once("head.php")
 				<div class="contact-form">
 					<form  id="fruitkha-contact" action="sendEmail.php" method="POST">
 						<p>
-							<input type="text" placeholder="Nombre" name="name" id="Nombre" require>
-							<input type="email" placeholder="Correo Electrónico" name="email" id="Correo Electrónico" require>
+							<input type="text" placeholder="Nombre" name="name" id="Nombre" required>
+							<input type="email" placeholder="Correo Electrónico" name="email" id="Correo Electrónico" required>
 						</p>
 						<p>
 							<input type="tel" placeholder="Celular" name="phone" id="Celular">
-							<input type="text" placeholder="Asunto" name="subject" id="Asunto" require>
+							<input type="text" placeholder="Asunto" name="subject" id="Asunto" required>
 						</p>
-						<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Mensaje" require></textarea></p>
+						<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Mensaje" required></textarea></p>
 						<p><input type="submit" value="Enviar"></p>
 					</form>
 				</div>

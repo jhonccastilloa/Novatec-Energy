@@ -206,13 +206,13 @@ $name = $_SESSION['name'];
                             <div class="col-sm-12">
                               <div class="form-group">
                                 <label>Nombre del Producto:</label>
-                                <input type="text" class="form-control" name="name" placeholder="Ingrese un nombre" require>
+                                <input type="text" class="form-control" name="name" placeholder="Ingrese un nombre" required>
                               </div>
                             </div>
                             <div class="col-sm-12">
                               <div class="form-group">
                                 <label>Categoria:</label>
-                                <select name="category" id="productCategory" class="form-control" require>
+                                <select name="category" id="productCategory" class="form-control" required>
                                   <option value="">Seleccione Una Categoria</option>
                                   <?php
                                   while ($row = $resultCategory->fetch_assoc()) {
@@ -225,7 +225,7 @@ $name = $_SESSION['name'];
                             <div class="col-sm-12">
                               <div class="form-group">
                                 <label>Sub Categoria:</label>
-                                <select name="subcategory" id="productSubcategory" class="form-control" require>
+                                <select name="subcategory" id="productSubcategory" class="form-control" required>
                                 </select>
                               </div>
                             </div>
@@ -234,7 +234,7 @@ $name = $_SESSION['name'];
                             <div class="col-sm-12">
                               <div class="form-group">
                                 <label>Breve Descripción del Producto:</label>
-                                <textarea class="form-control" name="breve" rows="8"></textarea>
+                                <textarea class="form-control" name="breve" rows="8" required></textarea>
                               </div>
                             </div>
                           </div>
@@ -251,14 +251,14 @@ $name = $_SESSION['name'];
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label>Precio del Producto:</label>
-                              <input type="number" class="form-control" name="price" placeholder="Ingrese un precio">
+                              <input type="number" class="form-control" name="price" placeholder="Ingrese un precio" required>
                             </div>
                           </div>
 
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label>Imagen del Producto:</label>
-                              <input type="file" class="form-control-file" name="image" accept="image/*">
+                              <input type="file" class="form-control-file" name="image" accept="image/*" required>
                             </div>
                           </div>
                         </div>

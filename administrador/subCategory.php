@@ -57,7 +57,7 @@ include("conection.php");
                     <div class="form-group">
                       <label for="area" class="col-sm-12 ">Categoria:</label>
                       <div class="col-sm-12">
-                        <select name="category" id="selectCategory" class="form-control">
+                        <select name="category" id="selectCategory" class="form-control" required>
                           <?php
                           $queryCategory = "SELECT * FROM category";
                           $resultCategory = $conn->query($queryCategory);
@@ -75,7 +75,7 @@ include("conection.php");
                     <div class="form-group">
                       <label for="nombres" class="col-sm-12 ">Sub Categoria: </label>
                       <div class="col-sm-12">
-                        <input type="text" class="form-control" id="subCategory" name="subcategory" placeholder="Escriba el Nombre de la SubCategoria">
+                        <input type="text" class="form-control" id="subCategory" name="subcategory" placeholder="Escriba el Nombre de la SubCategoria" required>
                       </div>
                     </div>
                     <div class="form-group">

@@ -218,13 +218,13 @@ $name = $_SESSION['name'];
                             <div class="col-sm-12">
                               <div class="form-group">
                                 <label>Nombre del Producto:</label>
-                                <input type="text" class="form-control" name="name" value="<?php echo $row['nombre'] ?>" require>
+                                <input type="text" class="form-control" name="name" value="<?php echo $row['nombre'] ?>" required>
                               </div>
                             </div>
                             <div class="col-sm-12">
                               <div class="form-group">
                                 <label>Categoria:</label>
-                                <select name="category" id="productCategory" class="form-control" require>
+                                <select name="category" id="productCategory" class="form-control" required>
                                   <option value="">Seleccione Una Categoria</option>
                                   <?php
                                   while ($rowCategory = $resultCategory->fetch_assoc()) {
@@ -239,7 +239,7 @@ $name = $_SESSION['name'];
                             <div class="col-sm-12">
                               <div class="form-group">
                                 <label>Sub Categoria:</label>
-                                <select name="subcategory" id="productSubcategory" class="form-control" require>
+                                <select name="subcategory" id="productSubcategory" class="form-control" required>
                                   <?php
                                   $querySubcategory = 'SELECT * FROM subcategory WHERE id_category=' . $row['id_categoria'];
                                   $resultSubcategory = $conn->query($querySubcategory);
@@ -258,7 +258,7 @@ $name = $_SESSION['name'];
                             <div class="col-sm-12">
                               <div class="form-group">
                                 <label>Breve Descripción del Producto:</label>
-                                <textarea class="form-control" name="breve" maxlength="400" rows="8"><?= $row['breve_descripcion'] ?></textarea>
+                                <textarea class="form-control" name="breve" maxlength="400" rows="8" required><?= $row['breve_descripcion'] ?></textarea>
                               </div>
                             </div>
                           </div>
@@ -286,7 +286,7 @@ $name = $_SESSION['name'];
                             <!-- text input -->
                             <div class="form-group">
                               <label>Precio del Producto</label>
-                              <input type="number" class="form-control" name="price" value="<?php echo $row['precio_normal'] ?>" placeholder="Ingrese un precio">
+                              <input type="number" class="form-control" name="price" value="<?php echo $row['precio_normal'] ?>" placeholder="Ingrese un precio" required>
                             </div>
                           </div>
                         </div>

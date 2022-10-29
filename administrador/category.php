@@ -59,7 +59,7 @@ include("conection.php");
                     <div class="form-group">
                       <label for="nombres" class="col-sm-12 ">Categoria: </label>
                       <div class="col-sm-12">
-                        <input type="text" class="form-control" id="category" name="category" placeholder="Escriba el nombre de la Categoria" require>
+                        <input type="text" class="form-control" id="category" name="category" placeholder="Escriba el nombre de la Categoria" required>
                       </div>
                     </div>
                     <div class="form-group">

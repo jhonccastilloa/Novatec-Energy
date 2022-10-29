@@ -1,5 +1,52 @@
 <?php
 require("./administrador/conection.php");
+if (isset($_REQUEST['categoria'])) {
+	$id = $_REQUEST['categoria'];
+	$query = "SELECT category FROM category WHERE id=" . $id;
+	$result = $conn->query($query);
+	$row = $result->fetch_assoc();
+	$title = $row['category'];
+} else {
+	$title = "Productos";
+}
+?>
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- title -->
+	<title><?= $title ?> | La mejor calidad y mejores precios en Novatec Energy</title>
+	<meta name="description" content="Contamos con los mejores productos cuando se trata de energía renovables de toda la región del sur">
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
+	<!-- google font -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">
+	<!-- fontawesome -->
+	<link rel="stylesheet" href="assets/css/all.min.css">
+	<!-- bootstrap -->
+	<link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+	<!-- owl carousel -->
+	<link rel="stylesheet" href="assets/css/owl.carousel.css">
+	<!-- magnific popup -->
+	<link rel="stylesheet" href="assets/css/magnific-popup.css">
+	<!-- animate css -->
+	<link rel="stylesheet" href="assets/css/animate.css">
+	<!-- mean menu css -->
+	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
+	<!-- main style -->
+	<link rel="stylesheet" href="assets/css/main.css">
+	<!-- responsive -->
+	<link rel="stylesheet" href="assets/css/responsive.css">
+
+</head>
+<?php
 include_once("head.php");
 ?>
 <!-- breadcrumb-section -->
@@ -95,7 +142,7 @@ include_once("head.php");
 				<div class="col-lg-4 col-md-6 text-center card-content <?php echo $row['id_subcategory'] ?> ">
 					<div class="single-product-item">
 						<div class="product-image" width="300" height="300">
-							<a href="producto.php?id=<?php echo $row['id'] ?>"><img src="./productsImg/<?php echo $row['id'].'.'.$ext ?>" alt="<?php echo $image ?>" width="300" height="300"></a>
+							<a href="producto.php?id=<?php echo $row['id'] ?>"><img src="./productsImg/<?php echo $row['id'] . '.' . $ext ?>" alt="<?php echo $image ?>" width="300" height="300"></a>
 						</div>
 						<h3><?php echo $row['nombre'] ?></h3>
 						<p class="product-price"> S/.<?php echo $row['precio_normal'] ?> </p>
