@@ -38,11 +38,11 @@ if (isset($_REQUEST['login'])) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>SISNovatec</title>
+	<link rel="shortcut icon" type="image/png" href="../assets/img/favicon.png">
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
-  <!-- <link href="signin.css" rel="stylesheet"> -->
 </head>
 <div class="loginCaja">
   <div class="text-center card bg-white bodyLogin">

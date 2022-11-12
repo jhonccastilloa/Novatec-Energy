@@ -48,8 +48,8 @@ include_once("head.php");
 							<p class="subtitle">Empresa Líder en Energía Renovable</p>
 							<h1>Novatec Energy</h1>
 							<div class="hero-btns">
-								<a href="shop.html" class="boxed-btn">Productos</a>
-								<a href="contact.html" class="bordered-btn">Contactenos</a>
+								<a href="productos" class="boxed-btn">Productos</a>
+								<a href="contacto" class="bordered-btn">Contactenos</a>
 							</div>
 						</div>
 					</div>
@@ -67,8 +67,8 @@ include_once("head.php");
 							<p class="subtitle">Cuidando y Construyendo un mundo mejor con energías renovables</p>
 							<h1>Novatec Energy</h1>
 							<div class="hero-btns">
-								<a href="shop.html" class="boxed-btn">Productos</a>
-								<a href="contact.html" class="bordered-btn">Contactenos</a>
+								<a href="productos" class="boxed-btn">Productos</a>
+								<a href="contacto" class="bordered-btn">Contactenos</a>
 							</div>
 						</div>
 					</div>
@@ -86,8 +86,8 @@ include_once("head.php");
 							<p class="subtitle">Contamos con los mejores productos y equipo especializado!</p>
 							<h1>Tienda Especializada en Energias Renovables</h1>
 							<div class="hero-btns">
-								<a href="shop.html" class="boxed-btn">Productos</a>
-								<a href="contact.html" class="bordered-btn">Contactenos</a>
+								<a href="productos" class="boxed-btn">Productos</a>
+								<a href="contacto" class="bordered-btn">Contactenos</a>
 							</div>
 						</div>
 					</div>
@@ -168,7 +168,7 @@ include_once("head.php");
 				<div class="col-lg-4 col-md-6">
 					<div class="single-latest-news">
 						<div class="product-image">
-							<img src="./productsImg/<?php echo $row['idProduct'] . '.' . $ext ?>"  alt="" width="200" height="260">
+							<img src="./productsImg/<?php echo $row['idProduct'] . '.' . $ext ?>"  alt="" >
 						</div>
 						<div class="news-text-box">
 							<h3><?php echo $row['category'] ?></h3>

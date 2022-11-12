@@ -1,0 +1,5 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^productos/([a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)_([0-9]+)$ productos.php?categoria=$2&nombre=$1
+RewriteRule ^([^\.]+)$ $1.php [NC,L]

@@ -35,8 +35,6 @@ $name = $_SESSION['name'];
   <link rel="stylesheet" href="./administrador/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="./administrador/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="./administrador/plugins/daterangepicker/daterangepicker.css">
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
   <!-- Editor de descripcion -->

@@ -74,6 +74,7 @@ include("conection.php");
                   <table class="table" id="tableCategory">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th>Categoria</th>
                         <th>Editar</th>
                         <th>Eliminar</th>
@@ -86,9 +87,10 @@ include("conection.php");
                       while ($row = $result->fetch_assoc()) {
                       ?>
                         <tr>
+                          <td><?php echo $row['id'] ?></td>
                           <td><?php echo $row['category'] ?></td>
                           <td><i class="fas fa-edit " onclick="dataEdit(event)" id='<?php echo $row['id'] ?>' category='<?php echo $row['category'] ?>' title="Editar"></i></td>
-                          <td><a href="categoryEvalua.php?op=delete&id=<?php echo $row['id'] ?>" class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "></i></a></td>
+                          <td><a href="categoryEvalua.php?op=delete&id=<?php echo $row['id'] ?>" onclick="deleteCategory(event)" class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "></i></a></td>
                         </tr>
                       <?php
                       }

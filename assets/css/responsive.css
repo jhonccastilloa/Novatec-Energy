@@ -106,7 +106,9 @@
 	    width: 100%;
 	}
 	.site-logo a img {
-	    max-width: 150px;
+	    max-width: 200px;
+			position: relative;
+  bottom:0px
 	}
 	.site-logo {
 	    text-align: center;

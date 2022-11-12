@@ -23,7 +23,11 @@ $results = $conn->query($query);
       </div>
     </div><!-- /.container-fluid -->
   </section>
-
+  <style>
+    .modal-body .table {
+      table-layout: fixed;
+    }
+  </style>
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -60,6 +64,7 @@ $results = $conn->query($query);
               <table id="tableProducts" class="table table-bordered table-hover table-responsive " style="width:100%">
                 <thead>
                   <tr>
+                    <th>ID</th>
                     <th>Imagen</th>
                     <th>Nombre</th>
                     <th>Breve Descripción</th>
@@ -77,38 +82,24 @@ $results = $conn->query($query);
                     $ext = end($array);
                   ?>
                     <tr>
-                      <td><img class="img-thumbnail" src="../productsImg/<?php echo $row['id'].'.'.$ext ?> " width="50"></td>
+                      <td><?php echo $row['id'] ?></td>
+                      <td><img class="img-thumbnail" src="../productsImg/<?php echo $row['id'] . '.' . $ext ?> " width="50"></td>
                       <td><?php echo $row['nombre'] ?></td>
                       <td><?php echo strip_tags(substr($row['breve_descripcion'], 0, 250)) . "..."  ?></td>
-                      <td><button type="button" class="btn btn-primary font-weight-bold" data-toggle="modal" data-target="#Modal<?= $row['id'] ?>">
-                          Ver Contenido
-                        </button></td>
+                      <td>
+                        <a href="../producto?id=<?= $row['id']?>&click=1" target="_blanck">
+                          <button type="button" class="btn btn-primary font-weight-bold">
+                            Ver Contenido
+                          </button>
+                        </a>
+                      </td>
                       <td><?php echo $row['precio_normal'] ?></td>
                       <td><?php echo $row['category'] ?></td>
                       <td><?php echo $row['subcategory'] ?></td>
                       <td><a href="../editProduct?id=<?php echo $row['id'] ?>" class="p-3 py-6"><i class="fas fa-edit" title="Editar"></i></a></td>
-                      <td><a href="createProductEvalua.php?idDelete=<?php echo $row['id'] ?>&image=<?php echo $row['imagen'] ?>" class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "></i></a></td>
+                      <td><a href="createProductEvalua.php?idDelete=<?php echo $row['id'] ?>&image=<?php echo $row['imagen'] ?>" onclick="deleteProduct(event)" class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "></i></a></td>
                     </tr>
-                    <!-- modal section -->
-                    <div class="modal fade" id="Modal<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel"><?php echo $row['nombre'] ?></h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <?= $row['descripcion'] ?>
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- end modal section -->
+
                   <?php } ?>
                 </tbody>
               </table>
@@ -127,4 +118,5 @@ $results = $conn->query($query);
 </div>
 
 </div>
+
 <!-- ./wrapper -->

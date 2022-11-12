@@ -35,11 +35,7 @@ $name = $_SESSION['name'];
   <link rel="stylesheet" href="./administrador/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="./administrador/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
-  <!-- Daterange picker -->
-  <link rel="stylesheet" href="./administrador/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
-
-
   <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
   <!-- Editor de descripcion -->
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -334,11 +330,6 @@ $name = $_SESSION['name'];
 
   <script type="text/javascript">
    
-    // ClassicEditor
-    //     .create(document.querySelector('#editor'))
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
     CKEDITOR.replace('editor', {
       filebrowserUploadUrl: 'ckeditor/ck_upload.php',
       filebrowserUploadMethod: 'form'
@@ -397,11 +388,8 @@ $name = $_SESSION['name'];
       $('#tableProducts').DataTable();
     });
 
-
     document.querySelectorAll('oembed[url]').forEach(element => {
-
       const anchor = document.createElement('a');
-
       anchor.setAttribute('href', element.getAttribute('url'));
       anchor.className = 'embedly-card';
 

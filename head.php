@@ -14,7 +14,7 @@ $url = $_SERVER["REQUEST_URI"];
 						<!-- logo -->
 						<div class="site-logo">
 							<a href="index">
-								<img src="assets/img/logo.png" alt="Logo de Novatec Energy">
+								<img class="logo-menu" src="assets/img/logo.png" alt="Logo de Novatec Energy">
 							</a>
 						</div>
 						<!-- logo -->
@@ -31,8 +31,10 @@ $url = $_SERVER["REQUEST_URI"];
 										$query = "SELECT * FROM category";
 										$result = $conn->query($query);
 										while ($row = $result->fetch_assoc()) {
+										$acento=eliminar_acentos($row['category']);
+										$name=strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $acento), '-'));
 										?>
-											<li><a href="productos?categoria=<?php echo $row['id'] ?>"><?php echo $row['category'] ?></a></li>
+											<li><a href="productos?categoria=<?php echo $row['id'] ?>&nombre=<?php echo $name ?>"><?php echo $row['category'] ?></a></li>
 
 										<?php
 										}
@@ -82,3 +84,47 @@ $url = $_SERVER["REQUEST_URI"];
 		</div>
 	</div>
 	<!-- end search area -->
+	<?php
+	function eliminar_acentos($cadena){
+		
+		//Reemplazamos la A y a
+		$cadena = str_replace(
+		array('Á', 'À', 'Â', 'Ä', 'á', 'à', 'ä', 'â', 'ª'),
+		array('A', 'A', 'A', 'A', 'a', 'a', 'a', 'a', 'a'),
+		$cadena
+		);
+
+		//Reemplazamos la E y e
+		$cadena = str_replace(
+		array('É', 'È', 'Ê', 'Ë', 'é', 'è', 'ë', 'ê'),
+		array('E', 'E', 'E', 'E', 'e', 'e', 'e', 'e'),
+		$cadena );
+
+		//Reemplazamos la I y i
+		$cadena = str_replace(
+		array('Í', 'Ì', 'Ï', 'Î', 'í', 'ì', 'ï', 'î'),
+		array('I', 'I', 'I', 'I', 'i', 'i', 'i', 'i'),
+		$cadena );
+
+		//Reemplazamos la O y o
+		$cadena = str_replace(
+		array('Ó', 'Ò', 'Ö', 'Ô', 'ó', 'ò', 'ö', 'ô'),
+		array('O', 'O', 'O', 'O', 'o', 'o', 'o', 'o'),
+		$cadena );
+
+		//Reemplazamos la U y u
+		$cadena = str_replace(
+		array('Ú', 'Ù', 'Û', 'Ü', 'ú', 'ù', 'ü', 'û'),
+		array('U', 'U', 'U', 'U', 'u', 'u', 'u', 'u'),
+		$cadena );
+
+		//Reemplazamos la N, n, C y c
+		$cadena = str_replace(
+		array('Ñ', 'ñ', 'Ç', 'ç'),
+		array('N', 'n', 'C', 'c'),
+		$cadena
+		);
+		
+		return $cadena;
+	}
+	?>

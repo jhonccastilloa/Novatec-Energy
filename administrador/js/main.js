@@ -14,6 +14,31 @@ const dataEdit = (event) => {
   titleCategory.classList.add("text-warning");
 };
 
+//delete Products
+function deleteProduct(event){
+  if (confirm("¿Estas seguro que desea eliminar este registro?")){
+    return true;
+  }else{
+    event.preventDefault();
+  }
+}
+function deleteCategory(event){
+  if (confirm("¿Estas seguro que desea eliminar este registro?")){
+    return true;
+  }else{
+    event.preventDefault();
+  }
+}
+function deleteSubCategory(event){
+  if (confirm("¿Estas seguro que desea eliminar este registro?")){
+    return true;
+  }else{
+    event.preventDefault();
+  }
+}
+
+
+
 let subCategoryName = document.getElementById("subCategory");
 let categorySubName = document.getElementById("selectCategory");
 let idCatName = document.getElementById("idCat");
@@ -298,17 +323,40 @@ const erasedTextSub = () => {
 
 $(document).ready(function () {
   $("#tableProducts").DataTable({
-    language: espanol
+    language: espanol,
+    order: [0, "desc"],
+    columnDefs: [
+      {
+        target: 0,
+        visible: false,
+        searchable: false,
+      },
+    ],
   });
 });
 $(document).ready(function () {
   $("#tableCategory").DataTable({
-    language: espanol
+    language: espanol,
+    order: [0, "desc"],
+    columnDefs: [
+      {
+        target: 0,
+        visible: false,
+        searchable: false,
+      },
+    ],
   });
 });
 $(document).ready(function () {
   $("#tableSubcategory").DataTable({
-    language: espanol
+    language: espanol,
+    order: [0, "desc"],
+    columnDefs: [
+      {
+        target: 0,
+        visible: false,
+        searchable: false,
+      },
+    ],
   });
 });
-
