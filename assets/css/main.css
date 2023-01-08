@@ -1512,7 +1512,7 @@ input[type="submit"] {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #051922;
+  background-color: #0519223b;
   content: "";
   z-index: -1;
   opacity: 0.7;
@@ -2373,17 +2373,19 @@ ul.social-link-team li a {
 }
 
 .product-filters ul {
-  margin: 0;
+  display: flex;
+  margin: 0 0 50px 0 !important;
   padding: 0;
   list-style: none;
   text-align: center;
 }
 
+
 .product-filters ul li {
-  display: inline-block;
+  width: auto;
   font-weight: 700;
   font-size: 14px;
-  margin: 15px;
+  margin: 15px 15px;
   border: 2px solid #051922;
   color: #323232;
   cursor: pointer;

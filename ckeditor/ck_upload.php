@@ -6,7 +6,7 @@ $upload_dir = array(
 
 // Allowed image properties  
 $imgset = array(
-  'maxsize' => 2000,
+  'maxsize' => 5000,
   'maxwidth' => 1024,
   'maxheight' => 800,
   'minwidth' => 10,
@@ -77,7 +77,7 @@ if (isset($_FILES['upload']) && strlen($_FILES['upload']['name']) > 1) {
     if (move_uploaded_file($_FILES['upload']['tmp_name'], $uploadpath)) {
       $CKEditorFuncNum = $_GET['CKEditorFuncNum'];
       $url = '/Novatec-Energy/ckeditor/' . $upload_dir . $f_name;
-      $msg = F_NAME . '.' . $type . ' successfully uploaded: \\n- Size: ' . number_format($_FILES['upload']['size'] / 1024, 2, '.', '') . ' KB';
+      $msg = F_NAME . '.' . $type . ' Subido correctamente: \\n- Size: ' . number_format($_FILES['upload']['size'] / 1024, 2, '.', '') . ' KB';
       $re = in_array($type, $imgset['type']) ? "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>" : '<script>var cke_ob = window.parent.CKEDITOR; for(var ckid in cke_ob.instances) { if(cke_ob.instances[ckid].focusManager.hasFocus) break;} cke_ob.instances[ckid].insertHtml(\' \', \'unfiltered_html\'); alert("' . $msg . '"); var dialog = cke_ob.dialog.getCurrent();dialog.hide();</script>';
     } else {
       $re = '<script>alert("Unable to upload the file")</script>';

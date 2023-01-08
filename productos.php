@@ -45,6 +45,9 @@ if (isset($_REQUEST['categoria'])) {
 	<!-- responsive -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
 
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
 </head>
 <?php
 include_once("head.php");
@@ -99,9 +102,9 @@ include_once("head.php");
 		?>
 			<div class="row">
 				<div class="col-md-12">
-					<div class="product-filters">
-						<ul>
-							<li class="active" data-filter="*">Todo</li>
+					<div class="product-filters swiper">
+						<ul class="swiper-wrapper">
+							<li class="active swiper-slide" data-filter="*">Todo</li>
 							<?php
 							$query = "SELECT * FROM subcategory";
 							if (isset($_REQUEST['categoria'])) {
@@ -110,18 +113,37 @@ include_once("head.php");
 							$result = $conn->query($query);
 							while ($row = $result->fetch_assoc()) {
 							?>
-								<li data-filter=".<?php echo $row['id'] ?>"><?php echo $row['subcategory'] ?></li>
+								<li class="swiper-slide" data-filter=".<?php echo $row['id'] ?>"><?php echo $row['subcategory'] ?></li>
 							<?php
 							}
 							?>
 						</ul>
+						<div class="swiper-pagination"></div>
 					</div>
 				</div>
 			</div>
 		<?php } ?>
 		<!-- sub category section end-->
 
+		<script>
+			const swiper = new Swiper('.swiper', {
 
+				slidesPerView: "auto",
+				spaceBetween: 10,
+				slidesPerGroup: 3,
+				freeMode: true,
+				pagination: {
+					el: ".swiper-pagination",
+					clickable: true,
+				},
+
+				pagination: {
+					el: ".swiper-pagination",
+					clickable: true,
+				},
+
+			});
+		</script>
 		<!-- products -->
 
 		<div class="row product-lists">
