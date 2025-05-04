@@ -67,7 +67,7 @@ $results = $conn->query($query);
                     <th>ID</th>
                     <th>Imagen</th>
                     <th>Nombre</th>
-                    <th>Breve Descripción</th>
+                    <th style="width:100%">Breve Descripción</th>
                     <th>Descripccion</th>
                     <th>Precio</th>
                     <th>Categoria</th>

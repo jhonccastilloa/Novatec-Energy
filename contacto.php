@@ -73,7 +73,7 @@ include_once("head.php")
 							<input type="text" placeholder="Asunto" name="subject" id="Asunto" required>
 						</p>
 						<p><textarea name="message" id="message" cols="30" rows="10" placeholder="Mensaje" required></textarea></p>
-						<p><input type="submit" value="Enviar"></p>
+						<p><input type="submit" class="text-white" value="Enviar"></p>
 					</form>
 				</div>
 			</div>

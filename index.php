@@ -103,7 +103,7 @@ include_once("head.php");
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-				<div class="list-box d-flex flex-column align-items-center">
+				<div class="list-box d-flex align-items-center">
 					<div class="list-icon">
 						<i class="fas fa-shipping-fast"></i>
 					</div>
