@@ -6,7 +6,7 @@ if (isset($_REQUEST['idDelete'])) {
   $id = $conn->real_escape_string($_REQUEST['idDelete'] ?? '');
   $image = $conn->real_escape_string($_REQUEST['image'] ?? '');
   $query = "DELETE from productos where id='{$id}'";
-  $_SESSION['estate'] = 'danger';
+  $_SESSION['estate'] = 'success';
   $_SESSION['msg'] = "Registro Eliminado Correctamente.";
   $result = $conn->query($query);
 
@@ -46,7 +46,7 @@ if (isset($_REQUEST['idDelete'])) {
     $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',descripcion='{$description}',precio_normal='{$price}',breve_descripcion='{$breve}',imagen='{$image}',id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
     $id_insert = $idEdit;
     $_SESSION['msg'] = "Registro Editado Correctamente";
-    $_SESSION['estate'] = 'warning ';
+    $_SESSION['estate'] = 'success';
     $result = $conn->query($query);
   } else {
 

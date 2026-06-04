@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
   if ($op == 'delete') {
     $query = "DELETE FROM category WHERE id='{$id}'";
-    $_SESSION['estate']='danger';
+    $_SESSION['estate']='success';
     $_SESSION['msg']="Registro Eliminado Correctamente.";
     try {
     $result=$conn->query($query);
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $category = $conn->real_escape_string($_REQUEST['category']);
     $query = "UPDATE category SET category='{$category}' WHERE id='{$id}'";
     $_SESSION['msg']="Registro Editado Correctamente.";
-    $_SESSION['estate']='warning ';
+    $_SESSION['estate']='success';
     $result=$conn->query($query);
 
   } else {
