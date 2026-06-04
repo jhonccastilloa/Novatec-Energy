@@ -89,7 +89,19 @@ if (!defined('NOVATEC_ADMIN_LAYOUT')) {
                       <div class="col-sm-4">
                         <div class="form-group">
                           <label>Imagen del Producto:</label>
-                          <input type="file" class="form-control-file" name="image" accept="image/*" required>
+                          <div class="product-image-upload" data-image-preview>
+                            <input type="file" class="form-control-file" name="image" accept="image/*" required data-image-preview-input>
+                            <small class="form-text text-muted" data-image-preview-empty>
+                              Seleccione una imagen para ver la vista previa antes de guardar.
+                            </small>
+                            <div class="product-image-preview" data-image-preview-container hidden>
+                              <img src="" alt="Vista previa de la imagen del producto" data-image-preview-img>
+                              <div class="product-image-preview__meta">
+                                <span class="product-image-preview__label" data-image-preview-label>Vista previa</span>
+                                <span class="product-image-preview__name" data-image-preview-name></span>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>

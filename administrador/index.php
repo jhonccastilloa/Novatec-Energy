@@ -135,6 +135,60 @@ $name = $_SESSION['name'];
       text-align: center;
     }
 
+    .product-image-upload {
+      min-width: 0;
+    }
+
+    .product-image-preview {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 0.25rem;
+      margin-top: 0.75rem;
+      max-width: 320px;
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .product-image-preview[hidden] {
+      display: none !important;
+    }
+
+    .product-image-preview img {
+      aspect-ratio: 4 / 3;
+      background-color: #ffffff;
+      display: block;
+      height: 180px;
+      object-fit: contain;
+      width: 100%;
+    }
+
+    .product-image-preview__meta {
+      align-items: center;
+      border-top: 1px solid #dee2e6;
+      display: flex;
+      gap: 0.5rem;
+      justify-content: space-between;
+      min-width: 0;
+      padding: 0.5rem 0.75rem;
+    }
+
+    .product-image-preview__label {
+      color: #495057;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .product-image-preview__name {
+      color: #6c757d;
+      font-size: 0.8125rem;
+      min-width: 0;
+      overflow: hidden;
+      text-align: right;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     @media (max-width: 575.98px) {
       .admin-floating-alert {
         left: 1rem;
@@ -155,6 +209,10 @@ $name = $_SESSION['name'];
 
       .content .card-body {
         padding: 1rem;
+      }
+
+      .product-image-preview {
+        max-width: 100%;
       }
 
       .dataTables_wrapper .dataTables_length,

@@ -103,28 +103,41 @@ $row = $result ? $result->fetch_assoc() : null;
                         </div>
                       </div>
                       <div class="row">
-                        <div class="col-sm-4">
-                          <div class="form-group">
-                            <label>Imagen</label>
-                            <input type="text" name="imageAux" value="<?php echo productFormHtml($row['imagen']) ?>" hidden>
-                            <input type="file" class="form-control" name="image" accept="image/*">
-                          </div>
-                        </div>
+                        <?php
+                        $array = explode('.', $row['imagen']);
+                        $ext = end($array);
+                        $currentImageFile = $row['id'] . '.' . $ext;
+                        ?>
                         <div class="col-sm-4">
                           <div class="form-group">
                             <label>Precio del Producto</label>
                             <input type="number" class="form-control" name="price" value="<?php echo productFormHtml($row['precio_normal']) ?>" step="0.01" placeholder="Ingrese un precio" required>
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
-                        <?php
-                        $array = explode('.', $row['imagen']);
-                        $ext = end($array);
-                        ?>
                         <div class="col-sm-4">
                           <div class="form-group">
-                            <img class="img-fluid" src="../productsImg/<?php echo productFormHtml($row['id'] . '.' . $ext) ?>" alt="<?php echo productFormHtml($row['nombre']) ?>">
+                            <label>Imagen</label>
+                            <input type="text" name="imageAux" value="<?php echo productFormHtml($row['imagen']) ?>" hidden>
+                            <div
+                              class="product-image-upload"
+                              data-image-preview
+                              data-current-src="../productsImg/<?php echo productFormHtml($currentImageFile) ?>"
+                              data-current-name="<?php echo productFormHtml($row['imagen']) ?>"
+                              data-current-label="Imagen actual"
+                              data-selected-label="Nueva imagen"
+                            >
+                              <input type="file" class="form-control" name="image" accept="image/*" data-image-preview-input>
+                              <small class="form-text text-muted" data-image-preview-empty>
+                                Seleccione una nueva imagen para ver la vista previa antes de guardar.
+                              </small>
+                              <div class="product-image-preview" data-image-preview-container hidden>
+                                <img src="" alt="Vista previa de la nueva imagen del producto" data-image-preview-img>
+                                <div class="product-image-preview__meta">
+                                  <span class="product-image-preview__label" data-image-preview-label>Imagen actual</span>
+                                  <span class="product-image-preview__name" data-image-preview-name></span>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>

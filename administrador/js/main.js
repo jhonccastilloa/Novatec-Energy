@@ -17,10 +17,121 @@ const initFloatingAlerts = () => {
   });
 };
 
+const resetImagePreview = (input) => {
+  const wrapper = input.closest("[data-image-preview]");
+  if (!wrapper) {
+    return;
+  }
+
+  const container = wrapper.querySelector("[data-image-preview-container]");
+  const image = wrapper.querySelector("[data-image-preview-img]");
+  const label = wrapper.querySelector("[data-image-preview-label]");
+  const name = wrapper.querySelector("[data-image-preview-name]");
+  const empty = wrapper.querySelector("[data-image-preview-empty]");
+  const currentSrc = wrapper.dataset.currentSrc;
+
+  if (input.dataset.previewUrl) {
+    URL.revokeObjectURL(input.dataset.previewUrl);
+    delete input.dataset.previewUrl;
+  }
+
+  if (currentSrc && container && image) {
+    image.src = currentSrc;
+
+    if (label) {
+      label.textContent = wrapper.dataset.currentLabel || "Imagen actual";
+    }
+
+    if (name) {
+      name.textContent = wrapper.dataset.currentName || "";
+    }
+
+    container.hidden = false;
+
+    if (empty) {
+      empty.hidden = true;
+    }
+
+    return;
+  }
+
+  if (image) {
+    image.removeAttribute("src");
+  }
+
+  if (label) {
+    label.textContent = wrapper.dataset.emptyLabel || "Vista previa";
+  }
+
+  if (name) {
+    name.textContent = "";
+  }
+
+  if (container) {
+    container.hidden = true;
+  }
+
+  if (empty) {
+    empty.hidden = false;
+  }
+};
+
+const initImagePreviews = () => {
+  document.querySelectorAll("[data-image-preview-input]").forEach((input) => {
+    input.addEventListener("change", () => {
+      const file = input.files && input.files[0];
+      const wrapper = input.closest("[data-image-preview]");
+
+      if (!wrapper || !file || !file.type.startsWith("image/")) {
+        resetImagePreview(input);
+        return;
+      }
+
+      const container = wrapper.querySelector("[data-image-preview-container]");
+      const image = wrapper.querySelector("[data-image-preview-img]");
+      const label = wrapper.querySelector("[data-image-preview-label]");
+      const name = wrapper.querySelector("[data-image-preview-name]");
+      const empty = wrapper.querySelector("[data-image-preview-empty]");
+
+      if (!container || !image) {
+        return;
+      }
+
+      if (input.dataset.previewUrl) {
+        URL.revokeObjectURL(input.dataset.previewUrl);
+      }
+
+      const previewUrl = URL.createObjectURL(file);
+      input.dataset.previewUrl = previewUrl;
+      image.src = previewUrl;
+
+      if (label) {
+        label.textContent = wrapper.dataset.selectedLabel || "Vista previa";
+      }
+
+      if (name) {
+        name.textContent = file.name;
+      }
+
+      if (empty) {
+        empty.hidden = true;
+      }
+
+      container.hidden = false;
+    });
+
+    resetImagePreview(input);
+  });
+};
+
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initFloatingAlerts);
+  document.addEventListener("DOMContentLoaded", () => {
+    initFloatingAlerts();
+    initImagePreviews();
+  });
 } else {
   initFloatingAlerts();
+  initImagePreviews();
 }
 
 const dataEdit = (event) => {
