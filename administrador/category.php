@@ -37,7 +37,7 @@ include("conection.php");
               if (isset($_SESSION["msg"]) and isset($_SESSION['estate'])) {
               ?>
                 <div class="alert alert-<?= $_SESSION["estate"] ?> alert-dismissible fade show" role="alert">
-                  <strong><?= $_SESSION["msg"] ?></strong>
+                  <strong class="text-white"><?= $_SESSION["msg"] ?></strong>
                   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
