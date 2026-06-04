@@ -27,7 +27,7 @@
 	<!-- mean menu css -->
 	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
 	<!-- main style -->
-	<link rel="stylesheet" href="assets/css/main.css">
+	<link rel="stylesheet" href="assets/css/main.css?v=20260604-1">
 	<!-- responsive -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
 
@@ -153,20 +153,24 @@ include_once("head.php");
 				</div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row product-category-cards">
 			<?php
-			$query = "SELECT  category.id,category.category,productos.id as 'idProduct',productos.imagen FROM category LEFT JOIN productos ON category.id=productos.id_categoria";
+			$query = "SELECT category.id, category.category, productos.id as 'idProduct', productos.imagen
+				FROM category
+				INNER JOIN (
+					SELECT id_categoria, MIN(id) as idProduct
+					FROM productos
+					GROUP BY id_categoria
+				) category_product ON category.id = category_product.id_categoria
+				INNER JOIN productos ON productos.id = category_product.idProduct
+				ORDER BY category.id";
 			$result = $conn->query($query);
-			$aux = '';
 			while ($row = $result->fetch_assoc()) {
 				$array = explode('.', $row['imagen']);
 				$ext = end($array);
-				if ($row['id'] == $aux) {
-					continue;
-				}
 			?>
-				<div class="col-lg-4 col-md-6">
-					<div class="single-latest-news">
+				<div class="col-lg-4 col-md-6 product-category-card-col">
+					<div class="single-latest-news product-category-card">
 						<div class="product-image">
 							<img src="./productsImg/<?php echo $row['idProduct'] . '.' . $ext ?>"  alt="" >
 						</div>
@@ -179,7 +183,6 @@ include_once("head.php");
 					</div>
 				</div>
 			<?php
-				$aux = $row['id'];
 			}
 			?>
 
