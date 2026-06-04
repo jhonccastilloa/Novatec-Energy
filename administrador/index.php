@@ -34,6 +34,7 @@ $name = $_SESSION['name'];
   <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="../assets/react/product-taxonomy.css">
   <style>
     .admin-floating-alert {
       box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
@@ -144,7 +145,7 @@ $name = $_SESSION['name'];
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="index.php?module=product" class="nav-link <?php echo (isset($_REQUEST['module']) and $_REQUEST['module'] == 'product') ? 'active' : '' ?>  ">
+                  <a href="index.php?module=product" class="nav-link <?php echo (isset($_REQUEST['module']) and in_array($_REQUEST['module'], ['product', 'createProduct', 'editProduct'])) ? 'active' : '' ?>  ">
                     <i class="fa fa-shopping-cart av-icon " aria-hidden="true"></i>
                     <p>Productos</p>
                   </a>
@@ -184,9 +185,11 @@ $name = $_SESSION['name'];
     } elseif ($_REQUEST['module'] == 'subcategory') {
       require_once('subcategory.php');
     } elseif ($_REQUEST['module'] == 'createProduct') {
+      define('NOVATEC_ADMIN_LAYOUT', true);
       require_once('../createProduct.php');
     } elseif ($_REQUEST['module'] == 'editProduct') {
-      require_once('editProduct.php');
+      define('NOVATEC_ADMIN_LAYOUT', true);
+      require_once('../editProduct.php');
     } elseif ($_REQUEST['module'] == 'categoryEvalua') {
       require_once('categoryEvalua.php');
     }
@@ -235,6 +238,7 @@ $name = $_SESSION['name'];
   <!-- datatables query -->
 
   <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+  <script type="module" src="../assets/react/product-taxonomy.js"></script>
   <script src="./js/main.js"></script>
 
   <script>

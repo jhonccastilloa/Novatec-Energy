@@ -1,6 +1,8 @@
 import type { ApiError, ApiOption, PostFields, TaxonomyOptionItem } from './types';
 
-const apiUrl = './administrador/taxonomyApi.php';
+const apiUrl = window.location.pathname.includes('/administrador/')
+  ? './taxonomyApi.php'
+  : './administrador/taxonomyApi.php';
 
 export const toOption = (item: ApiOption): TaxonomyOptionItem => ({
   value: String(item.id),

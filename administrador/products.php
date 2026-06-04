@@ -213,7 +213,7 @@ if (!function_exists('productHtml')) {
             <div class="card-header">
               <div class="products-card-header">
                 <h3 class="card-title font-weight-bold">PANEL DE LOS PRODUCTOS:</h3>
-                <a href="../createProduct.php" class="btn btn-primary btn-sm products-add-btn">
+                <a href="index.php?module=createProduct" class="btn btn-primary btn-sm products-add-btn">
                   <i class="fa fa-plus"></i>
                   <span>Agregar Nuevo Producto</span>
                 </a>
@@ -262,7 +262,7 @@ if (!function_exists('productHtml')) {
                             <a href="../producto?id=<?= $row['id'] ?>&click=1" target="_blank" class="btn btn-sm btn-primary" title="Ver contenido" aria-label="Ver contenido">
                               <i class="fas fa-eye"></i>
                             </a>
-                            <a href="../editProduct?id=<?php echo $row['id'] ?>" class="btn btn-sm btn-info" title="Editar" aria-label="Editar">
+                            <a href="index.php?module=editProduct&id=<?php echo $row['id'] ?>" class="btn btn-sm btn-info" title="Editar" aria-label="Editar">
                               <i class="fas fa-edit"></i>
                             </a>
                             <a href="createProductEvalua.php?idDelete=<?php echo $row['id'] ?>&image=<?php echo productHtml($row['imagen']) ?>" onclick="deleteProduct(event)" class="btn btn-sm btn-danger" title="Eliminar" aria-label="Eliminar">
@@ -289,7 +289,3 @@ if (!function_exists('productHtml')) {
   </section>
   <!-- /.content -->
 </div>
-
-</div>
-
-<!-- ./wrapper -->
