@@ -55,6 +55,8 @@ if (!function_exists('productHtml')) {
     #tableProducts {
       font-size: 0.92rem;
       margin-bottom: 0.75rem !important;
+      min-width: 1020px;
+      table-layout: fixed;
       width: 100% !important;
     }
 
@@ -68,31 +70,33 @@ if (!function_exists('productHtml')) {
       white-space: nowrap;
     }
 
-    #tableProducts th:nth-child(1),
-    #tableProducts td:nth-child(1) {
+    #tableProducts .col-image {
       text-align: center;
-      width: 10px !important;
-    }
-    #tableProducts th:nth-child(2),
-    #tableProducts td:nth-child(2) {
-      width: 100% !important;
+      width: 88px !important;
     }
 
-    #tableProducts th:nth-child(4),
-    #tableProducts td:nth-child(4) {
-      width: 92px;
+    #tableProducts .col-product {
+      width: auto !important;
     }
 
-    #tableProducts th:nth-child(5),
-    #tableProducts td:nth-child(5),
-    #tableProducts th:nth-child(6),
-    #tableProducts td:nth-child(6) {
-      width: 145px;
+    #tableProducts td.col-product {
+      overflow: hidden;
     }
 
-    #tableProducts th:nth-child(7),
-    #tableProducts td:nth-child(7) {
-      width: 132px;
+    #tableProducts .col-price {
+      width: 92px !important;
+    }
+
+    #tableProducts .col-category {
+      width: 145px !important;
+    }
+
+    #tableProducts .col-subcategory {
+      width: 145px !important;
+    }
+
+    #tableProducts .col-actions {
+      width: 132px !important;
     }
 
     #tableProducts_wrapper {
@@ -112,6 +116,8 @@ if (!function_exists('productHtml')) {
       display: flex;
       flex-direction: column;
       gap: 0.25rem;
+      min-width: 0;
+      width: 100%;
     }
 
     .products-card-header {
@@ -144,10 +150,11 @@ if (!function_exists('productHtml')) {
       display: block;
       font-weight: 700;
       line-height: 1.2;
-      max-width: 440px;
+      max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      width: 100%;
     }
 
     #tableProducts .product-excerpt {
@@ -155,10 +162,11 @@ if (!function_exists('productHtml')) {
       display: block;
       font-size: 0.82rem;
       line-height: 1.25;
-      max-width: 520px;
+      max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      width: 100%;
     }
 
     #tableProducts .product-price,
@@ -223,35 +231,35 @@ if (!function_exists('productHtml')) {
                   <thead>
                     <tr>
                       <th>ID</th>
-                      <th>Imagen</th>
-                      <th>Producto</th>
-                      <th>Precio</th>
-                      <th>Categoria</th>
-                      <th>Sub Categoria</th>
-                      <th>Acciones</th>
+                      <th class="col-image">Imagen</th>
+                      <th class="col-product">Producto</th>
+                      <th class="col-price">Precio</th>
+                      <th class="col-category">Categoria</th>
+                      <th class="col-subcategory">Sub Categoria</th>
+                      <th class="col-actions">Acciones</th>
                     </tr>
                   </thead>
                   <tbody>
                     <?php while ($row = $results->fetch_assoc()) {
                       $array = explode('.', $row['imagen']);
                       $ext = end($array);
-                      $briefDescription = cleanProductText($row['breve_descripcion'], 80);
+                      $briefDescription = cleanProductText($row['breve_descripcion']);
                       $searchDescription = cleanProductText($row['descripcion']);
                     ?>
                       <tr>
                         <td><?php echo $row['id'] ?></td>
-                        <td><img class="img-thumbnail product-thumb" src="../productsImg/<?php echo $row['id'] . '.' . $ext ?> " alt="<?php echo productHtml($row['nombre']) ?>"></td>
-                        <td>
+                        <td class="col-image"><img class="img-thumbnail product-thumb" src="../productsImg/<?php echo $row['id'] . '.' . $ext ?> " alt="<?php echo productHtml($row['nombre']) ?>"></td>
+                        <td class="col-product">
                           <div class="product-info">
                           <span class="product-title"><?php echo productHtml($row['nombre']) ?></span>
                           <span class="product-excerpt"><?php echo productHtml($briefDescription) ?></span>
                           <span class="d-none"><?php echo productHtml($searchDescription) ?></span>
                           </div>
                         </td>
-                        <td class="product-price"><?php echo productHtml($row['precio_normal']) ?></td>
-                        <td class="product-category"><?php echo productHtml($row['category']) ?></td>
-                        <td class="product-category"><?php echo productHtml($row['subcategory']) ?></td>
-                        <td>
+                        <td class="col-price product-price"><?php echo productHtml($row['precio_normal']) ?></td>
+                        <td class="col-category product-category"><?php echo productHtml($row['category']) ?></td>
+                        <td class="col-subcategory product-category"><?php echo productHtml($row['subcategory']) ?></td>
+                        <td class="col-actions">
                           <div class="product-actions">
                             <a href="../producto?id=<?= $row['id'] ?>&click=1" target="_blank" class="btn btn-sm btn-primary" title="Ver contenido" aria-label="Ver contenido">
                               <i class="fas fa-eye"></i>
