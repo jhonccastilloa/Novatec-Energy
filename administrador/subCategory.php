@@ -70,13 +70,19 @@ include("conection.php");
                     <div class="form-group">
                       <label for="nombres" class="col-sm-12 ">Sub Categoria: </label>
                       <div class="col-sm-12">
-                        <input type="text" class="form-control" id="subCategory" name="subcategory" placeholder="Escriba el Nombre de la SubCategoria" required>
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="subCategory" name="subcategory" placeholder="Escriba el Nombre de la SubCategoria" required>
+                          <div class="input-group-append">
+                            <button type="button" onclick="erasedTextSub()" class="btn btn-outline-secondary" title="Borrar">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <button type="button" onclick="erasedTextSub()" class="btn btn-danger">Borrar</button>
                         <button type="button" onclick="cancelSubCategory()" class="btn btn-secondary" id="btnCancelSubCategory" hidden>Cancelar</button>
                       </div>
                     </div>

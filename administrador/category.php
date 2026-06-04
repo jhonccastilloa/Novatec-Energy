@@ -54,14 +54,20 @@ include("conection.php");
                     <div class="form-group">
                       <label for="nombres" class="col-sm-12 ">Categoria: </label>
                       <div class="col-sm-12">
-                        <input type="text" class="form-control" id="category" name="category" placeholder="Escriba el nombre de la Categoria" required>
+                        <div class="input-group">
+                          <input type="text" class="form-control" id="category" name="category" placeholder="Escriba el nombre de la Categoria" required>
+                          <div class="input-group-append">
+                            <button type="button" onclick="erasedText()" class="btn btn-outline-secondary" title="Borrar">
+                              <i class="fas fa-times"></i>
+                            </button>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">Guardar</button>
-                        <button type="button" onclick="erasedText()" class="btn btn-danger">Borrar</button>
-                        <button type="button" onclick="cancelCategory()" class="btn btn-secondary"   id="btnCancelCategory" hidden>Cancelar</button>
+                        <button type="button" onclick="cancelCategory()" class="btn btn-secondary" id="btnCancelCategory" hidden>Cancelar</button>
                       </div>
                     </div>
                   </form>

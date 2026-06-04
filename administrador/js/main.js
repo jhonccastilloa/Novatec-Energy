@@ -345,11 +345,17 @@ let espanol = {
 };
 
 const erasedText = () => {
-  categoryName.value = "";
-  descriptionName.value = "";
+  if (categoryName) {
+    categoryName.value = "";
+  }
+  if (descriptionName) {
+    descriptionName.value = "";
+  }
 };
 const erasedTextSub = () => {
-  subCategoryName.value = "";
+  if (subCategoryName) {
+    subCategoryName.value = "";
+  }
 };
 
 $(document).ready(function () {
