@@ -55,10 +55,8 @@ if (!function_exists('productHtml')) {
 
     #tableProducts {
       font-size: 0.92rem;
-      margin-bottom: 0.75rem !important;
       min-width: 1020px;
       table-layout: fixed;
-      width: 100% !important;
     }
 
     #tableProducts th,
@@ -100,19 +98,6 @@ if (!function_exists('productHtml')) {
       width: 132px !important;
     }
 
-    #tableProducts_wrapper {
-      width: 100%;
-    }
-
-    #tableProducts_wrapper .dataTables_length,
-    #tableProducts_wrapper .dataTables_filter {
-      margin-bottom: 0.8rem;
-    }
-
-    #tableProducts_wrapper .dataTables_filter input {
-      height: 36px;
-      margin-left: 0.45rem;
-    }
     .product-info{
       display: flex;
       flex-direction: column;
@@ -224,8 +209,8 @@ if (!function_exists('productHtml')) {
               <?php
               renderAdminSessionAlert();
               ?>
-              <div class="table-responsive">
-                <table id="tableProducts" class="table table-sm table-bordered table-hover" style="width:100%">
+              <div class="admin-table-scroll">
+                <table id="tableProducts" class="table table-sm  table-hover" style="width:100%">
                   <thead>
                     <tr>
                       <th>ID</th>

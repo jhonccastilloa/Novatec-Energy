@@ -48,12 +48,139 @@ $name = $_SESSION['name'];
       z-index: 1080;
     }
 
+    .admin-table-panel {
+      min-width: 0;
+    }
+
+    .admin-table-scroll {
+      -webkit-overflow-scrolling: touch;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+      width: 100%;
+    }
+
+    .admin-table-scroll table.dataTable,
+    .admin-table-scroll table.table {
+      margin-bottom: 0.75rem !important;
+      width: 100% !important;
+    }
+
+    .admin-table-scroll th,
+    .admin-table-scroll td {
+      vertical-align: middle;
+    }
+
+    .admin-table-scroll th {
+      white-space: nowrap;
+    }
+
+    .admin-table-scroll .col-actions {
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .admin-table-scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .admin-table-scroll::-webkit-scrollbar-thumb {
+      background-color: #ced4da;
+      border-radius: 999px;
+    }
+
+    .dataTables_wrapper {
+      width: 100%;
+    }
+
+    .dataTables_wrapper .dataTables_length,
+    .dataTables_wrapper .dataTables_filter {
+      align-items: center;
+      display: flex;
+      margin-bottom: 0.85rem;
+    }
+
+    .dataTables_wrapper .dataTables_length {
+      justify-content: flex-start;
+    }
+
+    .dataTables_wrapper .dataTables_filter {
+      justify-content: flex-end;
+    }
+
+    .dataTables_wrapper .dataTables_filter input {
+      height: 36px;
+      margin-left: 0.45rem;
+      max-width: 220px;
+      width: 100%;
+    }
+
+    .dataTables_wrapper .dataTables_info {
+      padding-top: 0.35rem;
+      white-space: normal;
+    }
+
+    .dataTables_wrapper .dataTables_paginate {
+      align-items: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      justify-content: flex-end;
+      padding-top: 0.35rem;
+    }
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+      border-radius: 0.25rem;
+      margin-left: 0;
+      min-width: 34px;
+      text-align: center;
+    }
+
     @media (max-width: 575.98px) {
       .admin-floating-alert {
         left: 1rem;
         min-width: 0;
         right: 1rem;
         width: auto;
+      }
+
+      .content-wrapper > .content {
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      .content .container-fluid {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+      }
+
+      .content .card-body {
+        padding: 1rem;
+      }
+
+      .dataTables_wrapper .dataTables_length,
+      .dataTables_wrapper .dataTables_filter,
+      .dataTables_wrapper .dataTables_info,
+      .dataTables_wrapper .dataTables_paginate {
+        float: none;
+        justify-content: center;
+        text-align: center;
+        width: 100%;
+      }
+
+      .dataTables_wrapper .dataTables_length,
+      .dataTables_wrapper .dataTables_filter {
+        align-items: center;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+
+      .dataTables_wrapper .dataTables_filter input {
+        margin-left: 0;
+        max-width: 100%;
+      }
+
+      .dataTables_wrapper .dataTables_info {
+        margin-bottom: 0.5rem;
       }
     }
   </style>

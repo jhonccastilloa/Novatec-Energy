@@ -404,6 +404,7 @@ $(document).ready(function () {
   $("#tableCategory").DataTable({
     language: espanol,
     order: [0, "desc"],
+    autoWidth: false,
     columnDefs: [
       {
         targets: 0,
@@ -422,6 +423,7 @@ $(document).ready(function () {
   $("#tableSubcategory").DataTable({
     language: espanol,
     order: [0, "desc"],
+    autoWidth: false,
     columnDefs: [
       {
         targets: 0,

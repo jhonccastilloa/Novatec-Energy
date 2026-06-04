@@ -29,6 +29,14 @@ if (!function_exists('categoryHtml')) {
     </div><!-- /.container-fluid -->
   </section>
   <style>
+    .taxonomy-admin-row {
+      row-gap: 1rem;
+    }
+
+    #tableCategory {
+      min-width: 420px;
+    }
+
     #tableCategory .col-actions {
       width: 94px;
     }
@@ -64,8 +72,8 @@ if (!function_exists('categoryHtml')) {
               renderAdminSessionAlert();
               ?>
 
-              <div class="row">
-                <div class="col-sm-4">
+              <div class="row taxonomy-admin-row">
+                <div class="col-lg-4">
                   <form class="form-horizontal" action="categoryEvalua.php" method="GET">
                     <input type="hidden" name="id" id="idCat" value="">
                     <div class="form-group">
@@ -89,8 +97,9 @@ if (!function_exists('categoryHtml')) {
                     </div>
                   </form>
                 </div>
-                <div class="col-sm-8">
-                  <table class="table" id="tableCategory">
+                <div class="col-lg-8 admin-table-panel">
+                  <div class="admin-table-scroll">
+                  <table class="table table-sm  table-hover" id="tableCategory">
                     <thead>
                       <tr>
                         <th>ID</th>
@@ -123,6 +132,7 @@ if (!function_exists('categoryHtml')) {
                       ?>
                     </tbody>
                   </table>
+                  </div>
                 </div>
               </div>
             </div>
@@ -138,6 +148,3 @@ if (!function_exists('categoryHtml')) {
   </section>
   <!-- /.content -->
 </div>
-
-</div>
-<!-- ./wrapper -->
