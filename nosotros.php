@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	
+
 	<!-- title -->
 	<title>Nosotros | Novatec Energy</title>
 	<meta name="description" content="Somos una empresa comprometida con la intención de ayudar a la población en general a tener una mejor calidad de vida a través del aprovechamiento de energía solar para las viviendas, brindando el mejor servicio de la mano de especialistas a un precio accesible.">
@@ -33,76 +33,74 @@
 	<link rel="stylesheet" href="assets/css/responsive.css">
 
 </head>
-<?php 
+<?php
 include_once("head.php")
 ?>
-	
-	<!-- breadcrumb-section -->
-	<div class="breadcrumb-section breadcrumb-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="breadcrumb-text">
-						<p>Contamos con un equipo profesional</p>
-						<h1>Sobre nosotros</h1>
-					</div>
+
+<!-- breadcrumb-section -->
+<div class="breadcrumb-section breadcrumb-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="breadcrumb-text">
+					<p>Contamos con un equipo profesional</p>
+					<h1>Sobre nosotros</h1>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end breadcrumb section -->
+</div>
+<!-- end breadcrumb section -->
 
-	<!-- featured section -->
-	<div class="feature-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-7">
-					<div class="featured-text">
-						<h2 class="pb-3">¿Por que  <span class="orange-text">Novatec?</span></h2>
-						<div class="row">
-							<div class="col-lg-6 col-md-6 mb-4 mb-md-5">
-								<div class="list-box d-flex">
-									<div class="list-icon">
-										<i class="fas fa-shipping-fast"></i>
-									</div>
-									<div class="content">
-										<h3>Entrega a domicilio</h3>
-										<p>sit voluptatem accusantium dolore mque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
-									</div>
+<!-- featured section -->
+<div class="feature-bg">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-7">
+				<div class="featured-text">
+					<h2 class="pb-3">¿Por que <span class="orange-text">Novatec?</span></h2>
+					<div class="row">
+						<div class="col-lg-6 col-md-6 mb-4 mb-md-5">
+							<div class="list-box d-flex">
+								<div class="list-icon">
+									<i class="fas fa-drafting-compass"></i>
+								</div>
+								<div class="content">
+									<h3>Soluciones a medida</h3>
+									<p>Diseñamos proyectos energéticos adaptados a tu hogar o empresa.</p>
 								</div>
 							</div>
-							<div class="col-lg-6 col-md-6 mb-5 mb-md-5">
-								<div class="list-box d-flex">
-									<div class="list-icon">
-										<i class="fas fa-money-bill-alt"></i>
-									</div>
-									<div class="content">
-										<h3>Mejores Precios</h3>
-										<p>sit voluptatem accusantium dolore mque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
-									</div>
+						</div>
+						<div class="col-lg-6 col-md-6 mb-5 mb-md-5">
+							<div class="list-box d-flex">
+								<div class="list-icon">
+									<i class="fas fa-piggy-bank"></i>
+								</div>
+								<div class="content">
+									<h3>Ahorro energético</h3>
+									<p>Reduce tu consumo y optimiza tu factura con energía renovable.</p>
 								</div>
 							</div>
-							<div class="col-lg-6 col-md-6 mb-5 mb-md-5">
-								<div class="list-box d-flex">
-									<div class="list-icon">
-										<i class="fas fa-briefcase"></i>
-									</div>
-									<div class="content">
-										<h3>Profesionalidad</h3>
-										<p>sit voluptatem accusantium dolore mque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
-									</div>
+						</div>
+						<div class="col-lg-6 col-md-6 mb-5 mb-md-5">
+							<div class="list-box d-flex">
+								<div class="list-icon">
+									<i class="fas fa-tools"></i>
+								</div>
+								<div class="content">
+									<h3>Instalación profesional</h3>
+									<p>Nuestro equipo técnico garantiza una instalación segura y eficiente.</p>
 								</div>
 							</div>
-							<div class="col-lg-6 col-md-6">
-								<div class="list-box d-flex">
-									<div class="list-icon">
-										<i class="fas fa-sync-alt"></i>
-									</div>
-									<div class="content">
-										<h3>
-											Reembolso rápido</h3>
-										<p>sit voluptatem accusantium dolore mque laudantium, totam rem aperiam, eaque ipsa quae ab illo.</p>
-									</div>
+						</div>
+						<div class="col-lg-6 col-md-6">
+							<div class="list-box d-flex">
+								<div class="list-icon">
+									<i class="fas fa-seedling"></i>
+								</div>
+								<div class="content">
+									<h3>Compromiso sostenible</h3>
+									<p>Impulsamos un futuro más limpio con tecnología renovable</p>
 								</div>
 							</div>
 						</div>
@@ -111,60 +109,61 @@ include_once("head.php")
 			</div>
 		</div>
 	</div>
-	<!-- end featured section -->
+</div>
+<!-- end featured section -->
 
-	<!-- team section -->
-	<div class="mt-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="section-title">
-						<h3>Nuestro <span class="orange-text">Equipo</span></h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
-					</div>
+<!-- team section -->
+<div class="mt-150">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 offset-lg-2 text-center">
+				<div class="section-title">
+					<h3>Nuestro <span class="orange-text">Equipo</span></h3>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, fuga quas itaque eveniet beatae optio.</p>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-lg-4 col-md-6">
-					<div class="single-team-item">
-						<div class="team-bg team-bg-1"></div>
-						<h4>Robert Franclinbert  <span>Tecnico</span></h4>
-						<ul class="social-link-team">
+		</div>
+		<div class="row">
+			<div class="col-lg-4 col-md-6">
+				<div class="single-team-item">
+					<div class="team-bg team-bg-1"></div>
+					<h4>Robert Franclinbert <span>Tecnico</span></h4>
+					<!-- <ul class="social-link-team">
 							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
 							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
 							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-						</ul>
-					</div>
+						</ul> -->
 				</div>
-				<div class="col-lg-4 col-md-6">
-					<div class="single-team-item">
-						<div class="team-bg team-bg-2"></div>
-						<h4>Jose Mario  <span>Tecnico</span></h4>
-						<ul class="social-link-team">
+			</div>
+			<div class="col-lg-4 col-md-6">
+				<div class="single-team-item">
+					<div class="team-bg team-bg-2"></div>
+					<h4>Jose Mario <span>Tecnico</span></h4>
+					<!-- <ul class="social-link-team">
 							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
 							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
 							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-						</ul>
-					</div>
+						</ul> -->
 				</div>
-				<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
-					<div class="single-team-item">
-						<div class="team-bg team-bg-3"></div>
-						<h4>Gerson Enoc  <span>Tecnico</span></h4>
-						<ul class="social-link-team">
+			</div>
+			<div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0">
+				<div class="single-team-item">
+					<div class="team-bg team-bg-3"></div>
+					<h4>Gerson Enoc <span>Tecnico</span></h4>
+					<!-- <ul class="social-link-team">
 							<li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
 							<li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
 							<li><a href="#" target="_blank"><i class="fab fa-instagram"></i></a></li>
-						</ul>
-					</div>
+						</ul> -->
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- end team section -->
+</div>
+<!-- end team section -->
 
-	<!-- testimonail-section -->
-	<!-- <div class="testimonail-section mt-80 mb-150">
+<!-- testimonail-section -->
+<!-- <div class="testimonail-section mt-80 mb-150">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 offset-lg-1 text-center">
@@ -216,10 +215,9 @@ include_once("head.php")
 			</div>
 		</div>
 	</div> -->
-	<!-- end testimonail-section -->
+<!-- end testimonail-section -->
 
-	<?php
-	
-	include_once("footer.php")
-	?>
-	
+<?php
+
+include_once("footer.php")
+?>
