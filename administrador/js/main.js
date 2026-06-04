@@ -58,7 +58,8 @@ const dataEditSub = (event) => {
 //Select funcion
 let productCategory = document.getElementById("productCategory");
 let productSubcategory = document.getElementById("productSubcategory");
-if (productSubcategory) {
+let productTaxonomyRoot = document.querySelector("[data-product-taxonomy]");
+if (productSubcategory && productCategory && !productTaxonomyRoot && productCategory.tagName === "SELECT") {
   productCategory.oninput = () => {
     productSubcategory.innerHTML = "";
     getSubcategory(productCategory.value);

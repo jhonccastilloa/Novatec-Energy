@@ -33,6 +33,7 @@ $name = $_SESSION['name'];
   <link rel="stylesheet" href="./administrador/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="./administrador/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="./assets/react/product-taxonomy.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="./administrador/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
 
@@ -209,24 +210,13 @@ $name = $_SESSION['name'];
                               </div>
                             </div>
                             <div class="col-sm-12">
-                              <div class="form-group">
-                                <label>Categoria:</label>
-                                <select name="category" id="productCategory" class="form-control" required>
-                                  <option value="">Seleccione Una Categoria</option>
-                                  <?php
-                                  while ($row = $resultCategory->fetch_assoc()) {
-                                  ?>
-                                    <option value="<?php echo $row['id'] ?>"><?php echo $row['category'] ?></option>
-                                  <?php } ?>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-sm-12">
-                              <div class="form-group">
-                                <label>Sub Categoria:</label>
-                                <select name="subcategory" id="productSubcategory" class="form-control" required>
-                                </select>
-                              </div>
+                              <div
+                                data-product-taxonomy
+                                data-category-input="productCategory"
+                                data-subcategory-input="productSubcategory"
+                              ></div>
+                              <input type="hidden" name="category" id="productCategory">
+                              <input type="hidden" name="subcategory" id="productSubcategory">
                             </div>
                           </div>
                           <div class="col-sm-6">
@@ -303,6 +293,7 @@ $name = $_SESSION['name'];
   </div>
   <!-- ./wrapper -->
   <script src="./administrador/js/main.js"></script>
+  <script type="module" src="./assets/react/product-taxonomy.js"></script>
   <!-- jQuery -->
   <script src="./administrador/plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->

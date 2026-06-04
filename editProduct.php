@@ -33,6 +33,7 @@ $name = $_SESSION['name'];
   <link rel="stylesheet" href="./administrador/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="./administrador/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="./assets/react/product-taxonomy.css">
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="./administrador/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- summernote -->
@@ -204,7 +205,7 @@ $name = $_SESSION['name'];
 
                   <div class="card card-warning">
                     <div class="card-header">
-                      <h3 class="card-title font-weight-bold">EDITAR PRODUCTO:</h3>
+                      <h3 class="card-title font-weight-bold text-white">EDITAR PRODUCTO:</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -219,36 +220,15 @@ $name = $_SESSION['name'];
                               </div>
                             </div>
                             <div class="col-sm-12">
-                              <div class="form-group">
-                                <label>Categoria:</label>
-                                <select name="category" id="productCategory" class="form-control" required>
-                                  <option value="">Seleccione Una Categoria</option>
-                                  <?php
-                                  while ($rowCategory = $resultCategory->fetch_assoc()) {
-                                  ?>
-                                    <option value="<?php echo $rowCategory['id'] ?>" <?php echo ($row['id_categoria'] == $rowCategory['id'] ? 'selected' : '') ?>><?php echo $rowCategory['category'] ?></option>
-                                  <?php
-                                  }
-                                  ?>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-sm-12">
-                              <div class="form-group">
-                                <label>Sub Categoria:</label>
-                                <select name="subcategory" id="productSubcategory" class="form-control" required>
-                                  <?php
-                                  $querySubcategory = 'SELECT * FROM subcategory WHERE id_category=' . $row['id_categoria'];
-                                  $resultSubcategory = $conn->query($querySubcategory);
-                                  while ($rowSubcategory = $resultSubcategory->fetch_assoc()) {
-
-                                  ?>
-                                    <option value="<?php echo $rowSubcategory['id'] ?>" <?php echo ($rowSubcategory['id'] == $row['id_subcategory'] ? 'selected' : '') ?>><?php echo $rowSubcategory['subcategory'] ?></option>
-                                  <?php
-                                  }
-                                  ?>
-                                </select>
-                              </div>
+                              <div
+                                data-product-taxonomy
+                                data-category-input="productCategory"
+                                data-subcategory-input="productSubcategory"
+                                data-category-id="<?php echo $row['id_categoria'] ?>"
+                                data-subcategory-id="<?php echo $row['id_subcategory'] ?>"
+                              ></div>
+                              <input type="hidden" name="category" id="productCategory" value="<?php echo $row['id_categoria'] ?>">
+                              <input type="hidden" name="subcategory" id="productSubcategory" value="<?php echo $row['id_subcategory'] ?>">
                             </div>
                           </div>
                           <div class="col-sm-6">
@@ -362,6 +342,7 @@ $name = $_SESSION['name'];
   </div>
   <!-- ./wrapper -->
   <script src="./administrador/js/main.js"></script>
+  <script type="module" src="./assets/react/product-taxonomy.js"></script>
 
   <!-- jQuery -->
   <script src="./administrador/plugins/jquery/jquery.min.js"></script>
