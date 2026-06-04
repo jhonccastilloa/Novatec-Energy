@@ -2,17 +2,20 @@
 require "conection.php";
 session_start();
 
-if (isset($_REQUEST['login'])) {
-  $usuario = $_REQUEST['usuario'];
-  $password = $_REQUEST['password'];
-  $query = "select id,user,password,user_name from users where user='$usuario'";
-  $resultado = $conn->query($query);
+if (isset($_POST['login'])) {
+  $usuario = $_POST['usuario'];
+  $password = $_POST['password'];
+  $query = "select id,user,password,user_name from users where user=?";
+  $stmt = $conn->prepare($query);
+  $stmt->bind_param("s", $usuario);
+  $stmt->execute();
+  $resultado = $stmt->get_result();
   $num = $resultado->num_rows;
   if ($num > 0) {
     $row = $resultado->fetch_assoc();
     $pass_bd = $row['password'];
     $pass_c = sha1($password);
-    if ($pass_bd == $pass_c) {
+    if (hash_equals($pass_bd, $pass_c)) {
       $_SESSION['name'] = $row['user_name'];
       $_SESSION['id'] = $row['id'];
       header("Location: index.php");
