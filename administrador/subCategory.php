@@ -1,5 +1,6 @@
 <?php
 include("conection.php");
+require_once __DIR__ . "/components/adminAlert.php";
 
 ?>
 
@@ -33,18 +34,8 @@ include("conection.php");
             <!-- /.card-header -->
             <div class="card-body">
               <?php
-              if (isset($_SESSION["msg"]) and isset($_SESSION['estate'])) {
+              renderAdminSessionAlert();
               ?>
-                <div class="alert alert-<?= $_SESSION["estate"] ?> alert-dismissible fade show" role="alert">
-                  <strong><?= $_SESSION["msg"] ?></strong>
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-              <?php
-                unset($_SESSION["msg"]);
-                unset($_SESSION["estate"]);
-              } ?>
               <div class="row">
                 <div class="col-sm-4">
                   <form class="form-horizontal" action="subCategoryEvalua.php" method="GET">

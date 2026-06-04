@@ -1,5 +1,6 @@
 <?php
 require "conection.php";
+require_once __DIR__ . "/components/adminAlert.php";
 session_start();
 
 if (isset($_REQUEST['session']) and $_REQUEST['session'] == 'exit') {
@@ -33,6 +34,28 @@ $name = $_SESSION['name'];
   <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <style>
+    .admin-floating-alert {
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      margin-bottom: 0;
+      max-width: calc(100vw - 2rem);
+      min-width: 280px;
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      width: 420px;
+      z-index: 1080;
+    }
+
+    @media (max-width: 575.98px) {
+      .admin-floating-alert {
+        left: 1rem;
+        min-width: 0;
+        right: 1rem;
+        width: auto;
+      }
+    }
+  </style>
   <!-- overlayScrollbars -->
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- summernote -->
@@ -150,15 +173,7 @@ $name = $_SESSION['name'];
     <?php
 
     if (isset($_REQUEST['mensaje'])) {
-    ?>
-      <div class="alert alert-primary alert-dismissible fade show float-right" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          <span class="sr-only">Close</span>
-        </button>
-        <?php echo $_REQUEST['mensaje'] ?>
-      </div>
-    <?php
+      renderAdminAlert($_REQUEST['mensaje'], 'primary');
     }
     if (!isset($_REQUEST['module'])) {
       require_once('statistics.php');

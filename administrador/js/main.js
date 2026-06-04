@@ -3,6 +3,26 @@ let descriptionName = document.getElementById("description");
 let idName = document.getElementById("idCat");
 const btnCancel = document.getElementById("btnCancelCategory");
 
+const initFloatingAlerts = () => {
+  document.querySelectorAll(".admin-floating-alert").forEach((alertElement) => {
+    setTimeout(() => {
+      if (window.jQuery && typeof window.jQuery(alertElement).alert === "function") {
+        window.jQuery(alertElement).alert("close");
+        return;
+      }
+
+      alertElement.classList.remove("show");
+      setTimeout(() => alertElement.remove(), 150);
+    }, 5000);
+  });
+};
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initFloatingAlerts);
+} else {
+  initFloatingAlerts();
+}
+
 const dataEdit = (event) => {
   let titleCategory = document.querySelector(".title-category");
   let category = event.target.getAttribute("category");

@@ -1,5 +1,6 @@
 <?php
 include("conection.php");
+require_once __DIR__ . "/components/adminAlert.php";
 $query = "SELECT productos.id,productos.nombre,productos.descripcion,productos.precio_normal,productos.breve_descripcion,productos.imagen,category.category,subcategory.subcategory 
 FROM productos LEFT JOIN category ON productos.id_categoria = category.id LEFT JOIN subcategory ON productos.id_subcategory=subcategory.id";
 $results = $conn->query($query);
@@ -221,18 +222,8 @@ if (!function_exists('productHtml')) {
             <!-- /.card-header -->
             <div class="card-body">
               <?php
-              if (isset($_SESSION["msg"]) and isset($_SESSION['estate'])) {
+              renderAdminSessionAlert();
               ?>
-                <div class="alert alert-<?= $_SESSION["estate"] ?> alert-dismissible fade show" role="alert">
-                  <strong><?= $_SESSION["msg"] ?></strong>
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-              <?php
-                unset($_SESSION["msg"]);
-                unset($_SESSION["estate"]);
-              } ?>
               <div class="table-responsive">
                 <table id="tableProducts" class="table table-sm table-bordered table-hover" style="width:100%">
                   <thead>
