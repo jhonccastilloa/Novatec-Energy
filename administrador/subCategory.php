@@ -2,6 +2,13 @@
 include("conection.php");
 require_once __DIR__ . "/components/adminAlert.php";
 
+if (!function_exists('subcategoryHtml')) {
+  function subcategoryHtml($text)
+  {
+    return htmlspecialchars((string) $text, ENT_QUOTES, 'UTF-8');
+  }
+}
+
 ?>
 
 <div class="content-wrapper">
@@ -21,6 +28,26 @@ require_once __DIR__ . "/components/adminAlert.php";
       </div>
     </div><!-- /.container-fluid -->
   </section>
+  <style>
+    #tableSubcategory .col-actions {
+      width: 94px;
+    }
+
+    #tableSubcategory .taxonomy-actions {
+      display: flex;
+      gap: 0.35rem;
+      justify-content: center;
+      white-space: nowrap;
+    }
+
+    #tableSubcategory .taxonomy-actions .btn {
+      align-items: center;
+      display: inline-flex;
+      height: 32px;
+      justify-content: center;
+      width: 32px;
+    }
+  </style>
 
   <!-- Main content -->
   <section class="content">
@@ -86,8 +113,7 @@ require_once __DIR__ . "/components/adminAlert.php";
                         <th>ID</th>
                         <th>Categoria</th>
                         <th>Sub Categoria</th>
-                        <th>Editar</th>
-                        <th>Eliminar</th>
+                        <th class="col-actions">Acciones</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -98,10 +124,18 @@ require_once __DIR__ . "/components/adminAlert.php";
                       ?>
                         <tr>
                           <td><?php echo $row['id'] ?></td>
-                          <td><?php echo $row['category'] ?></td>
-                          <td><?php echo $row['subcategory'] ?></td>
-                          <td><i class="fas fa-edit " onclick="dataEditSub(event)" id='<?php echo $row['id'] ?>' category='<?php echo $row['idCategoria'] ?>' subcategory="<?php echo $row['subcategory'] ?>" title="Editar"></i></td>
-                          <td><a href="subCategoryEvalua.php?op=delete&idEdit=<?php echo $row['id'] ?>" onclick="deleteSubCategory(event)"  class="p-3 py-6 text-danger" title="Eliminar"><i class="fas fa-trash  icono "></i></a></td>
+                          <td><?php echo subcategoryHtml($row['category']) ?></td>
+                          <td><?php echo subcategoryHtml($row['subcategory']) ?></td>
+                          <td class="col-actions">
+                            <div class="taxonomy-actions">
+                              <button type="button" onclick="dataEditSub(event)" id="<?php echo $row['id'] ?>" data-category="<?php echo $row['idCategoria'] ?>" data-subcategory="<?php echo subcategoryHtml($row['subcategory']) ?>" class="btn btn-sm btn-info" title="Editar" aria-label="Editar">
+                                <i class="fas fa-edit"></i>
+                              </button>
+                              <a href="subCategoryEvalua.php?op=delete&idEdit=<?php echo $row['id'] ?>" onclick="deleteSubCategory(event)" class="btn btn-sm btn-danger" title="Eliminar" aria-label="Eliminar">
+                                <i class="fas fa-trash"></i>
+                              </a>
+                            </div>
+                          </td>
                         </tr>
                       <?php
                       }

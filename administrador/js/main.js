@@ -24,10 +24,11 @@ if (document.readyState === "loading") {
 }
 
 const dataEdit = (event) => {
+  const trigger = event.currentTarget || event.target;
   let titleCategory = document.querySelector(".title-category");
-  let category = event.target.getAttribute("category");
+  let category = trigger.dataset.category || trigger.getAttribute("category");
   const card = document.getElementById("cardCategory");
-  let id = event.target.getAttribute("id");
+  let id = trigger.getAttribute("id");
 
   categoryName.value = category;
   idName.value = id;
@@ -74,11 +75,13 @@ let categorySubName = document.getElementById("selectCategory");
 let idCatName = document.getElementById("idCat");
 const btnCancelSubCategory = document.getElementById("btnCancelSubCategory");
 const dataEditSub = (event) => {
+  const trigger = event.currentTarget || event.target;
   let titleSubcategory = document.querySelector(".title-subcategory");
-  let category = event.target.getAttribute("category");
-  let subcategory = event.target.getAttribute("subcategory");
+  let category = trigger.dataset.category || trigger.getAttribute("category");
+  let subcategory =
+    trigger.dataset.subcategory || trigger.getAttribute("subcategory");
   const card = document.getElementById("cardSubCategory");
-  let id = event.target.getAttribute("id");
+  let id = trigger.getAttribute("id");
 
   subCategoryName.value = subcategory;
   categorySubName.value = category;
@@ -403,8 +406,13 @@ $(document).ready(function () {
     order: [0, "desc"],
     columnDefs: [
       {
-        target: 0,
+        targets: 0,
         visible: false,
+        searchable: false,
+      },
+      {
+        targets: 2,
+        orderable: false,
         searchable: false,
       },
     ],
@@ -416,8 +424,13 @@ $(document).ready(function () {
     order: [0, "desc"],
     columnDefs: [
       {
-        target: 0,
+        targets: 0,
         visible: false,
+        searchable: false,
+      },
+      {
+        targets: 3,
+        orderable: false,
         searchable: false,
       },
     ],
