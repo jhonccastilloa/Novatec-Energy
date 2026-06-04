@@ -164,11 +164,11 @@ include_once("head.php");
 				<div class="col-lg-4 col-md-6 text-center card-content <?php echo $row['id_subcategory'] ?> ">
 					<div class="single-product-item">
 						<div class="product-image" width="300" height="300">
-							<a href="producto.php?id=<?php echo $row['id'] ?>"><img src="./productsImg/<?php echo $row['id'] . '.' . $ext ?>" alt="<?php echo $image ?>" width="300" height="300"></a>
+							<a href="producto.php?id=<?php echo $row['id'] ?>&click=1#text-description"><img src="./productsImg/<?php echo $row['id'] . '.' . $ext ?>" alt="<?php echo $image ?>" width="300" height="300"></a>
 						</div>
 						<h3><?php echo $row['nombre'] ?></h3>
 						<p class="product-price"> S/.<?php echo $row['precio_normal'] ?> </p>
-						<a href="producto.php?id=<?php echo $row['id'] ?>" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer Mas</a>
+						<a href="producto.php?id=<?php echo $row['id'] ?>&click=1#text-description" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer Mas</a>
 					</div>
 				</div>
 			<?php
