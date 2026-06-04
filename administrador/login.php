@@ -14,8 +14,7 @@ if (isset($_POST['login'])) {
   if ($num > 0) {
     $row = $resultado->fetch_assoc();
     $pass_bd = $row['password'];
-    $pass_c = sha1($password);
-    if (hash_equals($pass_bd, $pass_c)) {
+    if (password_verify($password, $pass_bd)) {
       $_SESSION['name'] = $row['user_name'];
       $_SESSION['id'] = $row['id'];
       header("Location: index.php");
