@@ -94,11 +94,11 @@ $link = 'https://' . $url;
 <!-- end breadcrumb section -->
 
 <!-- single product -->
-<div class="single-product mt-150 mb-150">
+<div class="single-product pt-150 mb-150" id="text-description">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-5">
-					<img class="img-product" src="./productsImg/<?php echo $row['id'] . '.' . $ext ?>" alt="">
+				<img class="img-product" src="./productsImg/<?php echo $row['id'] . '.' . $ext ?>" alt="">
 			</div>
 			<div class="col-md-7">
 				<div class="single-product-content">
@@ -112,7 +112,7 @@ $link = 'https://' . $url;
 						<!-- <p><strong>Categories: </strong>Fruits, Organic</p> -->
 					</div>
 					<h4>Compartir:</h4>
-					<ul class="product-share" id="text-description">
+					<ul class="product-share">
 						<li><a href="http://www.facebook.com/sharer.php?u=<?php echo $link ?>&t=pagina de desarrollo web" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
 						<li><a href="https://twitter.com/intent/tweet?url=<?php echo $link ?>&hashtags=#NovatecEnergy" target="_blank"><i class="fab fa-twitter"></i></a></li>
 
@@ -123,12 +123,12 @@ $link = 'https://' . $url;
 	</div>
 </div>
 <!-- end single product -->
-<div class="single-product mt-150 mb-150" >
-	<div class="container text-description" >
-		
-			<?php echo $row['descripcion'] ?>
+<div class="single-product mt-150 mb-150">
+	<div class="container text-description">
 
-		
+		<?php echo $row['descripcion'] ?>
+
+
 	</div>
 </div>
 
@@ -136,11 +136,11 @@ $link = 'https://' . $url;
 
 <?php
 if (isset($_REQUEST['click'])) {
-	?>
+?>
 	<script>
 		document.getElementById("click").click();
 	</script>
-	<?php
+<?php
 }
 include_once("footer.php")
 ?>
