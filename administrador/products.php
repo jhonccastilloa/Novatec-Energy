@@ -169,8 +169,15 @@ if (!function_exists('productHtml')) {
       width: 100%;
     }
 
-    #tableProducts .product-price,
+    #tableProducts .product-price {
+      white-space: nowrap;
+    }
+
     #tableProducts .product-category {
+      display: block;
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
       white-space: nowrap;
     }
 
@@ -257,8 +264,8 @@ if (!function_exists('productHtml')) {
                           </div>
                         </td>
                         <td class="col-price product-price"><?php echo productHtml($row['precio_normal']) ?></td>
-                        <td class="col-category product-category"><?php echo productHtml($row['category']) ?></td>
-                        <td class="col-subcategory product-category"><?php echo productHtml($row['subcategory']) ?></td>
+                        <td class="col-category"><span class="product-category" title="<?php echo productHtml($row['category']) ?>"><?php echo productHtml($row['category']) ?></span></td>
+                        <td class="col-subcategory"><span class="product-category" title="<?php echo productHtml($row['subcategory']) ?>"><?php echo productHtml($row['subcategory']) ?></span></td>
                         <td class="col-actions">
                           <div class="product-actions">
                             <a href="../producto?id=<?= $row['id'] ?>&click=1" target="_blank" class="btn btn-sm btn-primary" title="Ver contenido" aria-label="Ver contenido">

@@ -176,7 +176,8 @@ $name = $_SESSION['name'];
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="./">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="./administrador/">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="./administrador/index.php?module=product">Productos</a></li>
                 <li class="breadcrumb-item active">Agregar</li>
               </ol>
             </div>
