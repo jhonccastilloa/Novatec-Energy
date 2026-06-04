@@ -26,19 +26,14 @@ include("conection.php");
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <div class="card">
+          <div class="card card-success" id="cardCategory">
             <div class="card-header">
-              <div class="row mb-2">
-                <div class="col-sm-6">
-                  <h3 class="card-title font-weight-bold title-category">AGREGAR CATEGORIA:</h3>
-                </div>
-
-              </div>
+              <h3 class="card-title font-weight-bold title-category">AGREGAR CATEGORIA:</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
               <?php
-    
+
               if (isset($_SESSION["msg"]) and isset($_SESSION['estate'])) {
               ?>
                 <div class="alert alert-<?= $_SESSION["estate"] ?> alert-dismissible fade show" role="alert">
@@ -66,6 +61,7 @@ include("conection.php");
                       <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">Guardar</button>
                         <button type="button" onclick="erasedText()" class="btn btn-danger">Borrar</button>
+                        <button type="button" onclick="cancelCategory()" class="btn btn-secondary"   id="btnCancelCategory" hidden>Cancelar</button>
                       </div>
                     </div>
                   </form>

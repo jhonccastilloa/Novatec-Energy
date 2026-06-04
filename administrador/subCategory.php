@@ -26,14 +26,9 @@ include("conection.php");
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <div class="card">
+          <div class="card card-success" id="cardSubCategory">
             <div class="card-header">
-              <div class="row mb-2">
-                <div class="col-sm-6">
-                  <h3 class="card-title font-weight-bold title-subcategory">AGREGAR SUB CATEGORIA:</h3>
-                </div>
-
-              </div>
+              <h3 class="card-title font-weight-bold title-subcategory">AGREGAR SUB CATEGORIA:</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -82,6 +77,7 @@ include("conection.php");
                       <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary">Guardar</button>
                         <button type="button" onclick="erasedTextSub()" class="btn btn-danger">Borrar</button>
+                        <button type="button" onclick="cancelSubCategory()" class="btn btn-secondary" id="btnCancelSubCategory" hidden>Cancelar</button>
                       </div>
                     </div>
                   </form>

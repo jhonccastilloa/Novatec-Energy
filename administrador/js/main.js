@@ -1,65 +1,95 @@
 let categoryName = document.getElementById("category");
 let descriptionName = document.getElementById("description");
 let idName = document.getElementById("idCat");
+const btnCancel = document.getElementById("btnCancelCategory");
 
 const dataEdit = (event) => {
   let titleCategory = document.querySelector(".title-category");
   let category = event.target.getAttribute("category");
-  let description = event.target.getAttribute("description");
+  const card = document.getElementById("cardCategory");
   let id = event.target.getAttribute("id");
 
   categoryName.value = category;
   idName.value = id;
   titleCategory.textContent = "EDITAR CATEGORIA:";
-  titleCategory.classList.add("text-warning");
+  card.classList.replace("card-success", "card-warning");
+  titleCategory.classList.add("text-white");
+   btnCancel.hidden = false;
 };
 
+const cancelCategory = () => {
+  let titleCategory = document.querySelector(".title-category");
+  const card = document.getElementById("cardCategory");
+  categoryName.value = '';
+  titleCategory.textContent = "AGREGAR CATEGORIA:";
+  card.classList.replace("card-warning", "card-success");
+  titleCategory.classList.remove("text-white");
+  btnCancel.hidden = true;
+};
 //delete Products
-function deleteProduct(event){
-  if (confirm("¿Estas seguro que desea eliminar este registro?")){
+function deleteProduct(event) {
+  if (confirm("¿Estas seguro que desea eliminar este registro?")) {
     return true;
-  }else{
+  } else {
     event.preventDefault();
   }
 }
-function deleteCategory(event){
-  if (confirm("¿Estas seguro que desea eliminar este registro?")){
+function deleteCategory(event) {
+  if (confirm("¿Estas seguro que desea eliminar este registro?")) {
     return true;
-  }else{
+  } else {
     event.preventDefault();
   }
 }
-function deleteSubCategory(event){
-  if (confirm("¿Estas seguro que desea eliminar este registro?")){
+function deleteSubCategory(event) {
+  if (confirm("¿Estas seguro que desea eliminar este registro?")) {
     return true;
-  }else{
+  } else {
     event.preventDefault();
   }
 }
-
-
 
 let subCategoryName = document.getElementById("subCategory");
 let categorySubName = document.getElementById("selectCategory");
 let idCatName = document.getElementById("idCat");
+const btnCancelSubCategory = document.getElementById("btnCancelSubCategory");
 const dataEditSub = (event) => {
   let titleSubcategory = document.querySelector(".title-subcategory");
   let category = event.target.getAttribute("category");
   let subcategory = event.target.getAttribute("subcategory");
+  const card = document.getElementById("cardSubCategory");
   let id = event.target.getAttribute("id");
 
   subCategoryName.value = subcategory;
   categorySubName.value = category;
   idCatName.value = id;
   titleSubcategory.textContent = "EDITAR SUB CATEGORIA:";
-  titleSubcategory.classList.add("text-warning");
+  card.classList.replace("card-success", "card-warning");
+  titleSubcategory.classList.add("text-white");
+  btnCancelSubCategory.hidden = false;
+};
+
+const cancelSubCategory = () => {
+  let titleSubcategory = document.querySelector(".title-subcategory");
+  const card = document.getElementById("cardSubCategory");
+  subCategoryName.value = "";
+  idCatName.value = "";
+  titleSubcategory.textContent = "AGREGAR SUB CATEGORIA:";
+  card.classList.replace("card-warning", "card-success");
+  titleSubcategory.classList.remove("text-white");
+  btnCancelSubCategory.hidden = true;
 };
 
 //Select funcion
 let productCategory = document.getElementById("productCategory");
 let productSubcategory = document.getElementById("productSubcategory");
 let productTaxonomyRoot = document.querySelector("[data-product-taxonomy]");
-if (productSubcategory && productCategory && !productTaxonomyRoot && productCategory.tagName === "SELECT") {
+if (
+  productSubcategory &&
+  productCategory &&
+  !productTaxonomyRoot &&
+  productCategory.tagName === "SELECT"
+) {
   productCategory.oninput = () => {
     productSubcategory.innerHTML = "";
     getSubcategory(productCategory.value);
