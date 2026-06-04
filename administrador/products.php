@@ -263,7 +263,7 @@ if (!function_exists('productHtml')) {
                           <span class="d-none"><?php echo productHtml($searchDescription) ?></span>
                           </div>
                         </td>
-                        <td class="col-price product-price"><?php echo productHtml($row['precio_normal']) ?></td>
+                        <td class="col-price product-price">S/. <?php echo productHtml($row['precio_normal']) ?></td>
                         <td class="col-category"><span class="product-category" title="<?php echo productHtml($row['category']) ?>"><?php echo productHtml($row['category']) ?></span></td>
                         <td class="col-subcategory"><span class="product-category" title="<?php echo productHtml($row['subcategory']) ?>"><?php echo productHtml($row['subcategory']) ?></span></td>
                         <td class="col-actions">
