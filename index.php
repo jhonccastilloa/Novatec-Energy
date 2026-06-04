@@ -105,33 +105,33 @@ include_once("head.php");
 			<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
 				<div class="list-box d-flex align-items-center">
 					<div class="list-icon">
-						<i class="fas fa-shipping-fast"></i>
+						<i class="fas fa-solar-panel"></i>
 					</div>
 					<div class="content text-center pt-3">
-						<h3>Envio Gratis</h3>
-						<p>Cuando la orden es mas de los s/.75</p>
+						<h3>Energía Limpia</h3>
+						<p>Soluciones renovables para un futuro sostenible.</p>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
 				<div class="list-box d-flex align-items-center">
 					<div class="list-icon">
-						<i class="fas fa-phone-volume"></i>
+						<i class="fas fa-piggy-bank"></i>
 					</div>
 					<div class="content">
-						<h3>Soporte 24/7 </h3>
-						<p>Obtenga soporte todos los dias</p>
+						<h3>Ahorro Garantizado</h3>
+						<p>Reduce tu factura energética desde el primer mes.</p>
 					</div>
 				</div>
 			</div>
 			<div class="col-lg-4 col-md-6">
 				<div class="list-box d-flex justify-content-start align-items-center">
 					<div class="list-icon">
-						<i class="fas fa-sync"></i>
+						<i class="fas fa-tools"></i>
 					</div>
 					<div class="content">
-						<h3>Reembolso</h3>
-						<p>¡Obtenga un reembolso dentro de los 3 días!</p>
+						<h3>Instalación Profesional</h3>
+						<p>Proyectos solares ejecutados por técnicos certificados.</p>
 					</div>
 				</div>
 			</div>

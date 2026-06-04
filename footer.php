@@ -1,4 +1,4 @@
-	<!-- logo carousel -->
+	<!-- logo carousel
 	<div class="logo-carousel-section">
 		<div class="container">
 			<div class="row">
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- end logo carousel -->
+	end logo carousel -->
 	<!-- footer -->
 	<div class="footer-area">
 		<div class="container">
