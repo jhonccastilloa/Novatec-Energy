@@ -325,10 +325,16 @@ $(document).ready(function () {
   $("#tableProducts").DataTable({
     language: espanol,
     order: [0, "desc"],
+    autoWidth: false,
     columnDefs: [
       {
-        target: 0,
+        targets: 0,
         visible: false,
+        searchable: false,
+      },
+      {
+        targets: [1, 6],
+        orderable: false,
         searchable: false,
       },
     ],
