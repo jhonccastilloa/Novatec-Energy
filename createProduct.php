@@ -249,7 +249,7 @@ $name = $_SESSION['name'];
                           <div class="col-sm-4">
                             <div class="form-group">
                               <label>Precio del Producto:</label>
-                              <input type="number" class="form-control" name="price" placeholder="Ingrese un precio" required>
+                              <input type="number" class="form-control" name="price" step="0.01" placeholder="Ingrese un precio" required>
                             </div>
                           </div>
 

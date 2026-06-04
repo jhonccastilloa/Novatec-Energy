@@ -282,7 +282,7 @@ $name = $_SESSION['name'];
                             <!-- text input -->
                             <div class="form-group">
                               <label>Precio del Producto</label>
-                              <input type="number" class="form-control" name="price" value="<?php echo $row['precio_normal'] ?>" placeholder="Ingrese un precio" required>
+                              <input type="number" class="form-control" name="price" value="<?php echo $row['precio_normal'] ?>" step="0.01" placeholder="Ingrese un precio" required>
                             </div>
                           </div>
                         </div>
