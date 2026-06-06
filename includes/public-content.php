@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 return [
@@ -36,7 +37,6 @@ return [
             'icon' => 'fas fa-solar-panel',
             'title' => 'Energía Limpia',
             'text' => 'Soluciones renovables para un futuro sostenible.',
-            'content_class' => 'text-center pt-3',
         ],
         [
             'icon' => 'fas fa-piggy-bank',
