@@ -1,8 +1,26 @@
 <?php
 declare(strict_types=1);
 
+$productionBaseUrl = 'https://novatecenergy.pe';
+$host = strtolower((string) ($_SERVER['HTTP_HOST'] ?? ''));
+$host = preg_replace('/:\d+$/', '', $host) ?: '';
+$isProductionHost = in_array($host, ['novatecenergy.pe', 'www.novatecenergy.pe'], true);
+$environmentOverride = getenv('NOVATEC_ENV') ?: '';
+$environment = $environmentOverride !== ''
+    ? $environmentOverride
+    : ($isProductionHost ? 'production' : 'development');
+$configuredBaseUrl = getenv('NOVATEC_BASE_URL') ?: '';
+
+// Hostinger se detecta por dominio; NOVATEC_ENV queda como override opcional.
+$baseUrl = $configuredBaseUrl !== ''
+    ? $configuredBaseUrl
+    : ($environment === 'production' ? $productionBaseUrl : '');
+$fallbackBaseUrl = $environment === 'production'
+    ? $productionBaseUrl
+    : 'http://localhost/Novatec-Energy';
+
 return [
-    'environment' => getenv('NOVATEC_ENV') ?: 'development',
+    'environment' => $environment,
     'database' => [
         'host' => getenv('NOVATEC_DB_HOST') ?: 'localhost',
         'user' => getenv('NOVATEC_DB_USER') ?: 'root',
@@ -15,8 +33,8 @@ return [
         'tagline' => 'Energia solar y renovable en Puno',
         'language' => 'es',
         'locale' => 'es_PE',
-        'base_url' => getenv('NOVATEC_BASE_URL') ?: '',
-        'fallback_base_url' => 'http://localhost/Novatec-Energy',
+        'base_url' => $baseUrl,
+        'fallback_base_url' => $fallbackBaseUrl,
         'default_image' => 'assets/img/logo.png',
         'favicon' => 'assets/img/favicon.png',
     ],
@@ -45,6 +63,7 @@ return [
         ],
         'area_served' => ['Puno', 'Juliaca', 'Ilave', 'Juli', 'Azangaro'],
         'map_embed_url' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d806.9002886355905!2d-70.02166422490467!3d-15.841545209320099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915d698d04094815%3A0xafae726baa423822!2sTermas%20Solares%20Novatec%20Energy!5e0!3m2!1ses-419!2spe!4v1666201668891!5m2!1ses-419!2spe',
+        // Agrega aqui las URLs oficiales de redes y Google Business Profile cuando existan.
         'same_as' => [],
     ],
     'mail' => [

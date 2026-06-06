@@ -3,6 +3,13 @@ DirectoryIndex index.php
 
 RewriteEngine On
 
+RewriteCond %{HTTP_HOST} ^www\.novatecenergy\.pe$ [NC]
+RewriteRule ^ https://novatecenergy.pe%{REQUEST_URI} [R=301,L,NE]
+
+RewriteCond %{HTTP_HOST} ^novatecenergy\.pe$ [NC]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://novatecenergy.pe%{REQUEST_URI} [R=301,L,NE]
+
 RewriteRule ^robots\.txt$ robots.php [L]
 RewriteRule ^sitemap\.xml$ sitemap.php [L]
 
