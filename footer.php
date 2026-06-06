@@ -39,10 +39,10 @@
 					<div class="footer-box get-in-touch">
 						<h2 class="widget-title">Contactenos</h2>
 						<ul>
-							<li>Av. El Sol N° 986 - Puno, Puno, Peru</li>
+							<li>Av. El Sol N° 986 - Puno, Puno, Perú</li>
 							<li>CEL: 951 828 275</li>
-							<li>TELF: 51 603989</li>
-							<li>Email: cafecu@outlook.com</li>
+							<li>TELF: 51 603 939</li>
+							<li>Email: cefecu@outlook.com</li>
 							<li>facebook: Novatec Energy</li>
 						</ul>
 					</div>

@@ -1,3 +1,21 @@
+<?php
+require_once __DIR__ . '/includes/seo.php';
+security_headers();
+
+$pageTitle = 'Contacto | Novatec Energy';
+$pageDescription = 'Usted puede contactarnos llamando al numer 951 828 275 si es que tiene alguna duda de nuestros productos';
+$pageSeo = [
+	'title' => $pageTitle,
+	'description' => $pageDescription,
+	'canonical' => site_url('contacto'),
+	'path' => 'contacto',
+	'breadcrumbs' => [
+		['name' => 'Inicio', 'url' => 'index'],
+		['name' => 'Contacto', 'url' => 'contacto'],
+	],
+];
+$csrfToken = csrf_token();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -7,8 +25,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<!-- title -->
-	<title>Contacto | Novatec Energy</title>
-	<meta name="description" content="Usted puede contactarnos llamando al numer 951 828 275 si es que tiene alguna duda de nuestros productos">
+	<title><?php echo e($pageTitle); ?></title>
+	<meta name="description" content="<?php echo e($pageDescription); ?>">
+	<?php render_seo_tags($pageSeo); ?>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
@@ -64,6 +83,8 @@ include_once("head.php")
 				<div id="form_status"></div>
 				<div class="contact-form">
 					<form  id="fruitkha-contact" action="sendEmail.php" method="POST">
+						<input type="hidden" name="csrf_token" value="<?php echo e($csrfToken); ?>">
+						<input type="text" name="website" value="" tabindex="-1" autocomplete="off" style="display:none" aria-hidden="true">
 						<p>
 							<input type="text" placeholder="Nombre" name="name" id="Nombre" required>
 							<input type="email" placeholder="Correo Electrónico" name="email" id="Correo Electrónico" required>

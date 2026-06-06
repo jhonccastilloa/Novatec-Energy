@@ -1,14 +1,27 @@
 <?php
 require("./administrador/conection.php");
-if (isset($_REQUEST['categoria'])) {
-	$id = $_REQUEST['categoria'];
-	$query = "SELECT category FROM category WHERE id=" . $id;
-	$result = $conn->query($query);
-	$row = $result->fetch_assoc();
-	$title = $row['category'];
-} else {
-	$title = "Productos";
-}
+require_once __DIR__ . '/includes/seo.php';
+security_headers();
+
+$categoryId = filter_input(INPUT_GET, 'categoria', FILTER_VALIDATE_INT);
+$category = $categoryId ? get_category((int) $categoryId) : null;
+$title = $category ? $category['category'] : 'Productos';
+$pageDescription = $category
+	? 'Contamos con productos de ' . $category['category'] . ' para proyectos de energias renovables en Novatec Energy.'
+	: 'Contamos con los mejores productos cuando se trata de energía renovables de toda la región del sur';
+$pageSeo = [
+	'title' => $title . ' | La mejor calidad y mejores precios en Novatec Energy',
+	'description' => $pageDescription,
+	'canonical' => $category ? site_url('productos?categoria=' . (int) $category['id'] . '&nombre=' . slugify((string) $category['category'])) : site_url('productos'),
+	'path' => 'productos',
+	'breadcrumbs' => [
+		['name' => 'Inicio', 'url' => 'index'],
+		['name' => 'Productos', 'url' => 'productos'],
+	],
+];
+$categories = get_categories();
+$subcategories = $category ? get_subcategories_by_category((int) $category['id']) : [];
+$products = get_products($category ? (int) $category['id'] : null);
 ?>
 
 <!DOCTYPE html>
@@ -20,8 +33,9 @@ if (isset($_REQUEST['categoria'])) {
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- title -->
-	<title><?= $title ?> | La mejor calidad y mejores precios en Novatec Energy</title>
-	<meta name="description" content="Contamos con los mejores productos cuando se trata de energía renovables de toda la región del sur">
+	<title><?php echo e($pageSeo['title']); ?></title>
+	<meta name="description" content="<?php echo e($pageDescription); ?>">
+	<?php render_seo_tags($pageSeo); ?>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
@@ -76,15 +90,13 @@ include_once("head.php");
 					<h3>Categorias:</h3>
 					<ul>
 						<a href="productos.php">
-							<li class="<?php echo (!isset($_REQUEST['categoria']) ? 'active' : '') ?>" data-filter="*">Todo</li>
+							<li class="<?php echo (!$categoryId ? 'active' : '') ?>" data-filter="*">Todo</li>
 						</a>
 						<?php
-						$query = "SELECT * FROM category";
-						$result = $conn->query($query);
-						while ($row = $result->fetch_assoc()) {
+						foreach ($categories as $row) {
 						?>
-							<a href="productos.php?categoria=<?php echo $row['id'] ?>">
-								<li class="<?php echo ((isset($_REQUEST['categoria']) and ($row['id'] == $_REQUEST['categoria'])) ? 'active' : '') ?>"><?php echo $row['category'] ?></li>
+							<a href="productos.php?categoria=<?php echo (int) $row['id'] ?>">
+								<li class="<?php echo (($categoryId && ((int) $row['id'] === (int) $categoryId)) ? 'active' : '') ?>"><?php echo e($row['category']) ?></li>
 							</a>
 
 						<?php
@@ -98,7 +110,7 @@ include_once("head.php");
 
 		<!-- sub category section -->
 		<?php
-		if (isset($_REQUEST['categoria'])) {
+		if ($category) {
 		?>
 			<div class="row">
 				<div class="col-md-12">
@@ -106,14 +118,9 @@ include_once("head.php");
 						<ul class="swiper-wrapper">
 							<li class="active swiper-slide" data-filter="*">Todo</li>
 							<?php
-							$query = "SELECT * FROM subcategory";
-							if (isset($_REQUEST['categoria'])) {
-								$query = "SELECT * FROM subcategory WHERE id_category={$_REQUEST['categoria']}";
-							}
-							$result = $conn->query($query);
-							while ($row = $result->fetch_assoc()) {
+							foreach ($subcategories as $row) {
 							?>
-								<li class="swiper-slide" data-filter=".<?php echo $row['id'] ?>"><?php echo $row['subcategory'] ?></li>
+								<li class="swiper-slide" data-filter=".<?php echo (int) $row['id'] ?>"><?php echo e($row['subcategory']) ?></li>
 							<?php
 							}
 							?>
@@ -148,27 +155,21 @@ include_once("head.php");
 
 		<div class="row product-lists">
 			<?php
-			$query = "SELECT * FROM productos ";
-
-			if (isset($_REQUEST['categoria'])) {
-				$query = "SELECT * FROM productos WHERE id_categoria={$_REQUEST['categoria']}";
-			}
-			$result = $conn->query($query);
-			while ($row = $result->fetch_assoc()) {
+			foreach ($products as $row) {
 				$array = explode('.', $row['imagen']);
 				$ext = end($array);
 				$nameImage = $row['imagen'];
 				$imageExtencion = pathinfo($nameImage, PATHINFO_EXTENSION);
 				$image = basename($nameImage, '.' . $imageExtencion);
 			?>
-				<div class="col-lg-4 col-md-6 text-center card-content <?php echo $row['id_subcategory'] ?> ">
+				<div class="col-lg-4 col-md-6 text-center card-content <?php echo (int) $row['id_subcategory'] ?> ">
 					<div class="single-product-item">
 						<div class="product-image" width="300" height="300">
-							<a href="producto.php?id=<?php echo $row['id'] ?>&click=1#text-description"><img src="./productsImg/<?php echo $row['id'] . '.' . $ext ?>" alt="<?php echo $image ?>" width="300" height="300"></a>
+							<a href="producto.php?id=<?php echo (int) $row['id'] ?>&click=1#text-description"><img src="./productsImg/<?php echo (int) $row['id'] . '.' . e($ext) ?>" alt="<?php echo e($image) ?>" width="300" height="300"></a>
 						</div>
-						<h3><?php echo $row['nombre'] ?></h3>
-						<p class="product-price"> S/.<?php echo $row['precio_normal'] ?> </p>
-						<a href="producto.php?id=<?php echo $row['id'] ?>&click=1#text-description" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer Mas</a>
+						<h3><?php echo e($row['nombre']) ?></h3>
+						<p class="product-price"> S/.<?php echo e($row['precio_normal']) ?> </p>
+						<a href="producto.php?id=<?php echo (int) $row['id'] ?>&click=1#text-description" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer Mas</a>
 					</div>
 				</div>
 			<?php

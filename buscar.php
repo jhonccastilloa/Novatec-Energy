@@ -1,3 +1,20 @@
+<?php
+require("./administrador/conection.php");
+require_once __DIR__ . '/includes/seo.php';
+security_headers();
+
+$product = trim((string) ($_GET['producto'] ?? ''));
+$categoryId = filter_input(INPUT_GET, 'categoria', FILTER_VALIDATE_INT);
+$pageDescription = 'Resultados de busqueda de productos de energia renovable en Novatec Energy.';
+$pageSeo = [
+  'title' => 'Buscar | Novatec Energy',
+  'description' => $pageDescription,
+  'canonical' => site_url('buscar'),
+  'path' => 'buscar',
+  'robots' => 'noindex,follow',
+];
+$products = $product !== '' ? get_products($categoryId ?: null, $product) : [];
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,10 +22,11 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Novatec Energy | Tienda especializada en produtos de energias renovables">
+  <meta name="description" content="<?php echo e($pageDescription); ?>">
 
   <!-- title -->
-  <title>Buscar | Novatec Energy</title>
+  <title><?php echo e($pageSeo['title']); ?></title>
+  <?php render_seo_tags($pageSeo); ?>
 
   <!-- favicon -->
   <link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
@@ -34,9 +52,7 @@
 
 </head>
 <?php
-require("./administrador/conection.php");
 include_once("head.php");
-$product = $conn->real_escape_string(isset($_GET['producto']) ? $_GET['producto'] : '');
 ?>
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
@@ -45,7 +61,7 @@ $product = $conn->real_escape_string(isset($_GET['producto']) ? $_GET['producto'
       <div class="col-lg-8 offset-lg-2 text-center">
         <div class="breadcrumb-text">
           <p>BUSCANDO:</p>
-          <h1><?php echo $product ?></h1>
+          <h1><?php echo e($product) ?></h1>
         </div>
       </div>
     </div>
@@ -61,33 +77,23 @@ $product = $conn->real_escape_string(isset($_GET['producto']) ? $_GET['producto'
 
     <div class="row product-lists">
       <?php
-      $where = "where 1=1";
       if (!empty($product)) {
-        $where = "where nombre like '%" . $product . "%'";
-
-        $query = "SELECT * FROM productos $where ";
-
-        if (isset($_REQUEST['categoria'])) {
-          $query = "SELECT * FROM productos WHERE id_categoria={$_REQUEST['categoria']}";
-        }
-        $result = $conn->query($query);
-        $numRow = $result->num_rows;
-        if ($numRow > 0) {
-          while ($row = $result->fetch_assoc()) {
+        if (count($products) > 0) {
+          foreach ($products as $row) {
             $array = explode('.', $row['imagen']);
-            $ext = end($array);
+            $ext = image_extension((string) $row['imagen']);
             $nameImage = $row['imagen'];
             $imageExtencion = pathinfo($nameImage, PATHINFO_EXTENSION);
             $image = basename($nameImage, '.' . $imageExtencion);
       ?>
-            <div class="col-lg-4 col-md-6 text-center card-content <?php echo $row['id_subcategory'] ?> ">
+            <div class="col-lg-4 col-md-6 text-center card-content <?php echo (int) $row['id_subcategory'] ?> ">
               <div class="single-product-item">
                 <div class="product-image" width="300" height="300">
-                  <a href="producto.php?id=<?php echo $row['id'] ?>"><img src="./productsImg/<?php echo $row['id'] . '.' . $ext ?>" alt="<?php echo $image ?>" width="300" height="300"></a>
+                  <a href="producto.php?id=<?php echo (int) $row['id'] ?>"><img src="./productsImg/<?php echo (int) $row['id'] . '.' . e($ext) ?>" alt="<?php echo e($image) ?>" width="300" height="300"></a>
                 </div>
-                <h3><?php echo $row['nombre'] ?></h3>
-                <p class="product-price"> S/.<?php echo $row['precio_normal'] ?> </p>
-                <a href="producto.php?id=<?php echo $row['id'] ?>" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer Mas</a>
+                <h3><?php echo e($row['nombre']) ?></h3>
+                <p class="product-price"> S/.<?php echo e($row['precio_normal']) ?> </p>
+                <a href="producto.php?id=<?php echo (int) $row['id'] ?>" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer Mas</a>
               </div>
             </div>
           <?php

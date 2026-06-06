@@ -1,3 +1,16 @@
+<?php
+require_once __DIR__ . '/includes/seo.php';
+security_headers();
+
+$pageTitle = 'Novatec Energy | Tienda especializada en energias renovables';
+$pageDescription = 'Elaboramos proyectos a base de energía solar, instalamos termas solares, iluminaciones domésticas, bombas para irrigaciones, congeladores solares, temperadores de piscinas para empresas privadas, entidades públicas, municipalidades y gobiernos regionales';
+$pageSeo = [
+	'title' => $pageTitle,
+	'description' => $pageDescription,
+	'canonical' => site_url(),
+	'path' => '',
+];
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -6,8 +19,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<!-- title -->
-	<title>Novatec Energy | Tienda especializada en energias renovables</title>
-	<meta name="description" content="Elaboramos proyectos a base de energía solar, instalamos termas solares, iluminaciones domésticas, bombas para irrigaciones, congeladores solares, temperadores de piscinas para empresas privadas, entidades públicas, municipalidades y gobiernos regionales">
+	<title><?php echo e($pageTitle); ?></title>
+	<meta name="description" content="<?php echo e($pageDescription); ?>">
+	<?php render_seo_tags($pageSeo); ?>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
@@ -27,7 +41,7 @@
 	<!-- mean menu css -->
 	<link rel="stylesheet" href="assets/css/meanmenu.min.css">
 	<!-- main style -->
-	<link rel="stylesheet" href="assets/css/main.css?v=20260604-1">
+	<link rel="stylesheet" href="assets/css/main.css">
 	<!-- responsive -->
 	<link rel="stylesheet" href="assets/css/responsive.css">
 
@@ -37,6 +51,7 @@ include_once("head.php");
 ?>
 
 <!-- home page slider -->
+<h1 class="sr-only">Novatec Energy | Tienda especializada en energias renovables</h1>
 <div class="homepage-slider">
 	<!-- single home slider -->
 	<div class="single-homepage-slider homepage-bg-1">
@@ -46,7 +61,7 @@ include_once("head.php");
 					<div class="hero-text">
 						<div class="hero-text-tablecell">
 							<p class="subtitle">Empresa Líder en Energía Renovable</p>
-							<h1>Novatec Energy</h1>
+							<h2>Novatec Energy</h2>
 							<div class="hero-btns">
 								<a href="productos" class="boxed-btn">Productos</a>
 								<a href="contacto" class="bordered-btn">Contactenos</a>
@@ -65,7 +80,7 @@ include_once("head.php");
 					<div class="hero-text">
 						<div class="hero-text-tablecell">
 							<p class="subtitle">Cuidando y Construyendo un mundo mejor con energías renovables</p>
-							<h1>Novatec Energy</h1>
+							<h2>Novatec Energy</h2>
 							<div class="hero-btns">
 								<a href="productos" class="boxed-btn">Productos</a>
 								<a href="contacto" class="bordered-btn">Contactenos</a>
@@ -84,7 +99,7 @@ include_once("head.php");
 					<div class="hero-text">
 						<div class="hero-text-tablecell">
 							<p class="subtitle">Contamos con los mejores productos y equipo especializado!</p>
-							<h1>Tienda Especializada en Energias Renovables</h1>
+							<h2>Tienda Especializada en Energias Renovables</h2>
 							<div class="hero-btns">
 								<a href="productos" class="boxed-btn">Productos</a>
 								<a href="contacto" class="bordered-btn">Contactenos</a>
@@ -155,30 +170,19 @@ include_once("head.php");
 		</div>
 		<div class="row product-category-cards">
 			<?php
-			$query = "SELECT category.id, category.category, productos.id as 'idProduct', productos.imagen
-				FROM category
-				INNER JOIN (
-					SELECT id_categoria, MIN(id) as idProduct
-					FROM productos
-					GROUP BY id_categoria
-				) category_product ON category.id = category_product.id_categoria
-				INNER JOIN productos ON productos.id = category_product.idProduct
-				ORDER BY category.id";
-			$result = $conn->query($query);
-			while ($row = $result->fetch_assoc()) {
-				$array = explode('.', $row['imagen']);
-				$ext = end($array);
+			foreach (get_featured_categories() as $row) {
+				$ext = image_extension((string) $row['imagen']);
 			?>
 				<div class="col-lg-4 col-md-6 product-category-card-col">
 					<div class="single-latest-news product-category-card">
 						<div class="product-image">
-							<img src="./productsImg/<?php echo $row['idProduct'] . '.' . $ext ?>"  alt="" >
+							<img src="./productsImg/<?php echo (int) $row['idProduct'] . '.' . e($ext) ?>"  alt="<?php echo e($row['category']) ?>" >
 						</div>
 						<div class="news-text-box">
-							<h3><?php echo $row['category'] ?></h3>
-							<p class="excerpt">En esta sección va encontrar gran variedad de <strong><?php echo $row['category'] ?></strong> , de buena calidad y a precios muy comodos
+							<h3><?php echo e($row['category']) ?></h3>
+							<p class="excerpt">En esta sección va encontrar gran variedad de <strong><?php echo e($row['category']) ?></strong> , de buena calidad y a precios muy comodos
 							<p>
-								<a href="productos?categoria=<?php echo $row['id'] ?>" class="read-more-btn">Ver Mas <i class="fas fa-angle-right"></i></a>
+								<a href="productos?categoria=<?php echo (int) $row['id'] ?>" class="read-more-btn">Ver Mas <i class="fas fa-angle-right"></i></a>
 						</div>
 					</div>
 				</div>

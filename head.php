@@ -28,13 +28,11 @@ $url = $_SERVER["REQUEST_URI"];
 								<li class="<?php echo (stripos($url, "productos") ? 'current-list-item' : '') ?>"><a href="productos">Productos</a>
 									<ul class="sub-menu">
 										<?php
-										$query = "SELECT * FROM category";
-										$result = $conn->query($query);
-										while ($row = $result->fetch_assoc()) {
+										foreach (get_categories() as $row) {
 										$acento=eliminar_acentos($row['category']);
 										$name=strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $acento), '-'));
 										?>
-											<li><a href="productos?categoria=<?php echo $row['id'] ?>&nombre=<?php echo $name ?>"><?php echo $row['category'] ?></a></li>
+											<li><a href="productos?categoria=<?php echo (int) $row['id'] ?>&nombre=<?php echo e($name) ?>"><?php echo e($row['category']) ?></a></li>
 
 										<?php
 										}

@@ -1,3 +1,20 @@
+<?php
+require_once __DIR__ . '/includes/seo.php';
+security_headers();
+
+$pageTitle = 'Nosotros | Novatec Energy';
+$pageDescription = 'Somos una empresa comprometida con la intención de ayudar a la población en general a tener una mejor calidad de vida a través del aprovechamiento de energía solar para las viviendas, brindando el mejor servicio de la mano de especialistas a un precio accesible.';
+$pageSeo = [
+	'title' => $pageTitle,
+	'description' => $pageDescription,
+	'canonical' => site_url('nosotros'),
+	'path' => 'nosotros',
+	'breadcrumbs' => [
+		['name' => 'Inicio', 'url' => 'index'],
+		['name' => 'Nosotros', 'url' => 'nosotros'],
+	],
+];
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -7,8 +24,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- title -->
-	<title>Nosotros | Novatec Energy</title>
-	<meta name="description" content="Somos una empresa comprometida con la intención de ayudar a la población en general a tener una mejor calidad de vida a través del aprovechamiento de energía solar para las viviendas, brindando el mejor servicio de la mano de especialistas a un precio accesible.">
+	<title><?php echo e($pageTitle); ?></title>
+	<meta name="description" content="<?php echo e($pageDescription); ?>">
+	<?php render_seo_tags($pageSeo); ?>
 
 	<!-- favicon -->
 	<link rel="shortcut icon" type="image/png" href="assets/img/favicon.png">
