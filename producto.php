@@ -2,6 +2,10 @@
 require_once __DIR__ . '/includes/components.php';
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+if (!$id && isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
+    $id = (int) $_GET['id'];
+}
+
 if (!$id) {
     header('location: productos.php');
     exit;
@@ -13,24 +17,35 @@ if (!$row) {
     exit;
 }
 
+$canonicalPath = product_path($row);
+if (current_request_path() !== $canonicalPath) {
+    $location = product_url($row);
+    if (isset($_GET['click'])) {
+        $location .= '?click=1#text-description';
+    }
+
+    header('Location: ' . $location, true, 301);
+    exit;
+}
+
 $title = $row['nombre'];
 $ext = image_extension((string) $row['imagen']);
 $pageDescription = excerpt($row['breve_descripcion'] ?: 'Novatec Energy | Tienda especializada en produtos de energias renovables', 155);
 $pageSeo = [
     'title' => $title . ' | Novatec Energy',
     'description' => $pageDescription,
-    'canonical' => site_url('producto.php?id=' . (int) $row['id']),
-    'path' => 'producto.php',
+    'canonical' => site_url($canonicalPath),
+    'path' => $canonicalPath,
     'image' => product_image_relative($row),
     'type' => 'product',
     'breadcrumbs' => [
         ['name' => 'Inicio', 'url' => 'index'],
         ['name' => 'Productos', 'url' => 'productos'],
-        ['name' => $title, 'url' => 'producto.php?id=' . (int) $row['id']],
+        ['name' => $title, 'url' => $canonicalPath],
     ],
     'schema' => [product_schema($row)],
 ];
-$link = site_url('producto.php?id=' . (int) $row['id']);
+$link = site_url($canonicalPath);
 $message = 'Estoy interesado en el ' . $row['nombre'] . "\n" . $link;
 
 render_public_head($pageSeo);

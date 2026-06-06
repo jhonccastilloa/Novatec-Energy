@@ -20,14 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
   } elseif ($id) {
     $category = $conn->real_escape_string($_REQUEST['category']);
-    $query = "UPDATE category SET category='{$category}' WHERE id='{$id}'";
+    $slug = $conn->real_escape_string(unique_category_slug($category, (int) $id));
+    $query = "UPDATE category SET category='{$category}', slug='{$slug}' WHERE id='{$id}'";
     $_SESSION['msg']="Registro Editado Correctamente.";
     $_SESSION['estate']='success';
     $result=$conn->query($query);
 
   } else {
     $category = $conn->real_escape_string($_REQUEST['category']);
-    $query = "INSERT INTO category(id,category) VALUES(NULL,'{$category}')";
+    $slug = $conn->real_escape_string(unique_category_slug($category));
+    $query = "INSERT INTO category(id,category,slug) VALUES(NULL,'{$category}','{$slug}')";
     $_SESSION['estate']='success';
     $_SESSION['msg']="Registro Guardado Correctamente.";
     $result=$conn->query($query);

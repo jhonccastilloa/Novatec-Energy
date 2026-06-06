@@ -114,8 +114,9 @@ function create_category($conn) {
     ]);
   }
 
-  $stmt = $conn->prepare("INSERT INTO category(category) VALUES(?)");
-  $stmt->bind_param("s", $name);
+  $slug = unique_category_slug($name);
+  $stmt = $conn->prepare("INSERT INTO category(category, slug) VALUES(?, ?)");
+  $stmt->bind_param("ss", $name, $slug);
 
   if (!$stmt->execute()) {
     fail("No se pudo crear la categoria.", 500);
@@ -143,8 +144,9 @@ function update_category($conn) {
     fail("Ya existe una categoria con ese nombre.");
   }
 
-  $stmt = $conn->prepare("UPDATE category SET category = ? WHERE id = ?");
-  $stmt->bind_param("si", $name, $id);
+  $slug = unique_category_slug($name, $id);
+  $stmt = $conn->prepare("UPDATE category SET category = ?, slug = ? WHERE id = ?");
+  $stmt->bind_param("ssi", $name, $slug, $id);
 
   if (!$stmt->execute()) {
     fail("No se pudo editar la categoria.", 500);
@@ -201,8 +203,9 @@ function create_subcategory($conn) {
     ]);
   }
 
-  $stmt = $conn->prepare("INSERT INTO subcategory(id_category, subcategory) VALUES(?, ?)");
-  $stmt->bind_param("is", $categoryId, $name);
+  $slug = unique_subcategory_slug($name, $categoryId);
+  $stmt = $conn->prepare("INSERT INTO subcategory(id_category, subcategory, slug) VALUES(?, ?, ?)");
+  $stmt->bind_param("iss", $categoryId, $name, $slug);
 
   if (!$stmt->execute()) {
     fail("No se pudo crear la sub categoria.", 500);
@@ -242,8 +245,9 @@ function update_subcategory($conn) {
     fail("Ya existe una sub categoria con ese nombre.");
   }
 
-  $stmt = $conn->prepare("UPDATE subcategory SET subcategory = ?, id_category = ? WHERE id = ?");
-  $stmt->bind_param("sii", $name, $categoryId, $id);
+  $slug = unique_subcategory_slug($name, $categoryId, $id);
+  $stmt = $conn->prepare("UPDATE subcategory SET subcategory = ?, slug = ?, id_category = ? WHERE id = ?");
+  $stmt->bind_param("ssii", $name, $slug, $categoryId, $id);
 
   if (!$stmt->execute()) {
     fail("No se pudo editar la sub categoria.", 500);

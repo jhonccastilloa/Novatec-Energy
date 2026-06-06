@@ -43,6 +43,97 @@ function slugify(string $value): string
     return trim($value, '-') ?: 'pagina';
 }
 
+function truncate_slug(string $slug, int $maxLength): string
+{
+    if (strlen($slug) <= $maxLength) {
+        return $slug;
+    }
+
+    return trim(substr($slug, 0, $maxLength), '-') ?: 'pagina';
+}
+
+function slug_candidate(string $baseSlug, int $suffix, int $maxLength): string
+{
+    if ($suffix <= 1) {
+        return truncate_slug($baseSlug, $maxLength);
+    }
+
+    $ending = '-' . $suffix;
+    return truncate_slug($baseSlug, $maxLength - strlen($ending)) . $ending;
+}
+
+function unique_category_slug(string $name, ?int $excludeId = null): string
+{
+    $baseSlug = slugify($name);
+
+    for ($suffix = 1; $suffix < 1000; $suffix++) {
+        $candidate = slug_candidate($baseSlug, $suffix, 120);
+        $sql = 'SELECT id FROM category WHERE slug = ?';
+        $types = 's';
+        $params = [$candidate];
+
+        if ($excludeId !== null) {
+            $sql .= ' AND id <> ?';
+            $types .= 'i';
+            $params[] = $excludeId;
+        }
+
+        if (!db_one($sql . ' LIMIT 1', $types, $params)) {
+            return $candidate;
+        }
+    }
+
+    return truncate_slug($baseSlug . '-' . time(), 120);
+}
+
+function unique_subcategory_slug(string $name, int $categoryId, ?int $excludeId = null): string
+{
+    $baseSlug = slugify($name);
+
+    for ($suffix = 1; $suffix < 1000; $suffix++) {
+        $candidate = slug_candidate($baseSlug, $suffix, 120);
+        $sql = 'SELECT id FROM subcategory WHERE id_category = ? AND slug = ?';
+        $types = 'is';
+        $params = [$categoryId, $candidate];
+
+        if ($excludeId !== null) {
+            $sql .= ' AND id <> ?';
+            $types .= 'i';
+            $params[] = $excludeId;
+        }
+
+        if (!db_one($sql . ' LIMIT 1', $types, $params)) {
+            return $candidate;
+        }
+    }
+
+    return truncate_slug($baseSlug . '-' . time(), 120);
+}
+
+function unique_product_slug(string $name, ?int $excludeId = null): string
+{
+    $baseSlug = slugify($name);
+
+    for ($suffix = 1; $suffix < 1000; $suffix++) {
+        $candidate = slug_candidate($baseSlug, $suffix, 180);
+        $sql = 'SELECT id FROM productos WHERE slug = ?';
+        $types = 's';
+        $params = [$candidate];
+
+        if ($excludeId !== null) {
+            $sql .= ' AND id <> ?';
+            $types .= 'i';
+            $params[] = $excludeId;
+        }
+
+        if (!db_one($sql . ' LIMIT 1', $types, $params)) {
+            return $candidate;
+        }
+    }
+
+    return truncate_slug($baseSlug . '-' . time(), 180);
+}
+
 function excerpt($value, int $length = 160): string
 {
     $text = html_entity_decode(strip_tags((string) $value), ENT_QUOTES | ENT_HTML5, 'UTF-8');
@@ -325,37 +416,75 @@ function db_execute(string $sql, string $types = '', array $params = []): bool
 
 function get_categories(): array
 {
-    return db_all('SELECT id, category FROM category ORDER BY id ASC');
+    return db_all('SELECT id, category, slug FROM category ORDER BY id ASC');
 }
 
 function get_category(int $id): ?array
 {
-    return db_one('SELECT id, category FROM category WHERE id = ? LIMIT 1', 'i', [$id]);
+    return db_one('SELECT id, category, slug FROM category WHERE id = ? LIMIT 1', 'i', [$id]);
+}
+
+function get_category_by_slug(string $slug): ?array
+{
+    return db_one('SELECT id, category, slug FROM category WHERE slug = ? LIMIT 1', 's', [$slug]);
 }
 
 function get_subcategories_by_category(int $categoryId): array
 {
-    return db_all('SELECT id, id_category, subcategory FROM subcategory WHERE id_category = ? ORDER BY id ASC', 'i', [$categoryId]);
+    return db_all('SELECT id, id_category, subcategory, slug FROM subcategory WHERE id_category = ? ORDER BY id ASC', 'i', [$categoryId]);
 }
 
-function get_products(?int $categoryId = null, ?string $search = null): array
+function get_subcategory_by_slug(int $categoryId, string $slug): ?array
 {
+    return db_one('SELECT id, id_category, subcategory, slug FROM subcategory WHERE id_category = ? AND slug = ? LIMIT 1', 'is', [$categoryId, $slug]);
+}
+
+function get_subcategories(): array
+{
+    return db_all(
+        'SELECT subcategory.id, subcategory.id_category, subcategory.subcategory, subcategory.slug, category.category, category.slug AS category_slug
+         FROM subcategory
+         INNER JOIN category ON subcategory.id_category = category.id
+         ORDER BY category.id ASC, subcategory.id ASC'
+    );
+}
+
+function get_products(?int $categoryId = null, ?string $search = null, ?int $subcategoryId = null): array
+{
+    $where = [];
+    $types = '';
+    $params = [];
+
     if ($categoryId !== null && $categoryId > 0) {
-        return db_all('SELECT * FROM productos WHERE id_categoria = ?', 'i', [$categoryId]);
+        $where[] = 'id_categoria = ?';
+        $types .= 'i';
+        $params[] = $categoryId;
+    }
+
+    if ($subcategoryId !== null && $subcategoryId > 0) {
+        $where[] = 'id_subcategory = ?';
+        $types .= 'i';
+        $params[] = $subcategoryId;
     }
 
     if ($search !== null && trim($search) !== '') {
-        $term = '%' . trim($search) . '%';
-        return db_all('SELECT * FROM productos WHERE nombre LIKE ?', 's', [$term]);
+        $where[] = 'nombre LIKE ?';
+        $types .= 's';
+        $params[] = '%' . trim($search) . '%';
     }
 
-    return db_all('SELECT * FROM productos');
+    $sql = 'SELECT * FROM productos';
+    if ($where !== []) {
+        $sql .= ' WHERE ' . implode(' AND ', $where);
+    }
+
+    return db_all($sql, $types, $params);
 }
 
 function get_product(int $id): ?array
 {
     return db_one(
-        'SELECT productos.id, productos.nombre, productos.descripcion, productos.precio_normal, productos.precio_rebajado, productos.cantidad, productos.breve_descripcion, productos.imagen, productos.id_categoria, productos.id_subcategory, category.category, subcategory.subcategory
+        'SELECT productos.id, productos.nombre, productos.slug, productos.descripcion, productos.precio_normal, productos.precio_rebajado, productos.cantidad, productos.breve_descripcion, productos.imagen, productos.id_categoria, productos.id_subcategory, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
          FROM productos
          LEFT JOIN category ON productos.id_categoria = category.id
          LEFT JOIN subcategory ON productos.id_subcategory = subcategory.id
@@ -369,7 +498,7 @@ function get_product(int $id): ?array
 function get_featured_categories(): array
 {
     return db_all(
-        'SELECT category.id, category.category, productos.id AS idProduct, productos.imagen
+        'SELECT category.id, category.category, category.slug, productos.id AS idProduct, productos.imagen
          FROM category
          INNER JOIN (
             SELECT id_categoria, MIN(id) AS idProduct
@@ -399,10 +528,37 @@ function product_image_url(array $product): string
 
 function category_url(array $category): string
 {
-    return url_path('productos?categoria=' . (int) $category['id'] . '&nombre=' . slugify((string) $category['category']));
+    return url_path(category_path($category));
+}
+
+function category_path(array $category): string
+{
+    $slug = (string) ($category['category_slug'] ?? $category['slug'] ?? '');
+    return 'productos/' . ($slug !== '' ? $slug : slugify((string) ($category['category'] ?? 'productos')));
+}
+
+function subcategory_url(array $category, array $subcategory): string
+{
+    return url_path(subcategory_path($category, $subcategory));
+}
+
+function subcategory_path(array $category, array $subcategory): string
+{
+    $slug = (string) ($subcategory['subcategory_slug'] ?? $subcategory['slug'] ?? '');
+    return category_path($category) . '/' . ($slug !== '' ? $slug : slugify((string) ($subcategory['subcategory'] ?? 'subcategoria')));
 }
 
 function product_url(array $product): string
 {
-    return url_path('producto.php?id=' . (int) $product['id']);
+    return url_path(product_path($product));
+}
+
+function product_path(array $product): string
+{
+    $slug = (string) ($product['slug'] ?? '');
+    if ($slug === '') {
+        $slug = slugify((string) ($product['nombre'] ?? 'producto'));
+    }
+
+    return 'producto/' . $slug . '-' . (int) $product['id'];
 }

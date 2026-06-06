@@ -10,11 +10,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $idEdit = $conn->real_escape_string($_REQUEST['idEdit']);
   $image = $_FILES['image']['name'];
   $imageAux = $conn->real_escape_string($_REQUEST['imageAux']);
+  $slug = $conn->real_escape_string(unique_product_slug($name, (int) $idEdit));
   if (!$image) {
     $image = $imageAux;
   }
 
-  $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',descripcion='{$description}',precio_normal='{$price}',breve_descripcion='{$breve}',imagen='{$image}',id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
+  $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',slug='{$slug}',descripcion='{$description}',precio_normal='{$price}',breve_descripcion='{$breve}',imagen='{$image}',id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
   $id_insert = $idEdit;
   if ($_FILES['image']['error'] > 0) {
     echo "Error al cargar Archivo";

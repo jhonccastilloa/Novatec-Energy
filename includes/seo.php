@@ -144,7 +144,7 @@ function product_schema(array $product): array
 {
     $price = (float) ($product['precio_rebajado'] ?: $product['precio_normal']);
     $availability = ((int) ($product['cantidad'] ?? 1)) > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock';
-    $productPath = 'producto.php?id=' . (int) $product['id'];
+    $productPath = product_path($product);
 
     return [
         '@type' => 'Product',

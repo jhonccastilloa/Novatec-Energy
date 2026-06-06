@@ -9,7 +9,16 @@ RewriteRule ^sitemap\.xml$ sitemap.php [L]
 RewriteRule ^(config|includes|node_modules)/ - [F,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^productos/([a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*)_([0-9]+)$ productos.php?categoria=$2&nombre=$1 [QSA,L]
+RewriteRule ^producto/([a-z0-9]+(?:-[a-z0-9]+)*)-([0-9]+)$ producto.php?slug=$1&id=$2 [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^productos/([a-z0-9]+(?:-[a-z0-9]+)*)/([a-z0-9]+(?:-[a-z0-9]+)*)$ productos.php?category_slug=$1&subcategory_slug=$2 [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^productos/([a-z0-9]+(?:-[a-z0-9]+)*)$ productos.php?category_slug=$1 [QSA,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^productos/([a-z0-9]+(?:-[a-z0-9]+)*)_([0-9]+)$ productos.php?categoria=$2&nombre=$1 [QSA,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

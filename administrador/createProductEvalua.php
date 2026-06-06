@@ -39,11 +39,12 @@ if (isset($_REQUEST['idDelete'])) {
     $idEdit = $conn->real_escape_string($_REQUEST['idEdit']);
     $image = $_FILES['image']['name'];
     $imageAux = $conn->real_escape_string($_REQUEST['imageAux']);
+    $slug = $conn->real_escape_string(unique_product_slug($name, (int) $idEdit));
     if (!$image) {
       $image = $imageAux;
     }
 
-    $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',descripcion='{$description}',precio_normal='{$price}',breve_descripcion='{$breve}',imagen='{$image}',id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
+    $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',slug='{$slug}',descripcion='{$description}',precio_normal='{$price}',breve_descripcion='{$breve}',imagen='{$image}',id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
     $id_insert = $idEdit;
     $_SESSION['msg'] = "Registro Editado Correctamente";
     $_SESSION['estate'] = 'success';
@@ -57,9 +58,10 @@ if (isset($_REQUEST['idDelete'])) {
     $price = $conn->real_escape_string($_REQUEST['price']);
     $breve = $conn->real_escape_string($_REQUEST['breve']);
     $image = $_FILES['image']['name'];
+    $slug = $conn->real_escape_string(unique_product_slug($name));
 
 
-    $query = "INSERT INTO productos(id,nombre,descripcion,precio_normal,breve_descripcion,imagen,id_categoria,id_subcategory) VALUES (NULL,'{$name}','{$description}',{$price},'{$breve}','{$image}','{$category}',{$subcategory})";
+    $query = "INSERT INTO productos(id,nombre,slug,descripcion,precio_normal,breve_descripcion,imagen,id_categoria,id_subcategory) VALUES (NULL,'{$name}','{$slug}','{$description}',{$price},'{$breve}','{$image}','{$category}',{$subcategory})";
     $_SESSION['estate'] = 'success';
     $_SESSION['msg'] = "Producto Guardado Correctamente";
     $result = $conn->query($query);

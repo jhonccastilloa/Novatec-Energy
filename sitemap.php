@@ -20,7 +20,15 @@ $urls = [
 
 foreach (get_categories() as $category) {
     $urls[] = [
-        'loc' => site_url('productos?categoria=' . (int) $category['id'] . '&nombre=' . slugify((string) $category['category'])),
+        'loc' => site_url(category_path($category)),
+        'changefreq' => 'weekly',
+        'priority' => '0.7',
+    ];
+}
+
+foreach (get_subcategories() as $subcategory) {
+    $urls[] = [
+        'loc' => site_url(subcategory_path($subcategory, $subcategory)),
         'changefreq' => 'weekly',
         'priority' => '0.7',
     ];
@@ -28,7 +36,7 @@ foreach (get_categories() as $category) {
 
 foreach (get_products() as $product) {
     $urls[] = [
-        'loc' => site_url('producto.php?id=' . (int) $product['id']),
+        'loc' => site_url(product_path($product)),
         'changefreq' => 'weekly',
         'priority' => '0.7',
     ];

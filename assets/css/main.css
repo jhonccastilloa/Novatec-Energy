@@ -2491,6 +2491,15 @@ ul.social-link-team li a {
   background-color: #ebaf16;
   color: #fff;
 }
+
+.product-filters ul li a {
+  color: inherit;
+}
+
+.product-filters ul li a:hover {
+  color: inherit;
+}
+
 .product-category {
   margin-bottom: 40px;
   margin-top: 40px;

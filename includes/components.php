@@ -264,7 +264,7 @@ function render_product_card(array $product, bool $scrollToDescription = false):
 {
     $ext = image_extension((string) ($product['imagen'] ?? ''));
     $imageName = basename((string) ($product['imagen'] ?? ''), '.' . pathinfo((string) ($product['imagen'] ?? ''), PATHINFO_EXTENSION));
-    $url = product_url($product) . ($scrollToDescription ? '&click=1#text-description' : '');
+    $url = product_url($product) . ($scrollToDescription ? '?click=1#text-description' : '');
     ?>
 <div class="col-lg-4 col-md-6 text-center card-content <?php echo (int) ($product['id_subcategory'] ?? 0); ?> ">
 	<div class="single-product-item">

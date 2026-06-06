@@ -19,14 +19,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   } elseif ($id) {
     $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
     $category = $conn->real_escape_string($_REQUEST['category']);
-    $query = "UPDATE subcategory SET id_category='{$category}',subcategory='{$subcategory}' WHERE id='{$id}'";
+    $slug = $conn->real_escape_string(unique_subcategory_slug($subcategory, (int) $category, (int) $id));
+    $query = "UPDATE subcategory SET id_category='{$category}',subcategory='{$subcategory}',slug='{$slug}' WHERE id='{$id}'";
     $_SESSION['msg']="Registro Editado Correctamente";
     $_SESSION['estate']='success';
     $result = $conn->query($query);
   } else {
     $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
     $category = $conn->real_escape_string($_REQUEST['category']);
-    $query = "INSERT INTO subcategory(id,id_category,subcategory) VALUES(NULL,'{$category}','{$subcategory}')";
+    $slug = $conn->real_escape_string(unique_subcategory_slug($subcategory, (int) $category));
+    $query = "INSERT INTO subcategory(id,id_category,subcategory,slug) VALUES(NULL,'{$category}','{$subcategory}','{$slug}')";
     $_SESSION['estate']='success';
     $_SESSION['msg']="Registro Guardado Correctamente";
     $result = $conn->query($query);
