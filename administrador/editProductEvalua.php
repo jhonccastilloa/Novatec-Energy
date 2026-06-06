@@ -1,16 +1,25 @@
 <?php
 require "conection.php";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $name = $conn->real_escape_string($_REQUEST['name']);
+  session_start();
+  $nameRaw = trim((string) ($_REQUEST['name'] ?? ''));
   $category = $conn->real_escape_string($_REQUEST['category']);
   $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
   $description = $conn->real_escape_string($_REQUEST['description']);
   $price = $conn->real_escape_string($_REQUEST['price']);
   $breve = $conn->real_escape_string($_REQUEST['breve']);
   $idEdit = $conn->real_escape_string($_REQUEST['idEdit']);
+  if (product_name_exists($nameRaw, (int) $idEdit)) {
+    $_SESSION['estate'] = 'danger';
+    $_SESSION['msg'] = "Ya existe un producto con ese nombre.";
+    header("location:index.php?module=product");
+    exit;
+  }
+
+  $name = $conn->real_escape_string($nameRaw);
   $image = $_FILES['image']['name'];
   $imageAux = $conn->real_escape_string($_REQUEST['imageAux']);
-  $slug = $conn->real_escape_string(unique_product_slug($name, (int) $idEdit));
+  $slug = $conn->real_escape_string(unique_product_slug($nameRaw, (int) $idEdit));
   if (!$image) {
     $image = $imageAux;
   }

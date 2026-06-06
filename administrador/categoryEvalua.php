@@ -19,16 +19,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     header("location:index.php?module=category");
     }
   } elseif ($id) {
-    $category = $conn->real_escape_string($_REQUEST['category']);
-    $slug = $conn->real_escape_string(unique_category_slug($category, (int) $id));
+    $categoryRaw = trim((string) ($_REQUEST['category'] ?? ''));
+    if (category_name_exists($categoryRaw, (int) $id)) {
+      $_SESSION['estate']='danger';
+      $_SESSION['msg']="Ya existe una categoria con ese nombre.";
+      header("location:index.php?module=category");
+      exit;
+    }
+
+    $category = $conn->real_escape_string($categoryRaw);
+    $slug = $conn->real_escape_string(unique_category_slug($categoryRaw, (int) $id));
     $query = "UPDATE category SET category='{$category}', slug='{$slug}' WHERE id='{$id}'";
     $_SESSION['msg']="Registro Editado Correctamente.";
     $_SESSION['estate']='success';
     $result=$conn->query($query);
 
   } else {
-    $category = $conn->real_escape_string($_REQUEST['category']);
-    $slug = $conn->real_escape_string(unique_category_slug($category));
+    $categoryRaw = trim((string) ($_REQUEST['category'] ?? ''));
+    if (category_name_exists($categoryRaw)) {
+      $_SESSION['estate']='danger';
+      $_SESSION['msg']="Ya existe una categoria con ese nombre.";
+      header("location:index.php?module=category");
+      exit;
+    }
+
+    $category = $conn->real_escape_string($categoryRaw);
+    $slug = $conn->real_escape_string(unique_category_slug($categoryRaw));
     $query = "INSERT INTO category(id,category,slug) VALUES(NULL,'{$category}','{$slug}')";
     $_SESSION['estate']='success';
     $_SESSION['msg']="Registro Guardado Correctamente.";

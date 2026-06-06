@@ -17,17 +17,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       header("location:index.php?module=subcategory");
       }
   } elseif ($id) {
-    $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
-    $category = $conn->real_escape_string($_REQUEST['category']);
-    $slug = $conn->real_escape_string(unique_subcategory_slug($subcategory, (int) $category, (int) $id));
+    $subcategoryRaw = trim((string) ($_REQUEST['subcategory'] ?? ''));
+    $categoryId = (int) ($_REQUEST['category'] ?? 0);
+    if (subcategory_name_exists($categoryId, $subcategoryRaw, (int) $id)) {
+      $_SESSION['estate']='danger';
+      $_SESSION['msg']="Ya existe una sub categoria con ese nombre.";
+      header("location:index.php?module=subcategory");
+      exit;
+    }
+
+    $subcategory = $conn->real_escape_string($subcategoryRaw);
+    $category = $conn->real_escape_string((string) $categoryId);
+    $slug = $conn->real_escape_string(unique_subcategory_slug($subcategoryRaw, $categoryId, (int) $id));
     $query = "UPDATE subcategory SET id_category='{$category}',subcategory='{$subcategory}',slug='{$slug}' WHERE id='{$id}'";
     $_SESSION['msg']="Registro Editado Correctamente";
     $_SESSION['estate']='success';
     $result = $conn->query($query);
   } else {
-    $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
-    $category = $conn->real_escape_string($_REQUEST['category']);
-    $slug = $conn->real_escape_string(unique_subcategory_slug($subcategory, (int) $category));
+    $subcategoryRaw = trim((string) ($_REQUEST['subcategory'] ?? ''));
+    $categoryId = (int) ($_REQUEST['category'] ?? 0);
+    if (subcategory_name_exists($categoryId, $subcategoryRaw)) {
+      $_SESSION['estate']='danger';
+      $_SESSION['msg']="Ya existe una sub categoria con ese nombre.";
+      header("location:index.php?module=subcategory");
+      exit;
+    }
+
+    $subcategory = $conn->real_escape_string($subcategoryRaw);
+    $category = $conn->real_escape_string((string) $categoryId);
+    $slug = $conn->real_escape_string(unique_subcategory_slug($subcategoryRaw, $categoryId));
     $query = "INSERT INTO subcategory(id,id_category,subcategory,slug) VALUES(NULL,'{$category}','{$subcategory}','{$slug}')";
     $_SESSION['estate']='success';
     $_SESSION['msg']="Registro Guardado Correctamente";

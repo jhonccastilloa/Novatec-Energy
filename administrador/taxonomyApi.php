@@ -108,10 +108,7 @@ function create_category($conn) {
 
   $existing = find_category_by_name($conn, $name);
   if ($existing) {
-    respond([
-      "id" => (int) $existing["id"],
-      "label" => $existing["label"]
-    ]);
+    fail("Ya existe una categoria con ese nombre.", 409);
   }
 
   $slug = unique_category_slug($name);
@@ -197,10 +194,7 @@ function create_subcategory($conn) {
 
   $existing = find_subcategory_by_name($conn, $categoryId, $name);
   if ($existing) {
-    respond([
-      "id" => (int) $existing["id"],
-      "label" => $existing["label"]
-    ]);
+    fail("Ya existe una sub categoria con ese nombre.", 409);
   }
 
   $slug = unique_subcategory_slug($name, $categoryId);

@@ -35,8 +35,9 @@ CREATE TABLE `category` (
   `category` varchar(50) NOT NULL,
   `slug` varchar(120) NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `category_slug_unique` (`slug`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  UNIQUE KEY `category_slug_unique` (`slug`),
+  UNIQUE KEY `category_name_unique` (`category`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +46,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Termas Solares','termas-solares'),(2,'Paneles Solares 1','paneles-solares-1'),(3,'Paneles SolaresPaneles SolaresPaneles SolaresPanel','paneles-solarespaneles-solarespaneles-solarespanel'),(4,'asi','asi'),(5,'Terrmas solares 1','terrmas-solares-1'),(11,'sadsad','sadsad');
+INSERT INTO `category` VALUES (1,'Termas Solares','termas-solares'),(2,'Paneles Solares 1','paneles-solares-1'),(3,'Paneles SolaresPaneles SolaresPaneles SolaresPanel','paneles-solarespaneles-solarespaneles-solarespanel'),(4,'asi','asi'),(5,'Terrmas solares 1','terrmas-solares-1'),(11,'sadsad','sadsad'),(19,'sadsad 2','sadsad-2');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -98,6 +99,7 @@ CREATE TABLE `productos` (
   `id_subcategory` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `productos_slug_unique` (`slug`),
+  UNIQUE KEY `productos_nombre_unique` (`nombre`),
   KEY `id_categoria` (`id_categoria`),
   KEY `id_subcategory` (`id_subcategory`),
   KEY `productos_subcategory_category` (`id_subcategory`,`id_categoria`),
@@ -156,9 +158,10 @@ CREATE TABLE `subcategory` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `subcategory_category_pair` (`id`,`id_category`),
   UNIQUE KEY `subcategory_category_slug_unique` (`id_category`,`slug`),
+  UNIQUE KEY `subcategory_category_name_unique` (`id_category`,`subcategory`),
   KEY `id_category` (`id_category`),
   CONSTRAINT `subcategory_category_fk` FOREIGN KEY (`id_category`) REFERENCES `category` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -167,7 +170,7 @@ CREATE TABLE `subcategory` (
 
 LOCK TABLES `subcategory` WRITE;
 /*!40000 ALTER TABLE `subcategory` DISABLE KEYS */;
-INSERT INTO `subcategory` VALUES (1,1,'General Termas Solares','general-termas-solares'),(2,2,'General Paneles Solares','general-paneles-solares'),(3,3,'radiosradiosradiosradiosradiosradiosradiosradiosra','radiosradiosradiosradiosradiosradiosradiosradiosra'),(4,4,'alo mas nuevo','alo-mas-nuevo'),(5,4,'otro','otro'),(6,4,'asdsad','asdsad'),(7,5,'termas solares 1','termas-solares-1'),(8,5,'ASDA','asda'),(9,1,'ASDSAD','asdsad'),(10,1,'SADSAD','sadsad'),(11,1,'ASDSAD','asdsad-2'),(12,1,'asdsa','asdsa'),(13,1,'asdsad','asdsad-3'),(14,1,'asdsad','asdsad-4'),(15,1,'sadsad','sadsad-2'),(17,1,'asdsad','asdsad-5'),(18,1,'asdsad','asdsad-6'),(19,1,'asd','asd');
+INSERT INTO `subcategory` VALUES (1,1,'General Termas Solares','general-termas-solares'),(2,2,'General Paneles Solares','general-paneles-solares'),(3,3,'radiosradiosradiosradiosradiosradiosradiosradiosra','radiosradiosradiosradiosradiosradiosradiosradiosra'),(4,4,'alo mas nuevo','alo-mas-nuevo'),(5,4,'otro','otro'),(6,4,'asdsad','asdsad'),(7,5,'termas solares 1','termas-solares-1'),(8,5,'ASDA','asda'),(9,1,'ASDSAD','asdsad'),(10,1,'SADSAD','sadsad'),(11,1,'ASDSAD 2','asdsad-2'),(18,1,'ASDSAD 3','asdsad-3-2'),(20,1,'ASDSAD 4','asdsad-4');
 /*!40000 ALTER TABLE `subcategory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -206,4 +209,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-06-06  4:06:31
+-- Dump completed on 2026-06-06  5:27:07

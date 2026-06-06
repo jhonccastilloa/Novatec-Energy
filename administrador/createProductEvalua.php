@@ -30,16 +30,24 @@ if (isset($_REQUEST['idDelete'])) {
 } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   session_start();
   if (isset($_REQUEST['idEdit'])) {
-    $name = $conn->real_escape_string($_REQUEST['name']);
+    $nameRaw = trim((string) ($_REQUEST['name'] ?? ''));
     $category = $conn->real_escape_string($_REQUEST['category']);
     $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
     $description = $conn->real_escape_string($_REQUEST['description']);
     $price = $conn->real_escape_string($_REQUEST['price']);
     $breve = $conn->real_escape_string($_REQUEST['breve']);
     $idEdit = $conn->real_escape_string($_REQUEST['idEdit']);
+    if (product_name_exists($nameRaw, (int) $idEdit)) {
+      $_SESSION['estate'] = 'danger';
+      $_SESSION['msg'] = "Ya existe un producto con ese nombre.";
+      header("location:index.php?module=product");
+      exit;
+    }
+
+    $name = $conn->real_escape_string($nameRaw);
     $image = $_FILES['image']['name'];
     $imageAux = $conn->real_escape_string($_REQUEST['imageAux']);
-    $slug = $conn->real_escape_string(unique_product_slug($name, (int) $idEdit));
+    $slug = $conn->real_escape_string(unique_product_slug($nameRaw, (int) $idEdit));
     if (!$image) {
       $image = $imageAux;
     }
@@ -51,14 +59,22 @@ if (isset($_REQUEST['idDelete'])) {
     $result = $conn->query($query);
   } else {
 
-    $name = $conn->real_escape_string($_REQUEST['name']);
+    $nameRaw = trim((string) ($_REQUEST['name'] ?? ''));
     $category = $conn->real_escape_string($_REQUEST['category']);
     $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
     $description = $conn->real_escape_string($_REQUEST['description']);
     $price = $conn->real_escape_string($_REQUEST['price']);
     $breve = $conn->real_escape_string($_REQUEST['breve']);
     $image = $_FILES['image']['name'];
-    $slug = $conn->real_escape_string(unique_product_slug($name));
+    if (product_name_exists($nameRaw)) {
+      $_SESSION['estate'] = 'danger';
+      $_SESSION['msg'] = "Ya existe un producto con ese nombre.";
+      header("location:index.php?module=product");
+      exit;
+    }
+
+    $name = $conn->real_escape_string($nameRaw);
+    $slug = $conn->real_escape_string(unique_product_slug($nameRaw));
 
 
     $query = "INSERT INTO productos(id,nombre,slug,descripcion,precio_normal,breve_descripcion,imagen,id_categoria,id_subcategory) VALUES (NULL,'{$name}','{$slug}','{$description}',{$price},'{$breve}','{$image}','{$category}',{$subcategory})";

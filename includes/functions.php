@@ -134,6 +134,51 @@ function unique_product_slug(string $name, ?int $excludeId = null): string
     return truncate_slug($baseSlug . '-' . time(), 180);
 }
 
+function category_name_exists(string $name, ?int $excludeId = null): bool
+{
+    $sql = 'SELECT id FROM category WHERE LOWER(TRIM(category)) = LOWER(TRIM(?))';
+    $types = 's';
+    $params = [$name];
+
+    if ($excludeId !== null) {
+        $sql .= ' AND id <> ?';
+        $types .= 'i';
+        $params[] = $excludeId;
+    }
+
+    return (bool) db_one($sql . ' LIMIT 1', $types, $params);
+}
+
+function subcategory_name_exists(int $categoryId, string $name, ?int $excludeId = null): bool
+{
+    $sql = 'SELECT id FROM subcategory WHERE id_category = ? AND LOWER(TRIM(subcategory)) = LOWER(TRIM(?))';
+    $types = 'is';
+    $params = [$categoryId, $name];
+
+    if ($excludeId !== null) {
+        $sql .= ' AND id <> ?';
+        $types .= 'i';
+        $params[] = $excludeId;
+    }
+
+    return (bool) db_one($sql . ' LIMIT 1', $types, $params);
+}
+
+function product_name_exists(string $name, ?int $excludeId = null): bool
+{
+    $sql = 'SELECT id FROM productos WHERE LOWER(TRIM(nombre)) = LOWER(TRIM(?))';
+    $types = 's';
+    $params = [$name];
+
+    if ($excludeId !== null) {
+        $sql .= ' AND id <> ?';
+        $types .= 'i';
+        $params[] = $excludeId;
+    }
+
+    return (bool) db_one($sql . ' LIMIT 1', $types, $params);
+}
+
 function excerpt($value, int $length = 160): string
 {
     $text = html_entity_decode(strip_tags((string) $value), ENT_QUOTES | ENT_HTML5, 'UTF-8');
