@@ -20,9 +20,6 @@ if (!$row) {
 $canonicalPath = product_path($row);
 if (current_request_path() !== $canonicalPath) {
     $location = product_url($row);
-    if (isset($_GET['click'])) {
-        $location .= '?click=1#text-description';
-    }
 
     header('Location: ' . $location, true, 301);
     exit;
@@ -86,13 +83,6 @@ render_breadcrumb('Detalles del producto');
     </div>
 </div>
 
-<a id="click" href="#text-description" hidden>click</a>
-
 <?php
-$scripts = [];
-if (isset($_GET['click'])) {
-    $scripts[] = '<script>document.getElementById("click").click();</script>';
-}
-
-render_site_footer(['scripts' => $scripts]);
+render_site_footer();
 ?>

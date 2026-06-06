@@ -1,7 +1,8 @@
 <?php
 include("conection.php");
 require_once __DIR__ . "/components/adminAlert.php";
-$query = "SELECT productos.id,productos.nombre,productos.descripcion,productos.precio_normal,productos.breve_descripcion,productos.imagen,category.category,subcategory.subcategory 
+require_once __DIR__ . "/../includes/functions.php";
+$query = "SELECT productos.id,productos.nombre,productos.slug,productos.descripcion,productos.precio_normal,productos.breve_descripcion,productos.imagen,category.category,subcategory.subcategory
 FROM productos LEFT JOIN category ON productos.id_categoria = category.id LEFT JOIN subcategory ON productos.id_subcategory=subcategory.id";
 $results = $conn->query($query);
 
@@ -228,6 +229,7 @@ if (!function_exists('productHtml')) {
                       $ext = end($array);
                       $briefDescription = cleanProductText($row['breve_descripcion']);
                       $searchDescription = cleanProductText($row['descripcion']);
+                      $productPreviewUrl = '../' . product_path($row) . '#text-description';
                     ?>
                       <tr>
                         <td><?php echo $row['id'] ?></td>
@@ -244,7 +246,7 @@ if (!function_exists('productHtml')) {
                         <td class="col-subcategory"><span class="product-category" title="<?php echo productHtml($row['subcategory']) ?>"><?php echo productHtml($row['subcategory']) ?></span></td>
                         <td class="col-actions">
                           <div class="product-actions">
-                            <a href="../producto?id=<?= $row['id'] ?>&click=1" target="_blank" class="btn btn-sm btn-primary" title="Ver contenido" aria-label="Ver contenido">
+                            <a href="<?php echo productHtml($productPreviewUrl) ?>" target="_blank" class="btn btn-sm btn-primary" title="Ver contenido" aria-label="Ver contenido">
                               <i class="fas fa-eye"></i>
                             </a>
                             <a href="index.php?module=editProduct&id=<?php echo $row['id'] ?>" class="btn btn-sm btn-info" title="Editar" aria-label="Editar">
