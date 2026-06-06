@@ -28,12 +28,15 @@ $url = $_SERVER["REQUEST_URI"];
 								<li class="<?php echo (stripos($url, "productos") ? 'current-list-item' : '') ?>"><a href="productos">Productos</a>
 									<ul class="sub-menu">
 										<?php
-										foreach (get_categories() as $row) {
-										$acento=eliminar_acentos($row['category']);
-										$name=strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $acento), '-'));
+										foreach (get_categories() as $category) {
+											$acento = eliminar_acentos($category['category']);
+											$name = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $acento), '-'));
 										?>
-											<li><a href="productos?categoria=<?php echo (int) $row['id'] ?>&nombre=<?php echo e($name) ?>"><?php echo e($row['category']) ?></a></li>
-
+											<li>
+												<a href="productos?categoria=<?php echo (int) $category['id'] ?>&nombre=<?php echo e($name) ?>">
+													<?php echo e($category['category']) ?>
+												</a>
+											</li>
 										<?php
 										}
 										?>
@@ -45,7 +48,7 @@ $url = $_SERVER["REQUEST_URI"];
 
 								<li>
 									<div class="header-icons">
-										<a href="https://api.whatsapp.com/send?phone=+51 951828275&text=Hola, deseo adquirir un producto con ustedes"  target="_blank"><i class="fab fa-whatsapp "></i> 951 828 275</a>
+										<a href="https://api.whatsapp.com/send?phone=+51 951828275&text=Hola, deseo adquirir un producto con ustedes" target="_blank"><i class="fab fa-whatsapp "></i> 951 828 275</a>
 
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
@@ -83,46 +86,51 @@ $url = $_SERVER["REQUEST_URI"];
 	</div>
 	<!-- end search area -->
 	<?php
-	function eliminar_acentos($cadena){
-		
+	function eliminar_acentos($cadena)
+	{
+
 		//Reemplazamos la A y a
 		$cadena = str_replace(
-		array('Á', 'À', 'Â', 'Ä', 'á', 'à', 'ä', 'â', 'ª'),
-		array('A', 'A', 'A', 'A', 'a', 'a', 'a', 'a', 'a'),
-		$cadena
+			array('Á', 'À', 'Â', 'Ä', 'á', 'à', 'ä', 'â', 'ª'),
+			array('A', 'A', 'A', 'A', 'a', 'a', 'a', 'a', 'a'),
+			$cadena
 		);
 
 		//Reemplazamos la E y e
 		$cadena = str_replace(
-		array('É', 'È', 'Ê', 'Ë', 'é', 'è', 'ë', 'ê'),
-		array('E', 'E', 'E', 'E', 'e', 'e', 'e', 'e'),
-		$cadena );
+			array('É', 'È', 'Ê', 'Ë', 'é', 'è', 'ë', 'ê'),
+			array('E', 'E', 'E', 'E', 'e', 'e', 'e', 'e'),
+			$cadena
+		);
 
 		//Reemplazamos la I y i
 		$cadena = str_replace(
-		array('Í', 'Ì', 'Ï', 'Î', 'í', 'ì', 'ï', 'î'),
-		array('I', 'I', 'I', 'I', 'i', 'i', 'i', 'i'),
-		$cadena );
+			array('Í', 'Ì', 'Ï', 'Î', 'í', 'ì', 'ï', 'î'),
+			array('I', 'I', 'I', 'I', 'i', 'i', 'i', 'i'),
+			$cadena
+		);
 
 		//Reemplazamos la O y o
 		$cadena = str_replace(
-		array('Ó', 'Ò', 'Ö', 'Ô', 'ó', 'ò', 'ö', 'ô'),
-		array('O', 'O', 'O', 'O', 'o', 'o', 'o', 'o'),
-		$cadena );
+			array('Ó', 'Ò', 'Ö', 'Ô', 'ó', 'ò', 'ö', 'ô'),
+			array('O', 'O', 'O', 'O', 'o', 'o', 'o', 'o'),
+			$cadena
+		);
 
 		//Reemplazamos la U y u
 		$cadena = str_replace(
-		array('Ú', 'Ù', 'Û', 'Ü', 'ú', 'ù', 'ü', 'û'),
-		array('U', 'U', 'U', 'U', 'u', 'u', 'u', 'u'),
-		$cadena );
+			array('Ú', 'Ù', 'Û', 'Ü', 'ú', 'ù', 'ü', 'û'),
+			array('U', 'U', 'U', 'U', 'u', 'u', 'u', 'u'),
+			$cadena
+		);
 
 		//Reemplazamos la N, n, C y c
 		$cadena = str_replace(
-		array('Ñ', 'ñ', 'Ç', 'ç'),
-		array('N', 'n', 'C', 'c'),
-		$cadena
+			array('Ñ', 'ñ', 'Ç', 'ç'),
+			array('N', 'n', 'C', 'c'),
+			$cadena
 		);
-		
+
 		return $cadena;
 	}
 	?>
