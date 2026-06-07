@@ -36,7 +36,7 @@ $canonical = $subcategory && $category
     ? site_url(subcategory_path($category, $subcategory))
     : ($category ? site_url(category_path($category)) : site_url('productos'));
 $breadcrumbs = [
-    ['name' => 'Inicio', 'url' => 'index'],
+    ['name' => 'Inicio', 'url' => ''],
     ['name' => 'Productos', 'url' => 'productos'],
 ];
 if ($category) {

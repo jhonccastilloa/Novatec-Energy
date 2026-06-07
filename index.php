@@ -1,6 +1,11 @@
 <?php
 require_once __DIR__ . '/includes/components.php';
 
+if (in_array(current_request_path(), ['index', 'index.php'], true)) {
+    header('Location: ' . site_url(), true, 301);
+    exit;
+}
+
 $pageTitle = 'Novatec Energy | Tienda especializada en energías renovables';
 $pageDescription = 'Soluciones en energía solar, termas solares, iluminación y bombeo solar para hogares, empresas e instituciones en Puno.';
 $pageSeo = [

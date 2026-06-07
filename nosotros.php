@@ -9,7 +9,7 @@ $pageSeo = [
     'canonical' => site_url('nosotros'),
     'path' => 'nosotros',
     'breadcrumbs' => [
-        ['name' => 'Inicio', 'url' => 'index'],
+        ['name' => 'Inicio', 'url' => ''],
         ['name' => 'Nosotros', 'url' => 'nosotros'],
     ],
 ];

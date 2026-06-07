@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 return [
     'nav' => [
-        ['label' => 'Inicio', 'url' => 'index', 'path' => 'index'],
+        ['label' => 'Inicio', 'url' => '', 'path' => 'index'],
         ['label' => 'Productos', 'url' => 'productos', 'path' => 'productos'],
         ['label' => 'Nosotros', 'url' => 'nosotros', 'path' => 'nosotros'],
         ['label' => 'Contáctenos', 'url' => 'contacto', 'path' => 'contacto'],
@@ -89,7 +89,7 @@ return [
         ['name' => 'Gerson Enoc', 'role' => 'Técnico', 'class' => 'team-bg-3'],
     ],
     'footer_pages' => [
-        ['label' => 'Inicio', 'url' => 'index'],
+        ['label' => 'Inicio', 'url' => ''],
         ['label' => 'Productos', 'url' => 'productos'],
         ['label' => 'Nosotros', 'url' => 'nosotros'],
         ['label' => 'Contacto', 'url' => 'contacto'],

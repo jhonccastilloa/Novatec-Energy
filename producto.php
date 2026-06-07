@@ -36,7 +36,7 @@ $pageSeo = [
     'image' => product_image_relative($row),
     'type' => 'product',
     'breadcrumbs' => [
-        ['name' => 'Inicio', 'url' => 'index'],
+        ['name' => 'Inicio', 'url' => ''],
         ['name' => 'Productos', 'url' => 'productos'],
         ['name' => $title, 'url' => $canonicalPath],
     ],

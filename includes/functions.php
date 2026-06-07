@@ -289,7 +289,7 @@ function url_path(string $path = ''): string
     $path = ltrim($path, '/');
     $base = base_path();
 
-    if ($path === '') {
+    if ($path === '' || $path === 'index' || $path === 'index.php') {
         return $base === '' ? '/' : $base . '/';
     }
 
@@ -321,6 +321,10 @@ function site_root_url(): string
 function site_url(string $path = ''): string
 {
     $path = ltrim($path, '/');
+    if ($path === 'index' || $path === 'index.php') {
+        $path = '';
+    }
+
     return rtrim(site_root_url(), '/') . ($path === '' ? '/' : '/' . $path);
 }
 

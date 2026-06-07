@@ -65,7 +65,7 @@ function render_site_header(): void
 				<div class="col-lg-12 col-sm-12 text-center">
 					<div class="main-menu-wrap">
 						<div class="site-logo">
-							<a href="<?php echo e(url_path('index')); ?>">
+							<a href="<?php echo e(url_path('')); ?>">
 								<img class="logo-menu" src="<?php echo e(asset_url('assets/img/logo.png')); ?>" alt="Logo de Novatec Energy">
 							</a>
 						</div>
@@ -166,7 +166,7 @@ function render_site_footer(array $options = []): void
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12">
-					<p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> - <a href="<?php echo e(url_path('index')); ?>">Novatec</a>, todos los derechos reservados.<br></p>
+					<p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> - <a href="<?php echo e(url_path('')); ?>">Novatec</a>, todos los derechos reservados.<br></p>
 				</div>
 				<div class="col-lg-6 text-right col-md-12">
 					<div class="social-icons">
