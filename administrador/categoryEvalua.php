@@ -9,20 +9,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   if ($op == 'delete') {
     $query = "DELETE FROM category WHERE id='{$id}'";
     $_SESSION['estate']='success';
-    $_SESSION['msg']="Registro Eliminado Correctamente.";
+    $_SESSION['msg']="Registro eliminado correctamente.";
     try {
     $result=$conn->query($query);
     //code...
     } catch (\Throwable $th) {
       $_SESSION['estate']='danger';
-      $_SESSION['msg']="ERROR. Tiene que  Borrar Antes Todas las Subcategorias y Productos Enlazados con esta Categoria";
+      $_SESSION['msg']="Error. Debe borrar antes todas las subcategorías y productos enlazados con esta categoría.";
     header("location:index.php?module=category");
     }
   } elseif ($id) {
     $categoryRaw = trim((string) ($_REQUEST['category'] ?? ''));
     if (category_name_exists($categoryRaw, (int) $id)) {
       $_SESSION['estate']='danger';
-      $_SESSION['msg']="Ya existe una categoria con ese nombre.";
+      $_SESSION['msg']="Ya existe una categoría con ese nombre.";
       header("location:index.php?module=category");
       exit;
     }
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $category = $conn->real_escape_string($categoryRaw);
     $slug = $conn->real_escape_string(unique_category_slug($categoryRaw, (int) $id));
     $query = "UPDATE category SET category='{$category}', slug='{$slug}' WHERE id='{$id}'";
-    $_SESSION['msg']="Registro Editado Correctamente.";
+    $_SESSION['msg']="Registro editado correctamente.";
     $_SESSION['estate']='success';
     $result=$conn->query($query);
 
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $categoryRaw = trim((string) ($_REQUEST['category'] ?? ''));
     if (category_name_exists($categoryRaw)) {
       $_SESSION['estate']='danger';
-      $_SESSION['msg']="Ya existe una categoria con ese nombre.";
+      $_SESSION['msg']="Ya existe una categoría con ese nombre.";
       header("location:index.php?module=category");
       exit;
     }
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $slug = $conn->real_escape_string(unique_category_slug($categoryRaw));
     $query = "INSERT INTO category(id,category,slug) VALUES(NULL,'{$category}','{$slug}')";
     $_SESSION['estate']='success';
-    $_SESSION['msg']="Registro Guardado Correctamente.";
+    $_SESSION['msg']="Registro guardado correctamente.";
     $result=$conn->query($query);
   }
 
@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   } else {
 ?>
     <div class="alert alert-danger" role="alert">
-      Error al <?php echo $estate ?> Categoria <?php echo mysqli_error($conn); ?>
+      Error al <?php echo $estate ?> categoría <?php echo mysqli_error($conn); ?>
     </div>
 <?php
   }

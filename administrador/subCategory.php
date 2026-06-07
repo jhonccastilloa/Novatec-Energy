@@ -17,12 +17,12 @@ if (!function_exists('subcategoryHtml')) {
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="font-weight-bold">Sub Categoria</h1>
+          <h1 class="font-weight-bold">Subcategoría</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="./">Inicio</a></li>
-            <li class="breadcrumb-item active">Sub Categorias</li>
+            <li class="breadcrumb-item active">Subcategorías</li>
           </ol>
         </div>
       </div>
@@ -64,7 +64,7 @@ if (!function_exists('subcategoryHtml')) {
         <div class="col-12">
           <div class="card card-success" id="cardSubCategory">
             <div class="card-header">
-              <h3 class="card-title font-weight-bold title-subcategory">AGREGAR SUB CATEGORIA:</h3>
+              <h3 class="card-title font-weight-bold title-subcategory">AGREGAR SUBCATEGORÍA:</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -76,7 +76,7 @@ if (!function_exists('subcategoryHtml')) {
                   <form class="form-horizontal" action="subCategoryEvalua.php" method="GET">
                     <input type="hidden" name="idEdit" id="idCat" value="">
                     <div class="form-group">
-                      <label for="area" class="col-sm-12 ">Categoria:</label>
+                      <label for="area" class="col-sm-12 ">Categoría:</label>
                       <div class="col-sm-12">
                         <select name="category" id="selectCategory" class="form-control" required>
                           <?php
@@ -94,10 +94,10 @@ if (!function_exists('subcategoryHtml')) {
                       </div>
                     </div>
                     <div class="form-group">
-                      <label for="nombres" class="col-sm-12 ">Sub Categoria: </label>
+                      <label for="nombres" class="col-sm-12 ">Subcategoría: </label>
                       <div class="col-sm-12">
                         <div class="input-group">
-                          <input type="text" class="form-control" id="subCategory" name="subcategory" placeholder="Escriba el Nombre de la SubCategoria" required>
+                          <input type="text" class="form-control" id="subCategory" name="subcategory" placeholder="Escriba el nombre de la subcategoría" required>
                           <div class="input-group-append">
                             <button type="button" onclick="erasedTextSub()" class="btn btn-outline-secondary" title="Borrar">
                               <i class="fas fa-times"></i>
@@ -120,8 +120,8 @@ if (!function_exists('subcategoryHtml')) {
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Categoria</th>
-                        <th>Sub Categoria</th>
+                        <th>Categoría</th>
+                        <th>Subcategoría</th>
                         <th class="col-actions">Acciones</th>
                       </tr>
                     </thead>

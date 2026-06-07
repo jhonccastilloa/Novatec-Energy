@@ -198,10 +198,10 @@ if (!function_exists('productHtml')) {
           <div class="card">
             <div class="card-header">
               <div class="products-card-header">
-                <h3 class="card-title font-weight-bold">PANEL DE LOS PRODUCTOS:</h3>
+                <h3 class="card-title font-weight-bold">PANEL DE PRODUCTOS:</h3>
                 <a href="index.php?module=createProduct" class="btn btn-primary btn-sm products-add-btn">
                   <i class="fa fa-plus"></i>
-                  <span>Agregar Nuevo Producto</span>
+                  <span>Agregar nuevo producto</span>
                 </a>
               </div>
             </div>
@@ -218,8 +218,8 @@ if (!function_exists('productHtml')) {
                       <th class="col-image">Imagen</th>
                       <th class="col-product">Producto</th>
                       <th class="col-price">Precio</th>
-                      <th class="col-category">Categoria</th>
-                      <th class="col-subcategory">Sub Categoria</th>
+                      <th class="col-category">Categoría</th>
+                      <th class="col-subcategory">Subcategoría</th>
                       <th class="col-actions">Acciones</th>
                     </tr>
                   </thead>

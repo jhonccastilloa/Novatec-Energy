@@ -3,7 +3,7 @@ require_once __DIR__ . '/includes/components.php';
 
 $product = trim((string) ($_GET['producto'] ?? ''));
 $categoryId = filter_input(INPUT_GET, 'categoria', FILTER_VALIDATE_INT);
-$pageDescription = 'Resultados de busqueda de productos de energia renovable en Novatec Energy.';
+$pageDescription = 'Resultados de búsqueda de productos de energía renovable en Novatec Energy.';
 $pageSeo = [
     'title' => 'Buscar | Novatec Energy',
     'description' => $pageDescription,
@@ -39,7 +39,7 @@ render_breadcrumb($product, 'BUSCANDO:');
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 text-center text-search">
-                            <p class="text-search"> Busque Algún Producto</p>
+                            <p class="text-search"> Busque algún producto</p>
                         </div>
                     </div>
                 </div>

@@ -108,7 +108,7 @@ function render_site_header(): void
 					<div class="search-bar">
 						<div class="search-bar-tablecell">
 							<form action="<?php echo e(url_path('buscar')); ?>" method="get">
-								<h3>Buesque en Novatec Energy:</h3>
+								<h3>Busque en Novatec Energy:</h3>
 								<input type="text" name="producto" placeholder="Digite un producto">
 								<button type="submit">Buscar <i class="fas fa-search"></i></button>
 							</form>
@@ -132,13 +132,13 @@ function render_site_footer(array $options = []): void
 			<div class="row">
 				<div class="col-lg-6 col-md-6">
 					<div class="footer-box about-widget">
-						<h2 class="widget-title">Acerca de Nosotos</h2>
-						<p>Elaboramos proyectos a base de energía solar, instalamos termas solares, iluminaciones domésticas, bombas para irrigaciones, congeladores solares, temperadores de piscinas. Se hace elaboración de proyectos para empresas privadas, entidades públicas, municipalidades y gobiernos regionales</p>
+						<h2 class="widget-title">Acerca de nosotros</h2>
+						<p>Elaboramos proyectos con energía solar, instalamos termas solares, iluminación doméstica, bombas para irrigación, congeladores solares y temperadores de piscinas para empresas privadas, entidades públicas, municipalidades y gobiernos regionales.</p>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box get-in-touch">
-						<h2 class="widget-title">Contactenos</h2>
+						<h2 class="widget-title">Contáctenos</h2>
 						<ul>
 							<li><?php echo e($business['address']['display']); ?></li>
 							<li>CEL: <?php echo e($business['phone_display']); ?></li>
@@ -150,7 +150,7 @@ function render_site_footer(array $options = []): void
 				</div>
 				<div class="col-lg-3 col-md-6">
 					<div class="footer-box pages">
-						<h2 class="widget-title">Paginas</h2>
+						<h2 class="widget-title">Páginas</h2>
 						<ul>
 							<?php foreach ($footerPages as $page) { ?>
 								<li><a href="<?php echo e(url_path((string) $page['url'])); ?>"><?php echo e($page['label']); ?></a></li>
@@ -166,7 +166,7 @@ function render_site_footer(array $options = []): void
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6 col-md-12">
-					<p>Copyrights &copy; <script>document.write(new Date().getFullYear());</script> - <a href="<?php echo e(url_path('index')); ?>">Novatec</a>, Todos Los Derechos Reservados.<br></p>
+					<p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> - <a href="<?php echo e(url_path('index')); ?>">Novatec</a>, todos los derechos reservados.<br></p>
 				</div>
 				<div class="col-lg-6 text-right col-md-12">
 					<div class="social-icons">
@@ -273,7 +273,7 @@ function render_product_card(array $product, bool $scrollToDescription = false):
 		</div>
 		<h3><?php echo e($product['nombre']); ?></h3>
 		<p class="product-price"> S/.<?php echo e($product['precio_normal']); ?> </p>
-		<a href="<?php echo e($url); ?>" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer Mas</a>
+		<a href="<?php echo e($url); ?>" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer más</a>
 	</div>
 </div>
 <?php
@@ -290,8 +290,8 @@ function render_category_card(array $category): void
 		</div>
 		<div class="news-text-box">
 			<h3><?php echo e($category['category']); ?></h3>
-			<p class="excerpt">En esta sección va encontrar gran variedad de <strong><?php echo e($category['category']); ?></strong> , de buena calidad y a precios muy comodos</p>
-			<a href="<?php echo e(category_url($category)); ?>" class="read-more-btn">Ver Mas <i class="fas fa-angle-right"></i></a>
+			<p class="excerpt">En esta sección encontrará una gran variedad de <strong><?php echo e($category['category']); ?></strong> de buena calidad y a precios muy cómodos.</p>
+			<a href="<?php echo e(category_url($category)); ?>" class="read-more-btn">Ver más <i class="fas fa-angle-right"></i></a>
 		</div>
 	</div>
 </div>

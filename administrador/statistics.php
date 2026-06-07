@@ -33,12 +33,12 @@
                             ?>
                             <h3><?= $numRows ?></h3>
 
-                            <p>Productos Registrados</p>
+                            <p>Productos registrados</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-bag"></i>
                         </div>
-                        <a href="index.php?module=product" class="small-box-footer">Ver Mas Información<i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="index.php?module=product" class="small-box-footer">Ver más información <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -52,12 +52,12 @@
                             $numRows = $result->num_rows
                             ?>
                             <h3><?= $numRows ?></h3>
-                            <p>Categorias Agregadas en total</p>
+                            <p>Categorías agregadas en total</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="index.php?module=category" class="small-box-footer">Ver Mas Información<i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="index.php?module=category" class="small-box-footer">Ver más información <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->
@@ -71,12 +71,12 @@
                             $numRows = $result->num_rows
                             ?>
                             <h3><?= $numRows ?></h3>
-                            <p>Sub categorias Agregadas en Total</p>
+                            <p>Subcategorías agregadas en total</p>
                         </div>
                         <div class="icon">
                             <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="index.php?module=subcategory" class="small-box-footer">Ver Mas Información<i class="fas fa-arrow-circle-right"></i></a>
+                        <a href="index.php?module=subcategory" class="small-box-footer">Ver más información <i class="fas fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
                 <!-- ./col -->

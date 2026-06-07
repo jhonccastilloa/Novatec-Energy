@@ -17,12 +17,12 @@ if (!function_exists('categoryHtml')) {
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1 class="font-weight-bold">Categorias</h1>
+          <h1 class="font-weight-bold">Categorías</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="./">Inicio</a></li>
-            <li class="breadcrumb-item active">Categorias</li>
+            <li class="breadcrumb-item active">Categorías</li>
           </ol>
         </div>
       </div>
@@ -64,7 +64,7 @@ if (!function_exists('categoryHtml')) {
         <div class="col-12">
           <div class="card card-success" id="cardCategory">
             <div class="card-header">
-              <h3 class="card-title font-weight-bold title-category">AGREGAR CATEGORIA:</h3>
+              <h3 class="card-title font-weight-bold title-category">AGREGAR CATEGORÍA:</h3>
             </div>
             <!-- /.card-header -->
             <div class="card-body">
@@ -77,10 +77,10 @@ if (!function_exists('categoryHtml')) {
                   <form class="form-horizontal" action="categoryEvalua.php" method="GET">
                     <input type="hidden" name="id" id="idCat" value="">
                     <div class="form-group">
-                      <label for="nombres" class="col-sm-12 ">Categoria: </label>
+                      <label for="nombres" class="col-sm-12 ">Categoría: </label>
                       <div class="col-sm-12">
                         <div class="input-group">
-                          <input type="text" class="form-control" id="category" name="category" placeholder="Escriba el nombre de la Categoria" required>
+                          <input type="text" class="form-control" id="category" name="category" placeholder="Escriba el nombre de la categoría" required>
                           <div class="input-group-append">
                             <button type="button" onclick="erasedText()" class="btn btn-outline-secondary" title="Borrar">
                               <i class="fas fa-times"></i>
@@ -103,7 +103,7 @@ if (!function_exists('categoryHtml')) {
                     <thead>
                       <tr>
                         <th>ID</th>
-                        <th>Categoria</th>
+                        <th>Categoría</th>
                         <th class="col-actions">Acciones</th>
                       </tr>
                     </thead>

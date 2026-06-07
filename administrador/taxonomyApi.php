@@ -40,7 +40,7 @@ function fetch_categories($conn) {
 function fetch_subcategories($conn) {
   $categoryId = isset($_GET["category_id"]) ? (int) $_GET["category_id"] : 0;
   if ($categoryId <= 0) {
-    fail("Categoria invalida.");
+    fail("Categoría inválida.");
   }
 
   $stmt = $conn->prepare("SELECT id, subcategory AS label FROM subcategory WHERE id_category = ? ORDER BY subcategory ASC");
@@ -61,7 +61,7 @@ function fetch_subcategories($conn) {
 
 function require_admin_session() {
   if (!isset($_SESSION["id"])) {
-    fail("Debe iniciar sesion para crear registros.", 401);
+    fail("Debe iniciar sesión para crear registros.", 401);
   }
 }
 
@@ -103,12 +103,12 @@ function category_exists($conn, $categoryId) {
 function create_category($conn) {
   $name = clean_name($_POST["name"] ?? "");
   if ($name === "") {
-    fail("Ingrese un nombre de categoria.");
+    fail("Ingrese un nombre de categoría.");
   }
 
   $existing = find_category_by_name($conn, $name);
   if ($existing) {
-    fail("Ya existe una categoria con ese nombre.", 409);
+    fail("Ya existe una categoría con ese nombre.", 409);
   }
 
   $slug = unique_category_slug($name);
@@ -116,7 +116,7 @@ function create_category($conn) {
   $stmt->bind_param("ss", $name, $slug);
 
   if (!$stmt->execute()) {
-    fail("No se pudo crear la categoria.", 500);
+    fail("No se pudo crear la categoría.", 500);
   }
 
   respond([
@@ -130,15 +130,15 @@ function update_category($conn) {
   $name = clean_name($_POST["name"] ?? "");
 
   if ($id <= 0 || !category_exists($conn, $id)) {
-    fail("Seleccione una categoria valida.");
+    fail("Seleccione una categoría válida.");
   }
 
   if ($name === "") {
-    fail("Ingrese un nombre de categoria.");
+    fail("Ingrese un nombre de categoría.");
   }
 
   if (find_category_by_name_except_id($conn, $name, $id)) {
-    fail("Ya existe una categoria con ese nombre.");
+    fail("Ya existe una categoría con ese nombre.");
   }
 
   $slug = unique_category_slug($name, $id);
@@ -146,7 +146,7 @@ function update_category($conn) {
   $stmt->bind_param("ssi", $name, $slug, $id);
 
   if (!$stmt->execute()) {
-    fail("No se pudo editar la categoria.", 500);
+    fail("No se pudo editar la categoría.", 500);
   }
 
   respond([
@@ -159,7 +159,7 @@ function delete_category($conn) {
   $id = isset($_POST["id"]) ? (int) $_POST["id"] : 0;
 
   if ($id <= 0 || !category_exists($conn, $id)) {
-    fail("Seleccione una categoria valida.");
+    fail("Seleccione una categoría válida.");
   }
 
   $stmt = $conn->prepare("DELETE FROM category WHERE id = ?");
@@ -168,13 +168,13 @@ function delete_category($conn) {
   try {
     if (!$stmt->execute()) {
       if ($conn->errno == 1451) {
-        fail("No se puede eliminar porque tiene sub categorias o productos enlazados.", 409);
+        fail("No se puede eliminar porque tiene subcategorías o productos enlazados.", 409);
       }
 
-      fail("No se pudo eliminar la categoria.", 500);
+      fail("No se pudo eliminar la categoría.", 500);
     }
   } catch (Throwable $error) {
-    fail("No se puede eliminar porque tiene sub categorias o productos enlazados.", 409);
+    fail("No se puede eliminar porque tiene subcategorías o productos enlazados.", 409);
   }
 
   respond(["id" => $id]);
@@ -185,16 +185,16 @@ function create_subcategory($conn) {
   $name = clean_name($_POST["name"] ?? "");
 
   if ($categoryId <= 0 || !category_exists($conn, $categoryId)) {
-    fail("Seleccione una categoria valida.");
+    fail("Seleccione una categoría válida.");
   }
 
   if ($name === "") {
-    fail("Ingrese un nombre de sub categoria.");
+    fail("Ingrese un nombre de subcategoría.");
   }
 
   $existing = find_subcategory_by_name($conn, $categoryId, $name);
   if ($existing) {
-    fail("Ya existe una sub categoria con ese nombre.", 409);
+    fail("Ya existe una subcategoría con ese nombre.", 409);
   }
 
   $slug = unique_subcategory_slug($name, $categoryId);
@@ -202,7 +202,7 @@ function create_subcategory($conn) {
   $stmt->bind_param("iss", $categoryId, $name, $slug);
 
   if (!$stmt->execute()) {
-    fail("No se pudo crear la sub categoria.", 500);
+    fail("No se pudo crear la subcategoría.", 500);
   }
 
   respond([
@@ -224,19 +224,19 @@ function update_subcategory($conn) {
   $name = clean_name($_POST["name"] ?? "");
 
   if ($id <= 0 || !subcategory_exists($conn, $id)) {
-    fail("Seleccione una sub categoria valida.");
+    fail("Seleccione una subcategoría válida.");
   }
 
   if ($categoryId <= 0 || !category_exists($conn, $categoryId)) {
-    fail("Seleccione una categoria valida.");
+    fail("Seleccione una categoría válida.");
   }
 
   if ($name === "") {
-    fail("Ingrese un nombre de sub categoria.");
+    fail("Ingrese un nombre de subcategoría.");
   }
 
   if (find_subcategory_by_name_except_id($conn, $categoryId, $name, $id)) {
-    fail("Ya existe una sub categoria con ese nombre.");
+    fail("Ya existe una subcategoría con ese nombre.");
   }
 
   $slug = unique_subcategory_slug($name, $categoryId, $id);
@@ -244,7 +244,7 @@ function update_subcategory($conn) {
   $stmt->bind_param("ssii", $name, $slug, $categoryId, $id);
 
   if (!$stmt->execute()) {
-    fail("No se pudo editar la sub categoria.", 500);
+    fail("No se pudo editar la subcategoría.", 500);
   }
 
   respond([
@@ -257,7 +257,7 @@ function delete_subcategory($conn) {
   $id = isset($_POST["id"]) ? (int) $_POST["id"] : 0;
 
   if ($id <= 0 || !subcategory_exists($conn, $id)) {
-    fail("Seleccione una sub categoria valida.");
+    fail("Seleccione una subcategoría válida.");
   }
 
   $stmt = $conn->prepare("DELETE FROM subcategory WHERE id = ?");
@@ -269,7 +269,7 @@ function delete_subcategory($conn) {
         fail("No se puede eliminar porque tiene productos enlazados.", 409);
       }
 
-      fail("No se pudo eliminar la sub categoria.", 500);
+      fail("No se pudo eliminar la subcategoría.", 500);
     }
   } catch (Throwable $error) {
     fail("No se puede eliminar porque tiene productos enlazados.", 409);
@@ -289,7 +289,7 @@ if ($_SERVER["REQUEST_METHOD"] === "GET") {
     fetch_subcategories($conn);
   }
 
-  fail("Recurso invalido.", 404);
+  fail("Recurso inválido.", 404);
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -321,7 +321,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     delete_subcategory($conn);
   }
 
-  fail("Accion invalida.", 404);
+  fail("Acción inválida.", 404);
 }
 
-fail("Metodo no permitido.", 405);
+fail("Método no permitido.", 405);

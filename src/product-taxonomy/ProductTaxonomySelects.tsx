@@ -112,7 +112,7 @@ export function ProductTaxonomySelects({ root }: ProductTaxonomySelectsProps) {
     const handleSubmit = (event: SubmitEvent) => {
       if (!category?.value || !subcategory?.value) {
         event.preventDefault();
-        setError('Seleccione una categoria y una sub categoria antes de guardar.');
+        setError('Seleccione una categoría y una subcategoría antes de guardar.');
       }
     };
 
@@ -228,8 +228,8 @@ export function ProductTaxonomySelects({ root }: ProductTaxonomySelectsProps) {
   };
 
   const deleteOption: OptionAction = async (type, option) => {
-    const resourceName = type === 'category' ? 'categoria' : 'sub categoria';
-    const confirmed = window.confirm(`Se eliminara la ${resourceName} "${option.label}". Desea continuar?`);
+    const resourceName = type === 'category' ? 'categoría' : 'subcategoría';
+    const confirmed = window.confirm(`Se eliminará la ${resourceName} "${option.label}". ¿Desea continuar?`);
 
     if (!confirmed) return;
 
@@ -260,10 +260,10 @@ export function ProductTaxonomySelects({ root }: ProductTaxonomySelectsProps) {
   };
 
   const selectMessages = {
-    categoryPlaceholder: 'Buscar o crear categoria',
+    categoryPlaceholder: 'Buscar o crear categoría',
     subcategoryPlaceholder: selectedCategoryId
-      ? 'Buscar o crear sub categoria'
-      : 'Seleccione una categoria primero',
+      ? 'Buscar o crear subcategoría'
+      : 'Seleccione una categoría primero',
     noOptionsMessage: () => 'Sin resultados',
     formatCreateLabel: (inputValue: string) => `Crear "${inputValue}"`
   };
@@ -279,7 +279,7 @@ export function ProductTaxonomySelects({ root }: ProductTaxonomySelectsProps) {
   return (
     <div className="product-taxonomy-selects">
       <div className="form-group">
-        <label htmlFor="productCategorySelect">Categoria:</label>
+        <label htmlFor="productCategorySelect">Categoría:</label>
         <CreatableSelect<TaxonomyOptionItem, false, GroupBase<TaxonomyOptionItem>>
           {...sharedSelectProps}
           inputId="productCategorySelect"
@@ -299,7 +299,7 @@ export function ProductTaxonomySelects({ root }: ProductTaxonomySelectsProps) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="productSubcategorySelect">Sub Categoria:</label>
+        <label htmlFor="productSubcategorySelect">Subcategoría:</label>
         <CreatableSelect<TaxonomyOptionItem, false, GroupBase<TaxonomyOptionItem>>
           {...sharedSelectProps}
           inputId="productSubcategorySelect"

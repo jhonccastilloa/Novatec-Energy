@@ -246,7 +246,7 @@ $name = $_SESSION['name'];
   <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- summernote -->
   <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
-  <!-- Editor de descripcion -->
+  <!-- Editor de descripción -->
   <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
   <!-- ck editor video frame -->
   <script async charset="utf-8" src="//cdn.embedly.com/widgets/platform.js"></script>
@@ -338,13 +338,13 @@ $name = $_SESSION['name'];
                 <li class="nav-item">
                   <a href="index.php?module=category" class="nav-link <?php echo (isset($_REQUEST['module']) and $_REQUEST['module'] == 'category') ? 'active' : '' ?> ">
                     <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                    <p>Categorias</p>
+                    <p>Categorías</p>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a href="index.php?module=subcategory" class="nav-link <?php echo (isset($_REQUEST['module']) and $_REQUEST['module'] == 'subcategory') ? 'active' : '' ?>">
                     <i class="fa fa-shopping-basket" aria-hidden="true"></i>
-                    <p>SubCategorias</p>
+                    <p>Subcategorías</p>
                   </a>
                 </li>
               </ul>
@@ -383,8 +383,8 @@ $name = $_SESSION['name'];
 
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-      <strong>Copyright &copy; <?php echo date('Y'); ?> <a href="#">Novate Energy</a>.</strong>
-      Todos los derechos Reservados
+      <strong>Copyright &copy; <?php echo date('Y'); ?> <a href="#">Novatec Energy</a>.</strong>
+      Todos los derechos reservados
       <!-- <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.2.0
       </div> -->

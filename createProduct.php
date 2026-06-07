@@ -47,7 +47,7 @@ if (!defined('NOVATEC_ADMIN_LAYOUT')) {
                       <div class="col-sm-6">
                         <div class="col-sm-12">
                           <div class="form-group">
-                            <label>Nombre del Producto:</label>
+                            <label>Nombre del producto:</label>
                             <input type="text" class="form-control" name="name" placeholder="Ingrese un nombre" required>
                           </div>
                         </div>
@@ -64,7 +64,7 @@ if (!defined('NOVATEC_ADMIN_LAYOUT')) {
                       <div class="col-sm-6">
                         <div class="col-sm-12">
                           <div class="form-group">
-                            <label>Breve Descripcion del Producto:</label>
+                            <label>Breve descripción del producto:</label>
                             <textarea class="form-control" name="breve" rows="8" required></textarea>
                           </div>
                         </div>
@@ -73,7 +73,7 @@ if (!defined('NOVATEC_ADMIN_LAYOUT')) {
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group">
-                          <label>Descripcion del Producto:</label>
+                          <label>Descripción del producto:</label>
                           <textarea name="description" id="editor"></textarea>
                         </div>
                       </div>
@@ -81,14 +81,14 @@ if (!defined('NOVATEC_ADMIN_LAYOUT')) {
                     <div class="row">
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label>Precio del Producto:</label>
+                          <label>Precio del producto:</label>
                           <input type="number" class="form-control" name="price" step="0.01" placeholder="Ingrese un precio" required>
                         </div>
                       </div>
 
                       <div class="col-sm-4">
                         <div class="form-group">
-                          <label>Imagen del Producto:</label>
+                          <label>Imagen del producto:</label>
                           <div class="product-image-upload" data-image-preview>
                             <input type="file" class="form-control-file" name="image" accept="image/*" required data-image-preview-input>
                             <small class="form-text text-muted" data-image-preview-empty>

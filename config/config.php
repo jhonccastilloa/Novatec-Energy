@@ -30,7 +30,7 @@ return [
     ],
     'site' => [
         'name' => 'Novatec Energy',
-        'tagline' => 'Energia solar y renovable en Puno',
+        'tagline' => 'Energía solar y renovable en Puno',
         'language' => 'es',
         'locale' => 'es_PE',
         'base_url' => $baseUrl,
@@ -40,7 +40,7 @@ return [
     ],
     'business' => [
         'name' => 'Novatec Energy',
-        'description' => 'Empresa de Puno especializada en energia solar, termas solares, iluminacion solar, bombeo solar y proyectos renovables para hogares, empresas e instituciones.',
+        'description' => 'Empresa de Puno especializada en energía solar, termas solares, iluminación solar, bombeo solar y proyectos renovables para hogares, empresas e instituciones.',
         'phone_e164' => '+51951828275',
         'phone_display' => '951 828 275',
         'secondary_phone_display' => '51 603 939',
@@ -61,9 +61,9 @@ return [
         'opening_hours' => [
             'Mo-Fr 08:00-21:00',
         ],
-        'area_served' => ['Puno', 'Juliaca', 'Ilave', 'Juli', 'Azangaro'],
+        'area_served' => ['Puno', 'Juliaca', 'Ilave', 'Juli', 'Azángaro'],
         'map_embed_url' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d806.9002886355905!2d-70.02166422490467!3d-15.841545209320099!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915d698d04094815%3A0xafae726baa423822!2sTermas%20Solares%20Novatec%20Energy!5e0!3m2!1ses-419!2spe!4v1666201668891!5m2!1ses-419!2spe',
-        // Agrega aqui las URLs oficiales de redes y Google Business Profile cuando existan.
+        // Agrega aquí las URLs oficiales de redes y Google Business Profile cuando existan.
         'same_as' => [],
     ],
     'mail' => [

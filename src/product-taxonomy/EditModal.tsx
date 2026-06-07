@@ -11,7 +11,7 @@ type EditModalProps = {
 export function EditModal({ dialog, onCancel, onChange, onSave }: EditModalProps) {
   if (!dialog) return null;
 
-  const title = dialog.type === 'category' ? 'Editar categoria' : 'Editar sub categoria';
+  const title = dialog.type === 'category' ? 'Editar categoría' : 'Editar subcategoría';
 
   return (
     <div className="product-taxonomy-modal-backdrop" role="presentation">

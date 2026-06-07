@@ -50,8 +50,8 @@ if (isset($_POST['login'])) {
   <div class="text-center card bg-white bodyLogin">
     <main class="form-signin w-100 m-auto">
       <form action="login.php" method="POST">
-        <img class="mb-4" src="../assets/img/logo.png" alt="Logo de la DREP" width="200">
-        <h1 class="h3 mb-3 fw-normal">Login <br>SISNovatec</h1>
+        <img class="mb-4" src="../assets/img/logo.png" alt="Logo de Novatec Energy" width="200">
+        <h1 class="h3 mb-3 fw-normal">Iniciar sesión <br>SISNovatec</h1>
         <?php echo (isset($alert)) ? $alert : ''; ?>
         <div class="form-floating">
           <label for="floatingInput">Usuario</label>
@@ -59,7 +59,7 @@ if (isset($_POST['login'])) {
         </div>
         <div class="form-floating">
           <label for="floatingPassword">Contraseña</label>
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" name="password">
+          <input type="password" class="form-control" id="floatingPassword" placeholder="Contraseña" name="password">
         </div>
         <br>
         <button class="w-100 btn btn-lg btn-primary" type="submit" name="login">Ingresar</button>

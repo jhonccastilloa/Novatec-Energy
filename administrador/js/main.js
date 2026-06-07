@@ -143,7 +143,7 @@ const dataEdit = (event) => {
 
   categoryName.value = category;
   idName.value = id;
-  titleCategory.textContent = "EDITAR CATEGORIA:";
+  titleCategory.textContent = "EDITAR CATEGORÍA:";
   card.classList.replace("card-success", "card-warning");
   titleCategory.classList.add("text-white");
    btnCancel.hidden = false;
@@ -153,28 +153,28 @@ const cancelCategory = () => {
   let titleCategory = document.querySelector(".title-category");
   const card = document.getElementById("cardCategory");
   categoryName.value = '';
-  titleCategory.textContent = "AGREGAR CATEGORIA:";
+  titleCategory.textContent = "AGREGAR CATEGORÍA:";
   card.classList.replace("card-warning", "card-success");
   titleCategory.classList.remove("text-white");
   btnCancel.hidden = true;
 };
 //delete Products
 function deleteProduct(event) {
-  if (confirm("¿Estas seguro que desea eliminar este registro?")) {
+  if (confirm("¿Está seguro de que desea eliminar este registro?")) {
     return true;
   } else {
     event.preventDefault();
   }
 }
 function deleteCategory(event) {
-  if (confirm("¿Estas seguro que desea eliminar este registro?")) {
+  if (confirm("¿Está seguro de que desea eliminar este registro?")) {
     return true;
   } else {
     event.preventDefault();
   }
 }
 function deleteSubCategory(event) {
-  if (confirm("¿Estas seguro que desea eliminar este registro?")) {
+  if (confirm("¿Está seguro de que desea eliminar este registro?")) {
     return true;
   } else {
     event.preventDefault();
@@ -197,7 +197,7 @@ const dataEditSub = (event) => {
   subCategoryName.value = subcategory;
   categorySubName.value = category;
   idCatName.value = id;
-  titleSubcategory.textContent = "EDITAR SUB CATEGORIA:";
+  titleSubcategory.textContent = "EDITAR SUBCATEGORÍA:";
   card.classList.replace("card-success", "card-warning");
   titleSubcategory.classList.add("text-white");
   btnCancelSubCategory.hidden = false;
@@ -208,7 +208,7 @@ const cancelSubCategory = () => {
   const card = document.getElementById("cardSubCategory");
   subCategoryName.value = "";
   idCatName.value = "";
-  titleSubcategory.textContent = "AGREGAR SUB CATEGORIA:";
+  titleSubcategory.textContent = "AGREGAR SUBCATEGORÍA:";
   card.classList.replace("card-warning", "card-success");
   titleSubcategory.classList.remove("text-white");
   btnCancelSubCategory.hidden = true;
@@ -314,12 +314,12 @@ let espanol = {
         empty: "Vacío",
         equals: "Igual a",
         notBetween: "No entre",
-        notEmpty: "No Vacio",
+        notEmpty: "No vacío",
         not: "Diferente de",
       },
       number: {
         between: "Entre",
-        empty: "Vacio",
+        empty: "Vacío",
         equals: "Igual a",
         gt: "Mayor a",
         gte: "Mayor o igual a",
@@ -334,7 +334,7 @@ let espanol = {
         empty: "Vacío",
         endsWith: "Termina en",
         equals: "Igual a",
-        notEmpty: "No Vacio",
+        notEmpty: "No vacío",
         startsWith: "Empieza con",
         not: "Diferente de",
         notContains: "No Contiene",
@@ -393,7 +393,7 @@ let espanol = {
   thousands: ".",
   datetime: {
     previous: "Anterior",
-    next: "Proximo",
+    next: "Próximo",
     hours: "Horas",
     minutes: "Minutos",
     seconds: "Segundos",
@@ -455,7 +455,7 @@ let espanol = {
       name: "Nombre:",
       order: "Clasificación",
       paging: "Paginación",
-      search: "Busqueda",
+      search: "Búsqueda",
       select: "Seleccionar",
       columns: {
         search: "Búsqueda de Columna",

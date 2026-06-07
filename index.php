@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/includes/components.php';
 
-$pageTitle = 'Novatec Energy | Tienda especializada en energias renovables';
+$pageTitle = 'Novatec Energy | Tienda especializada en energías renovables';
 $pageDescription = 'Elaboramos proyectos a base de energía solar, instalamos termas solares, iluminaciones domésticas, bombas para irrigaciones, congeladores solares, temperadores de piscinas para empresas privadas, entidades públicas, municipalidades y gobiernos regionales';
 $pageSeo = [
     'title' => $pageTitle,
@@ -14,7 +14,7 @@ render_public_head($pageSeo);
 render_site_header();
 ?>
 
-<h1 class="sr-only">Novatec Energy | Tienda especializada en energias renovables</h1>
+<h1 class="sr-only">Novatec Energy | Tienda especializada en energías renovables</h1>
 <div class="homepage-slider">
     <?php foreach (public_content('hero_slides') as $slide) { ?>
         <div class="single-homepage-slider <?php echo e($slide['class']); ?>">
@@ -27,7 +27,7 @@ render_site_header();
                                 <h2><?php echo e($slide['title']); ?></h2>
                                 <div class="hero-btns">
                                     <a href="<?php echo e(url_path('productos')); ?>" class="boxed-btn">Productos</a>
-                                    <a href="<?php echo e(url_path('contacto')); ?>" class="bordered-btn">Contactenos</a>
+                                    <a href="<?php echo e(url_path('contacto')); ?>" class="bordered-btn">Contáctenos</a>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +50,7 @@ render_site_header();
     <div class="container">
         <?php render_section_title(
             '<span class="orange-text">Nuestros</span> Productos',
-            'En <strong>Novatec Energy</strong> contamos con los productos más sofisticados del mercado de la energía solar donde encontraras una gran selección de productos de buena índole'
+            'En <strong>Novatec Energy</strong> contamos con productos de alta calidad para proyectos de energía solar y renovable.'
         ); ?>
         <div class="row product-category-cards">
             <?php foreach (get_featured_categories() as $category) {
@@ -59,7 +59,7 @@ render_site_header();
         </div>
         <div class="row">
             <div class="col-lg-12 text-center">
-                <a href="<?php echo e(url_path('productos')); ?>" class="boxed-btn">Ver Todo los Productos</a>
+                <a href="<?php echo e(url_path('productos')); ?>" class="boxed-btn">Ver todos los productos</a>
             </div>
         </div>
     </div>

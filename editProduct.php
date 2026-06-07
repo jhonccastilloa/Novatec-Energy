@@ -47,7 +47,7 @@ $row = $result ? $result->fetch_assoc() : null;
     <div class="container-fluid">
       <?php if (!$row) { ?>
         <div class="alert alert-warning" role="alert">
-          No se encontro el producto solicitado.
+          No se encontró el producto solicitado.
         </div>
         <a href="index.php?module=product" class="btn btn-primary">Volver a productos</a>
       <?php } else { ?>
@@ -68,7 +68,7 @@ $row = $result ? $result->fetch_assoc() : null;
                         <div class="col-sm-6">
                           <div class="col-sm-12">
                             <div class="form-group">
-                              <label>Nombre del Producto:</label>
+                              <label>Nombre del producto:</label>
                               <input type="text" class="form-control" name="name" value="<?php echo productFormHtml($row['nombre']) ?>" required>
                             </div>
                           </div>
@@ -87,7 +87,7 @@ $row = $result ? $result->fetch_assoc() : null;
                         <div class="col-sm-6">
                           <div class="col-sm-12">
                             <div class="form-group">
-                              <label>Breve Descripcion del Producto:</label>
+                              <label>Breve descripción del producto:</label>
                               <textarea class="form-control" name="breve" maxlength="400" rows="8" required><?php echo productFormHtml($row['breve_descripcion']) ?></textarea>
                             </div>
                           </div>
@@ -97,7 +97,7 @@ $row = $result ? $result->fetch_assoc() : null;
                       <div class="row">
                         <div class="col-sm-12">
                           <div class="form-group">
-                            <label>Descripcion</label>
+                            <label>Descripción</label>
                             <textarea name="description" id="editor" rows="10" cols="80"><?php echo $row['descripcion'] ?></textarea>
                           </div>
                         </div>
@@ -110,7 +110,7 @@ $row = $result ? $result->fetch_assoc() : null;
                         ?>
                         <div class="col-sm-4">
                           <div class="form-group">
-                            <label>Precio del Producto</label>
+                            <label>Precio del producto</label>
                             <input type="number" class="form-control" name="price" value="<?php echo productFormHtml($row['precio_normal']) ?>" step="0.01" placeholder="Ingrese un precio" required>
                           </div>
                         </div>

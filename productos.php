@@ -28,10 +28,10 @@ if ($category && $subcategorySlug !== '') {
 
 $title = $subcategory ? $subcategory['subcategory'] : ($category ? $category['category'] : 'Productos');
 $pageDescription = $subcategory
-    ? 'Contamos con productos de ' . $subcategory['subcategory'] . ' en ' . $category['category'] . ' para proyectos de energias renovables en Novatec Energy.'
+    ? 'Contamos con productos de ' . $subcategory['subcategory'] . ' en ' . $category['category'] . ' para proyectos de energías renovables en Novatec Energy.'
     : ($category
-    ? 'Contamos con productos de ' . $category['category'] . ' para proyectos de energias renovables en Novatec Energy.'
-    : 'Contamos con los mejores productos cuando se trata de energía renovables de toda la región del sur');
+    ? 'Contamos con productos de ' . $category['category'] . ' para proyectos de energías renovables en Novatec Energy.'
+    : 'Contamos con productos de calidad para proyectos de energía renovable en la región sur.');
 $canonical = $subcategory && $category
     ? site_url(subcategory_path($category, $subcategory))
     : ($category ? site_url(category_path($category)) : site_url('productos'));
@@ -61,7 +61,7 @@ render_public_head($pageSeo, [
     'extra_head' => '<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>',
 ]);
 render_site_header();
-render_breadcrumb('Productos', 'Contamos con los mejores Productos');
+render_breadcrumb('Productos', 'Contamos con los mejores productos');
 ?>
 
 <div class="product-section mt-30 mb-150">
@@ -69,7 +69,7 @@ render_breadcrumb('Productos', 'Contamos con los mejores Productos');
         <div class="row">
             <div class="col-md-12">
                 <div class="product-category">
-                    <h3>Categorias:</h3>
+                    <h3>Categorías:</h3>
                     <ul>
                         <a href="<?php echo e(url_path('productos')); ?>">
                             <li class="<?php echo !$category ? 'active' : ''; ?>" data-filter="*">Todo</li>

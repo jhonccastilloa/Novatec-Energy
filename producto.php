@@ -27,7 +27,7 @@ if (current_request_path() !== $canonicalPath) {
 
 $title = $row['nombre'];
 $ext = image_extension((string) $row['imagen']);
-$pageDescription = excerpt($row['breve_descripcion'] ?: 'Novatec Energy | Tienda especializada en produtos de energias renovables', 155);
+$pageDescription = excerpt($row['breve_descripcion'] ?: 'Novatec Energy | Tienda especializada en productos de energías renovables', 155);
 $pageSeo = [
     'title' => $title . ' | Novatec Energy',
     'description' => $pageDescription,
@@ -62,9 +62,9 @@ render_breadcrumb('Detalles del producto');
                     <p class="single-product-pricing"> S/.<?php echo e($row['precio_normal']); ?></p>
                     <p><?php echo e($row['breve_descripcion']); ?></p>
                     <div class="single-product-form">
-                        <p><strong>Categoria: </strong><?php echo e(($row['category'] ?? '') . '/' . ($row['subcategory'] ?? '')); ?></p>
+                        <p><strong>Categoría: </strong><?php echo e(($row['category'] ?? '') . '/' . ($row['subcategory'] ?? '')); ?></p>
                         <br>
-                        <a href="<?php echo e(whatsapp_url($message)); ?>" class="cart-btn" target="_blank"><i class="fab fa-whatsapp "></i> Contactar via WhatsApp</a>
+                        <a href="<?php echo e(whatsapp_url($message)); ?>" class="cart-btn" target="_blank"><i class="fab fa-whatsapp "></i> Contactar vía WhatsApp</a>
                     </div>
                     <h4>Compartir:</h4>
                     <ul class="product-share">

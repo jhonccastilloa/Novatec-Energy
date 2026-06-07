@@ -24,7 +24,7 @@ render_breadcrumb('Sobre nosotros', 'Contamos con un equipo profesional');
         <div class="row">
             <div class="col-lg-7">
                 <div class="featured-text">
-                    <h2 class="pb-3">¿Por que <span class="orange-text">Novatec?</span></h2>
+                    <h2 class="pb-3">¿Por qué <span class="orange-text">Novatec?</span></h2>
                     <div class="row">
                         <?php foreach (public_content('why_novatec') as $item) { ?>
                             <div class="col-lg-6 col-md-6 mb-4 mb-md-5">

@@ -43,7 +43,7 @@ const getProducts = async (id) => {
         </div>
         <h3>${el.name}</h3>
         <p class="product-price"><span>S/.</span> ${el.price}</p>
-        <a class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer Mas</a>
+        <a class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer más</a>
       </div>
     </div>
       `;

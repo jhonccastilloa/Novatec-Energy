@@ -32,7 +32,7 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Categoria</th>
+        <th>Categoría</th>
         <th>Editar</th>
 
       </tr>
@@ -100,7 +100,7 @@
     let selectSubCategory = document.getElementById('subcategory')
     let selectCategory = document.getElementById('category');
     selectCategory.innerHTML = `
-    <option value="">Seleccion Una Categoria</option>
+    <option value="">Seleccione una categoría</option>
 
   <option value="1">Termas Solares</option>
   <option value="2">Paneles Solares</option>

@@ -2,7 +2,7 @@
 require_once __DIR__ . '/includes/components.php';
 
 $pageTitle = 'Contacto | Novatec Energy';
-$pageDescription = 'Usted puede contactarnos llamando al numer 951 828 275 si es que tiene alguna duda de nuestros productos';
+$pageDescription = 'Puede contactarnos llamando al número 951 828 275 si tiene alguna duda sobre nuestros productos.';
 $pageSeo = [
     'title' => $pageTitle,
     'description' => $pageDescription,
@@ -18,7 +18,7 @@ $business = novatec_config('business');
 
 render_public_head($pageSeo);
 render_site_header();
-render_breadcrumb('Contactenos', 'Atención las 24/7');
+render_breadcrumb('Contáctenos', 'Atención 24/7');
 ?>
 
 <br>
@@ -28,7 +28,7 @@ render_breadcrumb('Contactenos', 'Atención las 24/7');
             <div class="col-lg-8 mb-5 mb-lg-0">
                 <div class="form-title">
                     <h2>¿Tiene alguna duda?</h2>
-                    <p>No dude en contactarnos, le responderemos lo mas rapido posible.</p>
+                    <p>No dude en contactarnos, le responderemos lo más rápido posible.</p>
                 </div>
                 <div id="form_status"></div>
                 <div class="contact-form">
@@ -61,7 +61,7 @@ render_breadcrumb('Contactenos', 'Atención las 24/7');
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <p> <i class="fas fa-map-marker-alt"></i> Nuestro Local</p>
+                <p> <i class="fas fa-map-marker-alt"></i> Nuestro local</p>
             </div>
         </div>
     </div>
