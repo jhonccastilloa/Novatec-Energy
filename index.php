@@ -2,7 +2,7 @@
 require_once __DIR__ . '/includes/components.php';
 
 $pageTitle = 'Novatec Energy | Tienda especializada en energías renovables';
-$pageDescription = 'Elaboramos proyectos a base de energía solar, instalamos termas solares, iluminaciones domésticas, bombas para irrigaciones, congeladores solares, temperadores de piscinas para empresas privadas, entidades públicas, municipalidades y gobiernos regionales';
+$pageDescription = 'Soluciones en energía solar, termas solares, iluminación y bombeo solar para hogares, empresas e instituciones en Puno.';
 $pageSeo = [
     'title' => $pageTitle,
     'description' => $pageDescription,

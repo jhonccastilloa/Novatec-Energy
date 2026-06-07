@@ -35,7 +35,9 @@ return [
         'locale' => 'es_PE',
         'base_url' => $baseUrl,
         'fallback_base_url' => $fallbackBaseUrl,
-        'default_image' => 'assets/img/logo.png',
+        'default_image' => 'assets/img/og-novatec-energy.png',
+        'default_image_width' => 1200,
+        'default_image_height' => 630,
         'favicon' => 'assets/img/favicon.png',
     ],
     'business' => [

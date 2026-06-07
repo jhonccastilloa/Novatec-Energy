@@ -43,7 +43,11 @@ function render_seo_tags(array $page): void
     $site = novatec_config('site');
     $page = seo_page_defaults($page);
     $canonical = (string) $page['canonical'];
-    $image = seo_image_url((string) $page['image']);
+    $imagePath = (string) $page['image'];
+    $image = seo_image_url($imagePath);
+    $isDefaultImage = $imagePath === (string) $site['default_image'];
+    $imageWidth = $page['image_width'] ?? ($isDefaultImage ? ($site['default_image_width'] ?? null) : null);
+    $imageHeight = $page['image_height'] ?? ($isDefaultImage ? ($site['default_image_height'] ?? null) : null);
     ?>
 	<meta name="robots" content="<?php echo e($page['robots']); ?>">
 	<link rel="canonical" href="<?php echo e($canonical); ?>">
@@ -54,6 +58,10 @@ function render_seo_tags(array $page): void
 	<meta property="og:title" content="<?php echo e($page['title']); ?>">
 	<meta property="og:description" content="<?php echo e($page['description']); ?>">
 	<meta property="og:image" content="<?php echo e($image); ?>">
+	<?php if ($imageWidth && $imageHeight) { ?>
+	<meta property="og:image:width" content="<?php echo e($imageWidth); ?>">
+	<meta property="og:image:height" content="<?php echo e($imageHeight); ?>">
+	<?php } ?>
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:title" content="<?php echo e($page['title']); ?>">
 	<meta name="twitter:description" content="<?php echo e($page['description']); ?>">
