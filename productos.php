@@ -93,7 +93,7 @@ render_breadcrumb('Productos', 'Contamos con los mejores productos');
                     <h3>Categorías:</h3>
                     <ul>
                         <a href="<?php echo e(url_path('productos')); ?>">
-                            <li class="<?php echo !$category ? 'active' : ''; ?>" data-filter="*">Todo</li>
+                            <li class="<?php echo !$category ? 'active' : ''; ?>">Todo</li>
                         </a>
                         <?php foreach ($categories as $row) { ?>
                             <a href="<?php echo e(category_url($row)); ?>">
@@ -110,9 +110,9 @@ render_breadcrumb('Productos', 'Contamos con los mejores productos');
                 <div class="col-md-12">
                     <div class="product-filters swiper">
                         <ul class="swiper-wrapper">
-                            <li class="<?php echo !$subcategory ? 'active ' : ''; ?>swiper-slide" data-filter="*"><a href="<?php echo e(category_url($category)); ?>">Todo</a></li>
+                            <li class="<?php echo !$subcategory ? 'active ' : ''; ?>swiper-slide"><a href="<?php echo e(category_url($category)); ?>">Todo</a></li>
                             <?php foreach ($subcategories as $row) { ?>
-                                <li class="<?php echo ($subcategory && (int) $subcategory['id'] === (int) $row['id']) ? 'active ' : ''; ?>swiper-slide" data-filter=".<?php echo (int) $row['id']; ?>"><a href="<?php echo e(subcategory_url($category, $row)); ?>"><?php echo e($row['subcategory']); ?></a></li>
+                                <li class="<?php echo ($subcategory && (int) $subcategory['id'] === (int) $row['id']) ? 'active ' : ''; ?>swiper-slide"><a href="<?php echo e(subcategory_url($category, $row)); ?>"><?php echo e($row['subcategory']); ?></a></li>
                             <?php } ?>
                         </ul>
                         <div class="swiper-pagination"></div>

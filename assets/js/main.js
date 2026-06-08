@@ -97,32 +97,6 @@
       });
     }
 
-    $('.product-category .category_item[category="all"]').addClass("active");
-    $(".category_item").click(function () {
-      var catProduct = $(this).attr("category");
-      $(".category_item").removeClass("active");
-      $(this).addClass("active");
-
-      $(".product-item").hide();
-
-      $(".product-item[category=" + catProduct + "]").show();
-    });
-
-    // projects filters isotop
-    $(document).on("click",".product-filters li", function () {
-      $(".product-filters li").removeClass("active");
-      $(this).addClass("active");
-
-      var selector = $(this).attr("data-filter");
-
-      $(".product-lists").isotope({
-        filter: selector,
-      });
-    });
-
-    // isotop inner
-    $(".product-lists").isotope();
-
     // magnific popup
     $(".popup-youtube").magnificPopup({
       disableOn: 700,

@@ -2482,7 +2482,6 @@ ul.social-link-team li a {
   border: 2px solid #051922;
   color: #323232;
   cursor: pointer;
-  padding: 2px 10px;
   border-radius: 25px;
 }
 
@@ -2494,6 +2493,8 @@ ul.social-link-team li a {
 
 .product-filters ul li a {
   color: inherit;
+  display: block;
+  padding: 2px 10px;
 }
 
 .product-filters ul li a:hover {

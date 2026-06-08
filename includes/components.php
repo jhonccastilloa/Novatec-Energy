@@ -21,6 +21,7 @@ function render_public_head(array $pageSeo, array $options = []): void
     $page = seo_page_defaults($pageSeo);
     $extraStyles = (array) ($options['styles'] ?? []);
     $extraHead = (string) ($options['extra_head'] ?? '');
+    $mainCssVersion = (string) (@filemtime(__DIR__ . '/../assets/css/main.css') ?: '1');
     ?>
 <!DOCTYPE html>
 <html lang="<?php echo e((string) novatec_config('site')['language']); ?>">
@@ -43,7 +44,7 @@ function render_public_head(array $pageSeo, array $options = []): void
 	<link rel="stylesheet" href="<?php echo e(asset_url('assets/css/magnific-popup.css')); ?>">
 	<link rel="stylesheet" href="<?php echo e(asset_url('assets/css/animate.css')); ?>">
 	<link rel="stylesheet" href="<?php echo e(asset_url('assets/css/meanmenu.min.css')); ?>">
-	<link rel="stylesheet" href="<?php echo e(asset_url('assets/css/main.css')); ?>">
+	<link rel="stylesheet" href="<?php echo e(asset_url('assets/css/main.css') . '?v=' . $mainCssVersion); ?>">
 	<link rel="stylesheet" href="<?php echo e(asset_url('assets/css/responsive.css')); ?>">
 	<?php foreach ($extraStyles as $styleHref) { ?>
 		<link rel="stylesheet" href="<?php echo e((string) $styleHref); ?>">
@@ -126,6 +127,7 @@ function render_site_footer(array $options = []): void
     $business = novatec_config('business');
     $footerPages = public_content('footer_pages');
     $scripts = (array) ($options['scripts'] ?? []);
+    $mainJsVersion = (string) (@filemtime(__DIR__ . '/../assets/js/main.js') ?: '1');
     ?>
 	<div class="footer-area">
 		<div class="container">
@@ -180,17 +182,15 @@ function render_site_footer(array $options = []): void
 		</div>
 	</div>
 
-	<script src="<?php echo e(asset_url('assets/js/js.js')); ?>"></script>
 	<script src="<?php echo e(asset_url('assets/js/jquery-1.11.3.min.js')); ?>"></script>
 	<script src="<?php echo e(asset_url('assets/bootstrap/js/bootstrap.min.js')); ?>"></script>
 	<script src="<?php echo e(asset_url('assets/js/jquery.countdown.js')); ?>"></script>
-	<script src="<?php echo e(asset_url('assets/js/jquery.isotope-3.0.6.min.js')); ?>"></script>
 	<script src="<?php echo e(asset_url('assets/js/waypoints.js')); ?>"></script>
 	<script src="<?php echo e(asset_url('assets/js/owl.carousel.min.js')); ?>"></script>
 	<script src="<?php echo e(asset_url('assets/js/jquery.magnific-popup.min.js')); ?>"></script>
 	<script src="<?php echo e(asset_url('assets/js/jquery.meanmenu.min.js')); ?>"></script>
 	<script src="<?php echo e(asset_url('assets/js/sticker.js')); ?>"></script>
-	<script src="<?php echo e(asset_url('assets/js/main.js')); ?>"></script>
+	<script src="<?php echo e(asset_url('assets/js/main.js') . '?v=' . $mainJsVersion); ?>"></script>
 	<?php foreach ($scripts as $script) { ?>
 		<?php echo $script; ?>
 	<?php } ?>
