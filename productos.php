@@ -58,7 +58,28 @@ $products = get_products($category ? (int) $category['id'] : null, null, $subcat
 
 render_public_head($pageSeo, [
     'styles' => ['https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css'],
-    'extra_head' => '<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>',
+    'extra_head' => <<<'HTML'
+<script>
+	(function () {
+		try {
+			if (sessionStorage.getItem('novatecProductsScrollY') !== null) {
+				document.documentElement.classList.add('novatec-products-restoring-scroll');
+				window.setTimeout(function () {
+					document.documentElement.classList.remove('novatec-products-restoring-scroll');
+				}, 1500);
+			}
+		} catch (error) {
+			document.documentElement.classList.remove('novatec-products-restoring-scroll');
+		}
+	})();
+</script>
+<style>
+	html.novatec-products-restoring-scroll body {
+		visibility: hidden;
+	}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+HTML,
 ]);
 render_site_header();
 render_breadcrumb('Productos', 'Contamos con los mejores productos');
@@ -120,4 +141,75 @@ render_breadcrumb('Productos', 'Contamos con los mejores productos');
     </div>
 </div>
 
-<?php render_site_footer(); ?>
+<?php
+render_site_footer([
+    'scripts' => [<<<'HTML'
+	<script>
+		(function () {
+			var scrollKey = 'novatecProductsScrollY';
+			var restoringClass = 'novatec-products-restoring-scroll';
+			var nextFrame = window.requestAnimationFrame || function (callback) {
+				return window.setTimeout(callback, 0);
+			};
+
+			function showPage() {
+				document.documentElement.classList.remove(restoringClass);
+			}
+
+			function restoreScroll() {
+				var savedScroll = null;
+
+				try {
+					savedScroll = sessionStorage.getItem(scrollKey);
+				} catch (error) {
+					showPage();
+					return;
+				}
+
+				var scrollY = savedScroll !== null ? parseInt(savedScroll, 10) : NaN;
+
+				try {
+					sessionStorage.removeItem(scrollKey);
+				} catch (error) {
+				}
+
+				if (isNaN(scrollY) || scrollY < 0) {
+					showPage();
+					return;
+				}
+
+				nextFrame(function () {
+					window.scrollTo(0, scrollY);
+					nextFrame(showPage);
+				});
+			}
+
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', restoreScroll);
+			} else {
+				restoreScroll();
+			}
+
+			document.addEventListener('click', function (event) {
+				var link = event.target.closest('.product-category a, .product-filters a');
+
+				if (!link) {
+					return;
+				}
+
+				var href = link.getAttribute('href');
+
+				if (!href || href === '#') {
+					return;
+				}
+
+				try {
+					sessionStorage.setItem(scrollKey, String(window.scrollY || window.pageYOffset || 0));
+				} catch (error) {
+				}
+			});
+		})();
+	</script>
+HTML],
+]);
+?>
