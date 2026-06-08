@@ -69,6 +69,6 @@ return [
         'same_as' => [],
     ],
     'mail' => [
-        'recipient' => getenv('NOVATEC_CONTACT_TO') ?: 'gpro1pro@gmail.com',
+        'recipient' => getenv('NOVATEC_CONTACT_TO') ?: 'cefecu@outlook.com',
     ],
 ];
