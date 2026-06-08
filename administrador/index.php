@@ -368,7 +368,7 @@ $name = $_SESSION['name'];
     } elseif ($_REQUEST['module'] == 'category') {
       require_once('category.php');
     } elseif ($_REQUEST['module'] == 'subcategory') {
-      require_once('subcategory.php');
+      require_once('subCategory.php');
     } elseif ($_REQUEST['module'] == 'createProduct') {
       define('NOVATEC_ADMIN_LAYOUT', true);
       require_once('../createProduct.php');
