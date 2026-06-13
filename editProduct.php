@@ -104,9 +104,8 @@ $row = $result ? $result->fetch_assoc() : null;
                       </div>
                       <div class="row">
                         <?php
-                        $array = explode('.', $row['imagen']);
-                        $ext = end($array);
-                        $currentImageFile = $row['id'] . '.' . $ext;
+                        $hasCurrentImage = product_has_image($row);
+                        $currentImageFile = $hasCurrentImage ? $row['id'] . '.' . image_extension((string) $row['imagen']) : '';
                         ?>
                         <div class="col-sm-4">
                           <div class="form-group">
@@ -121,14 +120,16 @@ $row = $result ? $result->fetch_assoc() : null;
                             <div
                               class="product-image-upload"
                               data-image-preview
+                              <?php if ($hasCurrentImage) { ?>
                               data-current-src="../productsImg/<?php echo productFormHtml($currentImageFile) ?>"
                               data-current-name="<?php echo productFormHtml($row['imagen']) ?>"
                               data-current-label="Imagen actual"
+                              <?php } ?>
                               data-selected-label="Nueva imagen"
                             >
                               <input type="file" class="form-control" name="image" accept="image/*" data-image-preview-input>
                               <small class="form-text text-muted" data-image-preview-empty>
-                                Seleccione una nueva imagen para ver la vista previa antes de guardar.
+                                Opcional. Puede agregarla despues.
                               </small>
                               <div class="product-image-preview" data-image-preview-container hidden>
                                 <img src="" alt="Vista previa de la nueva imagen del producto" data-image-preview-img>

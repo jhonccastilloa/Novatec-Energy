@@ -546,17 +546,31 @@ function get_product(int $id): ?array
 
 function get_featured_categories(): array
 {
-    return db_all(
+    $rows = db_all(
         'SELECT category.id, category.category, category.slug, productos.id AS idProduct, productos.imagen
          FROM category
-         INNER JOIN (
-            SELECT id_categoria, MIN(id) AS idProduct
-            FROM productos
-            GROUP BY id_categoria
-         ) category_product ON category.id = category_product.id_categoria
-         INNER JOIN productos ON productos.id = category_product.idProduct
-         ORDER BY category.id ASC'
+         INNER JOIN productos ON productos.id_categoria = category.id
+         ORDER BY category.id ASC, productos.id ASC'
     );
+
+    $categories = [];
+    foreach ($rows as $row) {
+        $categoryId = (int) $row['id'];
+        if (!isset($categories[$categoryId])) {
+            $categories[$categoryId] = $row;
+        }
+
+        $currentProduct = ['id' => $categories[$categoryId]['idProduct'] ?? 0, 'imagen' => $categories[$categoryId]['imagen'] ?? ''];
+        $candidateProduct = ['id' => $row['idProduct'] ?? 0, 'imagen' => $row['imagen'] ?? ''];
+
+        if (!product_has_image($currentProduct) && product_has_image($candidateProduct)) {
+            $categories[$categoryId] = $row;
+        }
+    }
+
+    return array_values(array_filter($categories, function (array $category): bool {
+        return product_has_image(['id' => $category['idProduct'] ?? 0, 'imagen' => $category['imagen'] ?? '']);
+    }));
 }
 
 function image_extension(string $filename): string
@@ -565,8 +579,29 @@ function image_extension(string $filename): string
     return in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'], true) ? $ext : 'jpg';
 }
 
+function product_has_image(array $product): bool
+{
+    $image = trim((string) ($product['imagen'] ?? ''));
+    $ext = strtolower(pathinfo($image, PATHINFO_EXTENSION));
+
+    if ($image === '' || !in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'], true)) {
+        return false;
+    }
+
+    $id = (int) ($product['id'] ?? 0);
+    if ($id <= 0) {
+        return true;
+    }
+
+    return is_file(__DIR__ . '/../productsImg/' . $id . '.' . $ext);
+}
+
 function product_image_relative(array $product): string
 {
+    if (!product_has_image($product)) {
+        return (string) novatec_config('site')['default_image'];
+    }
+
     return 'productsImg/' . (int) $product['id'] . '.' . image_extension((string) ($product['imagen'] ?? 'jpg'));
 }
 

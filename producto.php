@@ -26,7 +26,6 @@ if (current_request_path() !== $canonicalPath) {
 }
 
 $title = $row['nombre'];
-$ext = image_extension((string) $row['imagen']);
 $pageDescription = excerpt($row['breve_descripcion'] ?: 'Novatec Energy | Tienda especializada en productos de energías renovables', 155);
 $pageSeo = [
     'title' => $title . ' | Novatec Energy',
@@ -54,7 +53,14 @@ render_breadcrumb('Detalles del producto');
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <img class="img-product" src="<?php echo e(asset_url('productsImg/' . (int) $row['id'] . '.' . $ext)); ?>" alt="<?php echo e($row['nombre']); ?>">
+                <?php if (product_has_image($row)) { ?>
+                <img class="img-product" src="<?php echo e(asset_url(product_image_relative($row))); ?>" alt="<?php echo e($row['nombre']); ?>">
+                <?php } else { ?>
+                <div class="product-image-placeholder product-image-placeholder--detail" role="img" aria-label="Imagen pendiente">
+                    <i class="fas fa-image" aria-hidden="true"></i>
+                    <!-- <span>Imagen pendiente</span> -->
+                </div>
+                <?php } ?>
             </div>
             <div class="col-md-7">
                 <div class="single-product-content">

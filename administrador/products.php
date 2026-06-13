@@ -132,6 +132,18 @@ if (!function_exists('productHtml')) {
       padding: 2px;
     }
 
+    #tableProducts .product-thumb-placeholder {
+      align-items: center;
+      background-color: #f8f9fa;
+      border: 1px dashed #ced4da;
+      border-radius: 0.25rem;
+      color: #6c757d;
+      display: inline-flex;
+      height: 44px;
+      justify-content: center;
+      width: 44px;
+    }
+
     #tableProducts .product-title {
       color: #212529;
       display: block;
@@ -225,15 +237,21 @@ if (!function_exists('productHtml')) {
                   </thead>
                   <tbody>
                     <?php while ($row = $results->fetch_assoc()) {
-                      $array = explode('.', $row['imagen']);
-                      $ext = end($array);
                       $briefDescription = cleanProductText($row['breve_descripcion']);
                       $searchDescription = cleanProductText($row['descripcion']);
                       $productPreviewUrl = '../' . product_path($row) . '#text-description';
                     ?>
                       <tr>
                         <td><?php echo $row['id'] ?></td>
-                        <td class="col-image"><img class="img-thumbnail product-thumb" src="../productsImg/<?php echo $row['id'] . '.' . $ext ?> " alt="<?php echo productHtml($row['nombre']) ?>"></td>
+                        <td class="col-image">
+                          <?php if (product_has_image($row)) { ?>
+                          <img class="img-thumbnail product-thumb" src="../<?php echo productHtml(product_image_relative($row)) ?>" alt="<?php echo productHtml($row['nombre']) ?>">
+                          <?php } else { ?>
+                          <span class="product-thumb-placeholder" aria-label="Imagen pendiente" title="Imagen pendiente">
+                            <i class="fas fa-image" aria-hidden="true"></i>
+                          </span>
+                          <?php } ?>
+                        </td>
                         <td class="col-product">
                           <div class="product-info">
                           <span class="product-title"><?php echo productHtml($row['nombre']) ?></span>

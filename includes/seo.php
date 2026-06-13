@@ -154,11 +154,10 @@ function product_schema(array $product): array
     $availability = ((int) ($product['cantidad'] ?? 1)) > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock';
     $productPath = product_path($product);
 
-    return [
+    $schema = [
         '@type' => 'Product',
         '@id' => site_url($productPath . '#product'),
         'name' => $product['nombre'],
-        'image' => product_image_url($product),
         'description' => excerpt($product['breve_descripcion'] ?: $product['descripcion'], 250),
         'category' => trim(($product['category'] ?? '') . ' / ' . ($product['subcategory'] ?? ''), ' /'),
         'brand' => [
@@ -174,6 +173,12 @@ function product_schema(array $product): array
             'seller' => ['@id' => site_url('#localbusiness')],
         ],
     ];
+
+    if (product_has_image($product)) {
+        $schema['image'] = product_image_url($product);
+    }
+
+    return $schema;
 }
 
 function render_schema_graph(array $page): void

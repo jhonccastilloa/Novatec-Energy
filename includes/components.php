@@ -262,14 +262,22 @@ function render_feature_boxes(array $items, string $columnClass = 'col-lg-4 col-
 
 function render_product_card(array $product, bool $scrollToDescription = false): void
 {
-    $ext = image_extension((string) ($product['imagen'] ?? ''));
     $imageName = basename((string) ($product['imagen'] ?? ''), '.' . pathinfo((string) ($product['imagen'] ?? ''), PATHINFO_EXTENSION));
     $url = product_url($product) . ($scrollToDescription ? '#text-description' : '');
     ?>
 <div class="col-lg-4 col-md-6 text-center card-content <?php echo (int) ($product['id_subcategory'] ?? 0); ?> ">
 	<div class="single-product-item">
 		<div class="product-image" width="300" height="300">
-			<a href="<?php echo e($url); ?>"><img src="<?php echo e(asset_url('productsImg/' . (int) $product['id'] . '.' . $ext)); ?>" alt="<?php echo e($imageName ?: $product['nombre']); ?>" width="300" height="300"></a>
+			<a href="<?php echo e($url); ?>" class="product-image-link">
+                <?php if (product_has_image($product)) { ?>
+			    <img src="<?php echo e(asset_url(product_image_relative($product))); ?>" alt="<?php echo e($imageName ?: $product['nombre']); ?>" width="300" height="300">
+                <?php } else { ?>
+                <span class="product-image-placeholder" role="img" aria-label="Imagen pendiente">
+                    <i class="fas fa-image" aria-hidden="true"></i>
+                    <!-- <span>Imagen pendiente</span> -->
+                </span>
+                <?php } ?>
+            </a>
 		</div>
 		<h3><?php echo e($product['nombre']); ?></h3>
 		<p class="product-price"> S/.<?php echo e($product['precio_normal']); ?> </p>
@@ -281,12 +289,19 @@ function render_product_card(array $product, bool $scrollToDescription = false):
 
 function render_category_card(array $category): void
 {
-    $ext = image_extension((string) ($category['imagen'] ?? ''));
+    $categoryProduct = ['id' => $category['idProduct'] ?? 0, 'imagen' => $category['imagen'] ?? ''];
     ?>
 <div class="col-lg-4 col-md-6 product-category-card-col">
 	<div class="single-latest-news product-category-card">
 		<div class="product-image">
-			<img src="<?php echo e(asset_url('productsImg/' . (int) $category['idProduct'] . '.' . $ext)); ?>" alt="<?php echo e($category['category']); ?>">
+            <?php if (product_has_image($categoryProduct)) { ?>
+			<img src="<?php echo e(asset_url(product_image_relative($categoryProduct))); ?>" alt="<?php echo e($category['category']); ?>">
+            <?php } else { ?>
+            <span class="product-image-placeholder" role="img" aria-label="Imagen pendiente">
+                <i class="fas fa-image" aria-hidden="true"></i>
+                <span>Imagen pendiente</span>
+            </span>
+            <?php } ?>
 		</div>
 		<div class="news-text-box">
 			<h3><?php echo e($category['category']); ?></h3>

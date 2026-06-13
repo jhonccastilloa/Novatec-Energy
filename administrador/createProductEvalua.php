@@ -10,14 +10,13 @@ if (isset($_REQUEST['idDelete'])) {
   $_SESSION['msg'] = "Registro Eliminado Correctamente.";
   $result = $conn->query($query);
 
-  $array = explode('.', $image);
-  $ext = end($array);
-
   if ($result) {
-    $dir = '../productsImg';
-    $file = $dir . '/' . $id . '.' . $ext;
-    if (file_exists($file)){
-      unlink($file);
+    if ($image !== '' && product_has_image(['id' => $id, 'imagen' => $image])) {
+      $dir = '../productsImg';
+      $file = $dir . '/' . $id . '.' . image_extension($image);
+      if (file_exists($file)){
+        unlink($file);
+      }
     }
       header("location:index.php?module=product");
   } else {
@@ -29,7 +28,29 @@ if (isset($_REQUEST['idDelete'])) {
   }
 } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   session_start();
+  $uploadedImage = $_FILES['image'] ?? null;
+  $uploadError = is_array($uploadedImage) ? (int) ($uploadedImage['error'] ?? UPLOAD_ERR_NO_FILE) : UPLOAD_ERR_NO_FILE;
+  $hasUploadedImage = is_array($uploadedImage) && $uploadError === UPLOAD_ERR_OK;
+  $allowedImageTypes = array("image/jpg", "image/jpeg", "image/png");
+  $isEditing = false;
+  $previousImageForRollback = '';
+
+  if ($uploadError !== UPLOAD_ERR_NO_FILE && $uploadError !== UPLOAD_ERR_OK) {
+    $_SESSION['estate'] = 'danger';
+    $_SESSION['msg'] = "Error al cargar Imagen";
+    header("location:index.php?module=product");
+    exit;
+  }
+
+  if ($hasUploadedImage && !in_array((string) ($uploadedImage['type'] ?? ''), $allowedImageTypes, true)) {
+    $_SESSION['estate'] = 'danger';
+    $_SESSION['msg'] = "Formato de imagen no permitido";
+    header("location:index.php?module=product");
+    exit;
+  }
+
   if (isset($_REQUEST['idEdit'])) {
+    $isEditing = true;
     $nameRaw = trim((string) ($_REQUEST['name'] ?? ''));
     $category = $conn->real_escape_string($_REQUEST['category']);
     $subcategory = $conn->real_escape_string($_REQUEST['subcategory']);
@@ -45,14 +66,16 @@ if (isset($_REQUEST['idDelete'])) {
     }
 
     $name = $conn->real_escape_string($nameRaw);
-    $image = $_FILES['image']['name'];
-    $imageAux = $conn->real_escape_string($_REQUEST['imageAux']);
+    $image = $hasUploadedImage ? (string) $uploadedImage['name'] : '';
+    $imageAux = trim((string) ($_REQUEST['imageAux'] ?? ''));
+    $previousImageForRollback = $imageAux;
     $slug = $conn->real_escape_string(unique_product_slug($nameRaw, (int) $idEdit));
     if (!$image) {
       $image = $imageAux;
     }
+    $imageSql = $image !== '' ? "'" . $conn->real_escape_string($image) . "'" : "NULL";
 
-    $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',slug='{$slug}',descripcion='{$description}',precio_normal='{$price}',breve_descripcion='{$breve}',imagen='{$image}',id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
+    $query = "UPDATE productos SET id='{$idEdit}',nombre='{$name}',slug='{$slug}',descripcion='{$description}',precio_normal='{$price}',breve_descripcion='{$breve}',imagen={$imageSql},id_categoria='{$category}',id_subcategory='{$subcategory}' WHERE id='{$idEdit}'";
     $id_insert = $idEdit;
     $_SESSION['msg'] = "Registro Editado Correctamente";
     $_SESSION['estate'] = 'success';
@@ -65,7 +88,7 @@ if (isset($_REQUEST['idDelete'])) {
     $description = $conn->real_escape_string($_REQUEST['description']);
     $price = $conn->real_escape_string($_REQUEST['price']);
     $breve = $conn->real_escape_string($_REQUEST['breve']);
-    $image = $_FILES['image']['name'];
+    $image = $hasUploadedImage ? (string) $uploadedImage['name'] : '';
     if (product_name_exists($nameRaw)) {
       $_SESSION['estate'] = 'danger';
       $_SESSION['msg'] = "Ya existe un producto con ese nombre.";
@@ -75,9 +98,10 @@ if (isset($_REQUEST['idDelete'])) {
 
     $name = $conn->real_escape_string($nameRaw);
     $slug = $conn->real_escape_string(unique_product_slug($nameRaw));
+    $imageSql = $image !== '' ? "'" . $conn->real_escape_string($image) . "'" : "NULL";
 
 
-    $query = "INSERT INTO productos(id,nombre,slug,descripcion,precio_normal,breve_descripcion,imagen,id_categoria,id_subcategory) VALUES (NULL,'{$name}','{$slug}','{$description}',{$price},'{$breve}','{$image}','{$category}',{$subcategory})";
+    $query = "INSERT INTO productos(id,nombre,slug,descripcion,precio_normal,breve_descripcion,imagen,id_categoria,id_subcategory) VALUES (NULL,'{$name}','{$slug}','{$description}',{$price},'{$breve}',{$imageSql},'{$category}',{$subcategory})";
     $_SESSION['estate'] = 'success';
     $_SESSION['msg'] = "Producto Guardado Correctamente";
     $result = $conn->query($query);
@@ -86,22 +110,25 @@ if (isset($_REQUEST['idDelete'])) {
   }
 
   if ($result) {
-    if ($_FILES['image']['error'] == 0) {
+    if ($hasUploadedImage) {
       $permitidos = array("image/jpg", "image/jpeg", "image/png");
-      if (in_array($_FILES['image']['type'], $permitidos)) {
+      if (in_array((string) $uploadedImage['type'], $permitidos, true)) {
         $dir = '../productsImg';
-        $infoImg = pathinfo($_FILES['image']['name']);
-        $file = $dir . '/' . $id_insert . '.' . $infoImg['extension'];
+        $file = $dir . '/' . $id_insert . '.' . image_extension((string) $uploadedImage['name']);
         if (!file_exists($dir)) {
           mkdir($dir, 0777);
         }
-        $result = @move_uploaded_file($_FILES['image']['tmp_name'], $file);
+        $result = @move_uploaded_file((string) $uploadedImage['tmp_name'], $file);
 
         if (!$result) {
-          echo "Error al guardar Imagen";
+          $rollbackImageSql = $isEditing && $previousImageForRollback !== '' ? "'" . $conn->real_escape_string($previousImageForRollback) . "'" : "NULL";
+          $conn->query("UPDATE productos SET imagen={$rollbackImageSql} WHERE id='{$id_insert}'");
+          $_SESSION['estate'] = 'danger';
+          $_SESSION['msg'] = "Error al guardar Imagen";
         }
       } else {
-        echo "Formato de imagen no permitido";
+        $_SESSION['estate'] = 'danger';
+        $_SESSION['msg'] = "Formato de imagen no permitido";
       }
     }
     header("location:index.php?module=product");
