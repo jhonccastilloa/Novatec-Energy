@@ -621,6 +621,37 @@ nav.main-menu ul ul.sub-menu li a {
   font-size: 13px;
 }
 
+@media only screen and (min-width: 992px) {
+  nav.main-menu ul ul.sub-menu.products-mega-menu {
+    width: min(720px, calc(100vw - 48px));
+    left: 50%;
+    padding: 22px 24px;
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -webkit-column-gap: 24px;
+    -moz-column-gap: 24px;
+    column-gap: 24px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    -webkit-transform: translateX(-32%);
+    -ms-transform: translateX(-32%);
+    transform: translateX(-32%);
+  }
+
+  nav.main-menu ul ul.sub-menu.products-mega-menu li {
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  nav.main-menu ul ul.sub-menu.products-mega-menu li a {
+    padding: 9px 10px;
+    line-height: 1.35;
+    border-radius: 4px;
+  }
+}
+
 nav.main-menu ul > li:hover ul {
   opacity: 1;
   visibility: visible;

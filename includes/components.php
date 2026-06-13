@@ -77,7 +77,7 @@ function render_site_header(): void
 									<li class="<?php echo is_active_path((string) $item['path']) ? 'current-list-item' : ''; ?>">
 										<a href="<?php echo e(url_path((string) $item['url'])); ?>"><?php echo e($item['label']); ?></a>
 										<?php if ($item['path'] === 'productos') { ?>
-											<ul class="sub-menu">
+											<ul class="sub-menu products-mega-menu">
 												<?php foreach (get_categories() as $category) { ?>
 													<li><a href="<?php echo e(category_url($category)); ?>"><?php echo e($category['category']); ?></a></li>
 												<?php } ?>
