@@ -240,12 +240,14 @@ if (!function_exists('productHtml')) {
                       $briefDescription = cleanProductText($row['breve_descripcion']);
                       $searchDescription = cleanProductText($row['descripcion']);
                       $productPreviewUrl = '../' . product_path($row) . '#text-description';
+                      $productImage = trim((string) ($row['imagen'] ?? ''));
+                      $productImageSrc = product_image_is_external($productImage) ? $productImage : '../' . product_image_relative($row);
                     ?>
                       <tr>
                         <td><?php echo $row['id'] ?></td>
                         <td class="col-image">
                           <?php if (product_has_image($row)) { ?>
-                          <img class="img-thumbnail product-thumb" src="../<?php echo productHtml(product_image_relative($row)) ?>" alt="<?php echo productHtml($row['nombre']) ?>">
+                          <img class="img-thumbnail product-thumb" src="<?php echo productHtml($productImageSrc) ?>" alt="<?php echo productHtml($row['nombre']) ?>">
                           <?php } else { ?>
                           <span class="product-thumb-placeholder" aria-label="Imagen pendiente" title="Imagen pendiente">
                             <i class="fas fa-image" aria-hidden="true"></i>

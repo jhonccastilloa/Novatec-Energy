@@ -32,7 +32,7 @@ $pageSeo = [
     'description' => $pageDescription,
     'canonical' => site_url($canonicalPath),
     'path' => $canonicalPath,
-    'image' => product_image_relative($row),
+    'image' => product_image_url($row),
     'type' => 'product',
     'breadcrumbs' => [
         ['name' => 'Inicio', 'url' => ''],
@@ -54,7 +54,7 @@ render_breadcrumb('Detalles del producto');
         <div class="row">
             <div class="col-md-5">
                 <?php if (product_has_image($row)) { ?>
-                <img class="img-product" src="<?php echo e(asset_url(product_image_relative($row))); ?>" alt="<?php echo e($row['nombre']); ?>">
+                <img class="img-product" src="<?php echo e(product_image_src($row)); ?>" alt="<?php echo e($row['nombre']); ?>">
                 <?php } else { ?>
                 <div class="product-image-placeholder product-image-placeholder--detail" role="img" aria-label="Imagen pendiente">
                     <i class="fas fa-image" aria-hidden="true"></i>

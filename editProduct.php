@@ -105,7 +105,13 @@ $row = $result ? $result->fetch_assoc() : null;
                       <div class="row">
                         <?php
                         $hasCurrentImage = product_has_image($row);
-                        $currentImageFile = $hasCurrentImage ? $row['id'] . '.' . image_extension((string) $row['imagen']) : '';
+                        $currentImage = trim((string) ($row['imagen'] ?? ''));
+                        $currentImageSrc = '';
+                        if ($hasCurrentImage) {
+                          $currentImageSrc = product_image_is_external($currentImage)
+                            ? $currentImage
+                            : '../' . product_image_relative($row);
+                        }
                         ?>
                         <div class="col-sm-4">
                           <div class="form-group">
@@ -121,7 +127,7 @@ $row = $result ? $result->fetch_assoc() : null;
                               class="product-image-upload"
                               data-image-preview
                               <?php if ($hasCurrentImage) { ?>
-                              data-current-src="../productsImg/<?php echo productFormHtml($currentImageFile) ?>"
+                              data-current-src="<?php echo productFormHtml($currentImageSrc) ?>"
                               data-current-name="<?php echo productFormHtml($row['imagen']) ?>"
                               data-current-label="Imagen actual"
                               <?php } ?>

@@ -579,9 +579,29 @@ function image_extension(string $filename): string
     return in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'], true) ? $ext : 'jpg';
 }
 
+function product_image_is_external(string $image): bool
+{
+    if (!filter_var($image, FILTER_VALIDATE_URL)) {
+        return false;
+    }
+
+    $scheme = strtolower((string) parse_url($image, PHP_URL_SCHEME));
+    return in_array($scheme, ['http', 'https'], true);
+}
+
+function product_external_images_enabled(): bool
+{
+    return (string) novatec_config('environment') === 'development';
+}
+
 function product_has_image(array $product): bool
 {
     $image = trim((string) ($product['imagen'] ?? ''));
+
+    if (product_image_is_external($image)) {
+        return product_external_images_enabled();
+    }
+
     $ext = strtolower(pathinfo($image, PATHINFO_EXTENSION));
 
     if ($image === '' || !in_array($ext, ['jpg', 'jpeg', 'png', 'webp', 'gif'], true)) {
@@ -602,12 +622,32 @@ function product_image_relative(array $product): string
         return (string) novatec_config('site')['default_image'];
     }
 
+    $image = trim((string) ($product['imagen'] ?? ''));
+    if (product_image_is_external($image)) {
+        return (string) novatec_config('site')['default_image'];
+    }
+
     return 'productsImg/' . (int) $product['id'] . '.' . image_extension((string) ($product['imagen'] ?? 'jpg'));
 }
 
 function product_image_url(array $product): string
 {
+    $image = trim((string) ($product['imagen'] ?? ''));
+    if (product_has_image($product) && product_image_is_external($image)) {
+        return $image;
+    }
+
     return site_url(product_image_relative($product));
+}
+
+function product_image_src(array $product): string
+{
+    $image = trim((string) ($product['imagen'] ?? ''));
+    if (product_has_image($product) && product_image_is_external($image)) {
+        return $image;
+    }
+
+    return asset_url(product_image_relative($product));
 }
 
 function category_url(array $category): string

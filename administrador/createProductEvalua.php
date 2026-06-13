@@ -11,7 +11,7 @@ if (isset($_REQUEST['idDelete'])) {
   $result = $conn->query($query);
 
   if ($result) {
-    if ($image !== '' && product_has_image(['id' => $id, 'imagen' => $image])) {
+    if ($image !== '' && !product_image_is_external($image) && product_has_image(['id' => $id, 'imagen' => $image])) {
       $dir = '../productsImg';
       $file = $dir . '/' . $id . '.' . image_extension($image);
       if (file_exists($file)){

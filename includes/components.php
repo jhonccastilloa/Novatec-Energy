@@ -270,7 +270,7 @@ function render_product_card(array $product, bool $scrollToDescription = false):
 		<div class="product-image" width="300" height="300">
 			<a href="<?php echo e($url); ?>" class="product-image-link">
                 <?php if (product_has_image($product)) { ?>
-			    <img src="<?php echo e(asset_url(product_image_relative($product))); ?>" alt="<?php echo e($imageName ?: $product['nombre']); ?>" width="300" height="300">
+			    <img src="<?php echo e(product_image_src($product)); ?>" alt="<?php echo e($imageName ?: $product['nombre']); ?>" width="300" height="300">
                 <?php } else { ?>
                 <span class="product-image-placeholder" role="img" aria-label="Imagen pendiente">
                     <i class="fas fa-image" aria-hidden="true"></i>
@@ -295,7 +295,7 @@ function render_category_card(array $category): void
 	<div class="single-latest-news product-category-card">
 		<div class="product-image">
             <?php if (product_has_image($categoryProduct)) { ?>
-			<img src="<?php echo e(asset_url(product_image_relative($categoryProduct))); ?>" alt="<?php echo e($category['category']); ?>">
+			<img src="<?php echo e(product_image_src($categoryProduct)); ?>" alt="<?php echo e($category['category']); ?>">
             <?php } else { ?>
             <span class="product-image-placeholder" role="img" aria-label="Imagen pendiente">
                 <i class="fas fa-image" aria-hidden="true"></i>
