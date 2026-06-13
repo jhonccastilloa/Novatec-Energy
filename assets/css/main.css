@@ -516,13 +516,12 @@ a.cart-btn {
 }
 
 .breadcrumb-section {
-  padding: 100px 0;
+  padding: 100px 0 50px 0;
   background-size: cover;
   background-position: center center;
   position: relative;
   z-index: 1;
   background-attachment: fixed;
-  padding-top: 150px;
 }
 
 .breadcrumb-section:after {
@@ -2280,7 +2279,7 @@ a.video-play-btn {
 ----------------------------------------------------------------------------- */
 .feature-bg {
   position: relative;
-  margin: 150px 0;
+  margin: 50px 0;
 }
 
 .feature-bg:after {
