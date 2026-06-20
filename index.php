@@ -6,7 +6,7 @@ if (in_array(current_request_path(), ['index', 'index.php'], true)) {
     exit;
 }
 
-$pageTitle = 'Novatec Energy | Tienda especializada en energías renovables';
+$pageTitle = 'Novatec Energy | Paneles solares, termas solares y energía solar en Puno';
 $pageDescription = 'Soluciones en energía solar, termas solares, iluminación y bombeo solar para hogares, empresas e instituciones en Puno.';
 $pageSeo = [
     'title' => $pageTitle,
@@ -19,7 +19,7 @@ render_public_head($pageSeo);
 render_site_header();
 ?>
 
-<h1 class="sr-only">Novatec Energy | Tienda especializada en energías renovables</h1>
+<h1 class="sr-only">Paneles solares y soluciones de energía solar en Puno | Novatec Energy</h1>
 <div class="homepage-slider">
     <?php foreach (public_content('hero_slides') as $slide) { ?>
         <div class="single-homepage-slider <?php echo e($slide['class']); ?>">
