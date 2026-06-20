@@ -36,6 +36,44 @@ function seo_page_defaults(array $page): array
     ], $page);
 }
 
+function seo_local_market_label(): string
+{
+    $business = novatec_config('business');
+    $locality = trim((string) ($business['address']['locality'] ?? 'Puno'));
+    $region = trim((string) ($business['address']['region'] ?? 'Puno'));
+
+    return $locality !== '' ? $locality : ($region !== '' ? $region : 'Puno');
+}
+
+function seo_catalog_title(string $title): string
+{
+    return $title . ' en ' . seo_local_market_label() . ' | Novatec Energy';
+}
+
+function seo_catalog_description(string $title, ?array $category = null, ?array $subcategory = null): string
+{
+    $localMarket = seo_local_market_label();
+    $serviceArea = implode(', ', array_slice((array) novatec_config('business')['area_served'], 0, 4));
+    $categoryName = $category ? (string) $category['category'] : 'energía solar y renovable';
+    $targetName = $subcategory ? (string) $subcategory['subcategory'] : $title;
+
+    return excerpt(
+        'Encuentra ' . $targetName . ' en ' . $localMarket . ' con Novatec Energy. Venta, asesoría e instalación para proyectos de ' . $categoryName . ' en ' . $serviceArea . '.',
+        155
+    );
+}
+
+function seo_product_description(array $product): string
+{
+    $localMarket = seo_local_market_label();
+    $source = trim((string) ($product['breve_descripcion'] ?: $product['descripcion']));
+    if ($source === '') {
+        $source = (string) $product['nombre'];
+    }
+
+    return excerpt($source . ' Disponible en ' . $localMarket . ' con asesoría técnica de Novatec Energy.', 155);
+}
+
 function render_seo_tags(array $page): void
 {
     security_headers();
@@ -150,9 +188,15 @@ function breadcrumb_schema(array $breadcrumbs): array
 
 function product_schema(array $product): array
 {
-    $price = (float) ($product['precio_rebajado'] ?: $product['precio_normal']);
-    $availability = ((int) ($product['cantidad'] ?? 1)) > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock';
     $productPath = product_path($product);
+    $name = (string) ($product['nombre'] ?? '');
+    $brand = null;
+
+    if (stripos($name, 'MUST') !== false) {
+        $brand = 'MUST';
+    } elseif (stripos($name, 'Leoch') !== false) {
+        $brand = 'Leoch';
+    }
 
     $schema = [
         '@type' => 'Product',
@@ -160,25 +204,61 @@ function product_schema(array $product): array
         'name' => $product['nombre'],
         'description' => excerpt($product['breve_descripcion'] ?: $product['descripcion'], 250),
         'category' => trim(($product['category'] ?? '') . ' / ' . ($product['subcategory'] ?? ''), ' /'),
-        'brand' => [
+    ];
+
+    if ($brand !== null) {
+        $schema['brand'] = [
             '@type' => 'Brand',
-            'name' => 'Novatec Energy',
-        ],
-        'offers' => [
+            'name' => $brand,
+        ];
+    }
+
+    if (product_has_price($product)) {
+        $schema['offers'] = [
             '@type' => 'Offer',
             'url' => site_url($productPath),
             'priceCurrency' => 'PEN',
-            'price' => number_format($price, 2, '.', ''),
-            'availability' => $availability,
+            'price' => number_format(product_effective_price($product), 2, '.', ''),
             'seller' => ['@id' => site_url('#localbusiness')],
-        ],
-    ];
+            'areaServed' => array_map(static function ($city): array {
+                return ['@type' => 'City', 'name' => $city];
+            }, (array) novatec_config('business')['area_served']),
+            'availableAtOrFrom' => ['@id' => site_url('#localbusiness')],
+        ];
+    }
 
     if (product_has_image($product)) {
         $schema['image'] = product_image_url($product);
     }
 
     return $schema;
+}
+
+function product_item_list_schema(array $products, string $name): array
+{
+    $items = [];
+
+    foreach (array_values($products) as $index => $product) {
+        $item = [
+            '@type' => 'ListItem',
+            'position' => $index + 1,
+            'url' => site_url(product_path($product)),
+            'name' => (string) ($product['nombre'] ?? ''),
+        ];
+
+        if (product_has_image($product)) {
+            $item['image'] = product_image_url($product);
+        }
+
+        $items[] = $item;
+    }
+
+    return [
+        '@type' => 'ItemList',
+        '@id' => site_url(current_request_path() . '#productos'),
+        'name' => $name,
+        'itemListElement' => $items,
+    ];
 }
 
 function render_schema_graph(array $page): void

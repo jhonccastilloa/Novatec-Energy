@@ -26,12 +26,8 @@ if ($category && $subcategorySlug !== '') {
     }
 }
 
-$title = $subcategory ? $subcategory['subcategory'] : ($category ? $category['category'] : 'Productos');
-$pageDescription = $subcategory
-    ? 'Contamos con productos de ' . $subcategory['subcategory'] . ' en ' . $category['category'] . ' para proyectos de energías renovables en Novatec Energy.'
-    : ($category
-    ? 'Contamos con productos de ' . $category['category'] . ' para proyectos de energías renovables en Novatec Energy.'
-    : 'Contamos con productos de calidad para proyectos de energía renovable en la región sur.');
+$title = $subcategory ? $subcategory['subcategory'] : ($category ? $category['category'] : 'Productos solares y renovables');
+$pageDescription = seo_catalog_description($title, $category, $subcategory);
 $canonical = $subcategory && $category
     ? site_url(subcategory_path($category, $subcategory))
     : ($category ? site_url(category_path($category)) : site_url('productos'));
@@ -45,16 +41,18 @@ if ($category) {
 if ($subcategory && $category) {
     $breadcrumbs[] = ['name' => $subcategory['subcategory'], 'url' => subcategory_path($category, $subcategory)];
 }
+$categories = get_categories();
+$subcategories = $category ? get_subcategories_by_category((int) $category['id']) : [];
+$products = get_products($category ? (int) $category['id'] : null, null, $subcategory ? (int) $subcategory['id'] : null);
+$catalogTitle = seo_catalog_title($title);
 $pageSeo = [
-    'title' => $title . ' | La mejor calidad y mejores precios en Novatec Energy',
+    'title' => $catalogTitle,
     'description' => $pageDescription,
     'canonical' => $canonical,
     'path' => 'productos',
     'breadcrumbs' => $breadcrumbs,
+    'schema' => [product_item_list_schema($products, $catalogTitle)],
 ];
-$categories = get_categories();
-$subcategories = $category ? get_subcategories_by_category((int) $category['id']) : [];
-$products = get_products($category ? (int) $category['id'] : null, null, $subcategory ? (int) $subcategory['id'] : null);
 
 render_public_head($pageSeo, [
     'styles' => ['https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css'],
@@ -82,7 +80,7 @@ render_public_head($pageSeo, [
 HTML,
 ]);
 render_site_header();
-render_breadcrumb('Productos', 'Contamos con los mejores productos');
+render_breadcrumb($title . ' en ' . seo_local_market_label(), 'Venta y asesoría técnica para proyectos solares');
 ?>
 
 <div class="product-section mt-30 mb-150">

@@ -262,7 +262,6 @@ function render_feature_boxes(array $items, string $columnClass = 'col-lg-4 col-
 
 function render_product_card(array $product, bool $scrollToDescription = false): void
 {
-    $imageName = basename((string) ($product['imagen'] ?? ''), '.' . pathinfo((string) ($product['imagen'] ?? ''), PATHINFO_EXTENSION));
     $url = product_url($product) . ($scrollToDescription ? '#text-description' : '');
     ?>
 <div class="col-lg-4 col-md-6 text-center card-content <?php echo (int) ($product['id_subcategory'] ?? 0); ?> ">
@@ -270,7 +269,7 @@ function render_product_card(array $product, bool $scrollToDescription = false):
 		<div class="product-image" width="300" height="300">
 			<a href="<?php echo e($url); ?>" class="product-image-link">
                 <?php if (product_has_image($product)) { ?>
-			    <img src="<?php echo e(product_image_src($product)); ?>" alt="<?php echo e($imageName ?: $product['nombre']); ?>" width="300" height="300">
+			    <img src="<?php echo e(product_image_src($product)); ?>" alt="<?php echo e($product['nombre']); ?>" width="300" height="300">
                 <?php } else { ?>
                 <span class="product-image-placeholder" role="img" aria-label="Imagen pendiente">
                     <i class="fas fa-image" aria-hidden="true"></i>
@@ -280,7 +279,11 @@ function render_product_card(array $product, bool $scrollToDescription = false):
             </a>
 		</div>
 		<h3><?php echo e($product['nombre']); ?></h3>
-		<p class="product-price"> S/.<?php echo e($product['precio_normal']); ?> </p>
+		<?php if (product_has_price($product)) { ?>
+		<p class="product-price">S/.<?php echo e(number_format(product_effective_price($product), 2)); ?></p>
+		<?php } else { ?>
+		<p class="product-price">Precio a consultar</p>
+		<?php } ?>
 		<a href="<?php echo e($url); ?>" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer más</a>
 	</div>
 </div>

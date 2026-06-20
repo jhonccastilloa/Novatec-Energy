@@ -544,6 +544,31 @@ function get_product(int $id): ?array
     );
 }
 
+function get_product_by_slug(string $slug): ?array
+{
+    return db_one(
+        'SELECT productos.id, productos.nombre, productos.slug, productos.descripcion, productos.precio_normal, productos.precio_rebajado, productos.cantidad, productos.breve_descripcion, productos.imagen, productos.id_categoria, productos.id_subcategory, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
+         FROM productos
+         LEFT JOIN category ON productos.id_categoria = category.id
+         LEFT JOIN subcategory ON productos.id_subcategory = subcategory.id
+         WHERE productos.slug = ?
+         LIMIT 1',
+        's',
+        [$slug]
+    );
+}
+
+function product_effective_price(array $product): float
+{
+    $salePrice = (float) ($product['precio_rebajado'] ?? 0);
+    return $salePrice > 0 ? $salePrice : (float) ($product['precio_normal'] ?? 0);
+}
+
+function product_has_price(array $product): bool
+{
+    return product_effective_price($product) > 0;
+}
+
 function get_featured_categories(): array
 {
     $rows = db_all(

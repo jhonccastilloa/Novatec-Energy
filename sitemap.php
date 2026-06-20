@@ -27,8 +27,12 @@ foreach (get_categories() as $category) {
 }
 
 foreach (get_subcategories() as $subcategory) {
+    $category = [
+        'category' => $subcategory['category'],
+        'slug' => $subcategory['category_slug'],
+    ];
     $urls[] = [
-        'loc' => site_url(subcategory_path($subcategory, $subcategory)),
+        'loc' => site_url(subcategory_path($category, $subcategory)),
         'changefreq' => 'weekly',
         'priority' => '0.7',
     ];

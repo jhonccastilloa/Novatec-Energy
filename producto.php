@@ -2,6 +2,7 @@
 require_once __DIR__ . '/includes/components.php';
 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$slug = trim((string) ($_GET['slug'] ?? ''));
 if (!$id && isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT)) {
     $id = (int) $_GET['id'];
 }
@@ -12,6 +13,9 @@ if (!$id) {
 }
 
 $row = get_product((int) $id);
+if (!$row && $slug !== '') {
+    $row = get_product_by_slug($slug);
+}
 if (!$row) {
     header('location: productos.php');
     exit;
@@ -26,9 +30,9 @@ if (current_request_path() !== $canonicalPath) {
 }
 
 $title = $row['nombre'];
-$pageDescription = excerpt($row['breve_descripcion'] ?: 'Novatec Energy | Tienda especializada en productos de energías renovables', 155);
+$pageDescription = seo_product_description($row);
 $pageSeo = [
-    'title' => $title . ' | Novatec Energy',
+    'title' => $title . ' en ' . seo_local_market_label() . ' | Novatec Energy',
     'description' => $pageDescription,
     'canonical' => site_url($canonicalPath),
     'path' => $canonicalPath,
@@ -46,7 +50,7 @@ $message = 'Estoy interesado en el ' . $row['nombre'] . "\n" . $link;
 
 render_public_head($pageSeo);
 render_site_header();
-render_breadcrumb('Detalles del producto');
+render_breadcrumb($title . ' en ' . seo_local_market_label(), 'Ficha técnica y cotización por WhatsApp');
 ?>
 
 <div class="single-product pt-150 mb-150" id="text-description">
@@ -64,8 +68,12 @@ render_breadcrumb('Detalles del producto');
             </div>
             <div class="col-md-7">
                 <div class="single-product-content">
-                    <h3><?php echo e($row['nombre']); ?></h3>
-                    <p class="single-product-pricing"> S/.<?php echo e($row['precio_normal']); ?></p>
+                    <h2><?php echo e($row['nombre']); ?></h2>
+                    <?php if (product_has_price($row)) { ?>
+                    <p class="single-product-pricing">S/.<?php echo e(number_format(product_effective_price($row), 2)); ?></p>
+                    <?php } else { ?>
+                    <p class="single-product-pricing">Precio a consultar</p>
+                    <?php } ?>
                     <p><?php echo e($row['breve_descripcion']); ?></p>
                     <div class="single-product-form">
                         <p><strong>Categoría: </strong><?php echo e(($row['category'] ?? '') . '/' . ($row['subcategory'] ?? '')); ?></p>
