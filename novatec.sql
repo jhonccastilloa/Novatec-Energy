@@ -34,21 +34,12 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category` varchar(50) NOT NULL,
   `slug` varchar(120) NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `category_slug_unique` (`slug`),
   UNIQUE KEY `category_name_unique` (`category`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `category`
---
-
-LOCK TABLES `category` WRITE;
-/*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Paneles Solares','paneles-solares'),(2,'Termas Solares','termas-solares');
-/*!40000 ALTER TABLE `category` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `files`
@@ -69,16 +60,6 @@ CREATE TABLE `files` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `files`
---
-
-LOCK TABLES `files` WRITE;
-/*!40000 ALTER TABLE `files` DISABLE KEYS */;
-INSERT INTO `files` VALUES (1,'English.png',146569,'/Novatec-Energy/uploads/1.png','C:/xampp/htdocs/Novatec-Energy/uploads/1.png',0),(2,'English.png',146569,'/Novatec-Energy/uploads/2.png','C:/xampp/htdocs/Novatec-Energy/uploads/2.png',0),(3,'English.png',146569,'/Novatec-Energy/uploads/3.png','C:/xampp/htdocs/Novatec-Energy/uploads/3.png',0),(4,'English.png',146569,'/Novatec-Energy/uploads/4.png','C:/xampp/htdocs/Novatec-Energy/uploads/4.png',0);
-/*!40000 ALTER TABLE `files` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `productos`
 --
 
@@ -97,6 +78,7 @@ CREATE TABLE `productos` (
   `imagen` varchar(255) DEFAULT NULL,
   `id_categoria` int(11) NOT NULL,
   `id_subcategory` int(11) NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `productos_slug_unique` (`slug`),
   UNIQUE KEY `productos_nombre_unique` (`nombre`),
@@ -106,16 +88,6 @@ CREATE TABLE `productos` (
   CONSTRAINT `productos_subcategory_category_fk` FOREIGN KEY (`id_subcategory`, `id_categoria`) REFERENCES `subcategory` (`id`, `id_category`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `productos`
---
-
-LOCK TABLES `productos` WRITE;
-/*!40000 ALTER TABLE `productos` DISABLE KEYS */;
-INSERT INTO `productos` VALUES (32,'Panel Solar 610W Monocristalino N-Type Tensite','panel-solar-610w-monocristalino-n-type-tensite','<h2>Panel Solar 610W Monocristalino N-Type Tensite</h2><p>Panel solar de alto rendimiento para instalaciones residenciales, comerciales y proyectos solares en Puno. Su tecnologia N-Type ofrece alta eficiencia, mejor respuesta en condiciones de baja radiacion y larga vida util.</p><ul><li>Potencia maxima: 610W</li><li>Eficiencia aproximada: 22.6%</li><li>Tecnologia monocristalina N-Type</li><li>Ideal para sistemas fotovoltaicos conectados o aislados</li></ul><p>Disponible con asesoria tecnica, dimensionamiento e instalacion profesional.</p>','Panel solar monocristalino N-Type de 610W para sistemas fotovoltaicos de alto rendimiento en Puno.',1223.21,0.00,0,'RADIUS.png',1,1);
-/*!40000 ALTER TABLE `productos` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `products_files`
@@ -135,15 +107,6 @@ CREATE TABLE `products_files` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `products_files`
---
-
-LOCK TABLES `products_files` WRITE;
-/*!40000 ALTER TABLE `products_files` DISABLE KEYS */;
-/*!40000 ALTER TABLE `products_files` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `subcategory`
 --
 
@@ -155,6 +118,7 @@ CREATE TABLE `subcategory` (
   `id_category` int(11) NOT NULL,
   `subcategory` varchar(50) NOT NULL,
   `slug` varchar(120) NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `subcategory_category_pair` (`id`,`id_category`),
   UNIQUE KEY `subcategory_category_slug_unique` (`id_category`,`slug`),
@@ -165,14 +129,111 @@ CREATE TABLE `subcategory` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `subcategory`
+-- Triggers para registrar modificaciones reales del catálogo y alimentar sitemap.xml
 --
 
-LOCK TABLES `subcategory` WRITE;
-/*!40000 ALTER TABLE `subcategory` DISABLE KEYS */;
-INSERT INTO `subcategory` VALUES (1,1,'Paneles Monocristalinos','paneles-monocristalinos');
-/*!40000 ALTER TABLE `subcategory` ENABLE KEYS */;
-UNLOCK TABLES;
+DELIMITER //
+
+CREATE TRIGGER `category_set_updated_at_before_insert`
+BEFORE INSERT ON `category`
+FOR EACH ROW
+BEGIN
+  IF NEW.`updated_at` IS NULL THEN
+    SET NEW.`updated_at` = CURRENT_TIMESTAMP;
+  END IF;
+END//
+
+CREATE TRIGGER `category_set_updated_at_before_update`
+BEFORE UPDATE ON `category`
+FOR EACH ROW
+BEGIN
+  SET NEW.`updated_at` = CURRENT_TIMESTAMP;
+END//
+
+CREATE TRIGGER `subcategory_set_updated_at_before_insert`
+BEFORE INSERT ON `subcategory`
+FOR EACH ROW
+BEGIN
+  IF NEW.`updated_at` IS NULL THEN
+    SET NEW.`updated_at` = CURRENT_TIMESTAMP;
+  END IF;
+END//
+
+CREATE TRIGGER `subcategory_set_updated_at_before_update`
+BEFORE UPDATE ON `subcategory`
+FOR EACH ROW
+BEGIN
+  SET NEW.`updated_at` = CURRENT_TIMESTAMP;
+END//
+
+CREATE TRIGGER `productos_set_updated_at_before_insert`
+BEFORE INSERT ON `productos`
+FOR EACH ROW
+BEGIN
+  IF NEW.`updated_at` IS NULL THEN
+    SET NEW.`updated_at` = CURRENT_TIMESTAMP;
+  END IF;
+END//
+
+CREATE TRIGGER `productos_set_updated_at_before_update`
+BEFORE UPDATE ON `productos`
+FOR EACH ROW
+BEGIN
+  SET NEW.`updated_at` = CURRENT_TIMESTAMP;
+END//
+
+CREATE TRIGGER `subcategory_touch_category_after_insert`
+AFTER INSERT ON `subcategory`
+FOR EACH ROW
+BEGIN
+  UPDATE `category` SET `updated_at` = CURRENT_TIMESTAMP WHERE `id` = NEW.`id_category`;
+END//
+
+CREATE TRIGGER `subcategory_touch_category_after_update`
+AFTER UPDATE ON `subcategory`
+FOR EACH ROW
+BEGIN
+  UPDATE `category`
+  SET `updated_at` = CURRENT_TIMESTAMP
+  WHERE `id` IN (OLD.`id_category`, NEW.`id_category`);
+END//
+
+CREATE TRIGGER `subcategory_touch_category_after_delete`
+AFTER DELETE ON `subcategory`
+FOR EACH ROW
+BEGIN
+  UPDATE `category` SET `updated_at` = CURRENT_TIMESTAMP WHERE `id` = OLD.`id_category`;
+END//
+
+CREATE TRIGGER `productos_touch_taxonomy_after_insert`
+AFTER INSERT ON `productos`
+FOR EACH ROW
+BEGIN
+  UPDATE `category` SET `updated_at` = CURRENT_TIMESTAMP WHERE `id` = NEW.`id_categoria`;
+  UPDATE `subcategory` SET `updated_at` = CURRENT_TIMESTAMP WHERE `id` = NEW.`id_subcategory`;
+END//
+
+CREATE TRIGGER `productos_touch_taxonomy_after_update`
+AFTER UPDATE ON `productos`
+FOR EACH ROW
+BEGIN
+  UPDATE `category`
+  SET `updated_at` = CURRENT_TIMESTAMP
+  WHERE `id` IN (OLD.`id_categoria`, NEW.`id_categoria`);
+  UPDATE `subcategory`
+  SET `updated_at` = CURRENT_TIMESTAMP
+  WHERE `id` IN (OLD.`id_subcategory`, NEW.`id_subcategory`);
+END//
+
+CREATE TRIGGER `productos_touch_taxonomy_after_delete`
+AFTER DELETE ON `productos`
+FOR EACH ROW
+BEGIN
+  UPDATE `category` SET `updated_at` = CURRENT_TIMESTAMP WHERE `id` = OLD.`id_categoria`;
+  UPDATE `subcategory` SET `updated_at` = CURRENT_TIMESTAMP WHERE `id` = OLD.`id_subcategory`;
+END//
+
+DELIMITER ;
 
 --
 -- Table structure for table `users`

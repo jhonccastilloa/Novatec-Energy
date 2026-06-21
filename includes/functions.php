@@ -465,33 +465,33 @@ function db_execute(string $sql, string $types = '', array $params = []): bool
 
 function get_categories(): array
 {
-    return db_all('SELECT id, category, slug FROM category ORDER BY id ASC');
+    return db_all('SELECT id, category, slug, updated_at FROM category ORDER BY id ASC');
 }
 
 function get_category(int $id): ?array
 {
-    return db_one('SELECT id, category, slug FROM category WHERE id = ? LIMIT 1', 'i', [$id]);
+    return db_one('SELECT id, category, slug, updated_at FROM category WHERE id = ? LIMIT 1', 'i', [$id]);
 }
 
 function get_category_by_slug(string $slug): ?array
 {
-    return db_one('SELECT id, category, slug FROM category WHERE slug = ? LIMIT 1', 's', [$slug]);
+    return db_one('SELECT id, category, slug, updated_at FROM category WHERE slug = ? LIMIT 1', 's', [$slug]);
 }
 
 function get_subcategories_by_category(int $categoryId): array
 {
-    return db_all('SELECT id, id_category, subcategory, slug FROM subcategory WHERE id_category = ? ORDER BY id ASC', 'i', [$categoryId]);
+    return db_all('SELECT id, id_category, subcategory, slug, updated_at FROM subcategory WHERE id_category = ? ORDER BY id ASC', 'i', [$categoryId]);
 }
 
 function get_subcategory_by_slug(int $categoryId, string $slug): ?array
 {
-    return db_one('SELECT id, id_category, subcategory, slug FROM subcategory WHERE id_category = ? AND slug = ? LIMIT 1', 'is', [$categoryId, $slug]);
+    return db_one('SELECT id, id_category, subcategory, slug, updated_at FROM subcategory WHERE id_category = ? AND slug = ? LIMIT 1', 'is', [$categoryId, $slug]);
 }
 
 function get_subcategories(): array
 {
     return db_all(
-        'SELECT subcategory.id, subcategory.id_category, subcategory.subcategory, subcategory.slug, category.category, category.slug AS category_slug
+        'SELECT subcategory.id, subcategory.id_category, subcategory.subcategory, subcategory.slug, subcategory.updated_at, category.category, category.slug AS category_slug
          FROM subcategory
          INNER JOIN category ON subcategory.id_category = category.id
          ORDER BY category.id ASC, subcategory.id ASC'
@@ -533,7 +533,7 @@ function get_products(?int $categoryId = null, ?string $search = null, ?int $sub
 function get_product(int $id): ?array
 {
     return db_one(
-        'SELECT productos.id, productos.nombre, productos.slug, productos.descripcion, productos.precio_normal, productos.precio_rebajado, productos.cantidad, productos.breve_descripcion, productos.imagen, productos.id_categoria, productos.id_subcategory, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
+        'SELECT productos.id, productos.nombre, productos.slug, productos.descripcion, productos.precio_normal, productos.precio_rebajado, productos.cantidad, productos.breve_descripcion, productos.imagen, productos.id_categoria, productos.id_subcategory, productos.updated_at, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
          FROM productos
          LEFT JOIN category ON productos.id_categoria = category.id
          LEFT JOIN subcategory ON productos.id_subcategory = subcategory.id
@@ -547,7 +547,7 @@ function get_product(int $id): ?array
 function get_product_by_slug(string $slug): ?array
 {
     return db_one(
-        'SELECT productos.id, productos.nombre, productos.slug, productos.descripcion, productos.precio_normal, productos.precio_rebajado, productos.cantidad, productos.breve_descripcion, productos.imagen, productos.id_categoria, productos.id_subcategory, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
+        'SELECT productos.id, productos.nombre, productos.slug, productos.descripcion, productos.precio_normal, productos.precio_rebajado, productos.cantidad, productos.breve_descripcion, productos.imagen, productos.id_categoria, productos.id_subcategory, productos.updated_at, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
          FROM productos
          LEFT JOIN category ON productos.id_categoria = category.id
          LEFT JOIN subcategory ON productos.id_subcategory = subcategory.id
