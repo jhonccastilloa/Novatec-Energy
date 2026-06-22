@@ -1,7 +1,7 @@
 -- Importación completa del catálogo SEO de Novatec Energy.
 -- Ejecutar en la base de datos de producción indicada antes de iniciar la transacción.
 USE `u543705487_novatec`;
-SET NAMES utf8mb4;
+SET NAMES utf8mb4 COLLATE utf8mb4_general_ci;
 START TRANSACTION;
 
 -- Reinicio exclusivo del catálogo. No elimina archivos físicos ni datos administrativos.
@@ -52,7 +52,7 @@ CREATE TEMPORARY TABLE `_import_productos_novatec` (
   `nombre` varchar(255) NOT NULL,
   `slug` varchar(180) NOT NULL,
   `precio_normal` decimal(10,2) NOT NULL
-) ENGINE=MEMORY DEFAULT CHARSET=utf8mb4;
+) ENGINE=MEMORY DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `_import_productos_novatec`
 (`category_slug`, `subcategory_slug`, `nombre`, `slug`, `precio_normal`)
@@ -149,7 +149,7 @@ CREATE TEMPORARY TABLE `_import_descripciones_seo_novatec` (
   `descripcion` text NOT NULL,
   `breve_descripcion` varchar(400) NOT NULL,
   PRIMARY KEY (`slug`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `_import_descripciones_seo_novatec`
 (`slug`, `descripcion`, `breve_descripcion`)
