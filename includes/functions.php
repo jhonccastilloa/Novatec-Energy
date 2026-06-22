@@ -530,6 +530,36 @@ function get_products(?int $categoryId = null, ?string $search = null, ?int $sub
     return db_all($sql, $types, $params);
 }
 
+function get_related_products(int $productId, int $categoryId, int $subcategoryId, int $limit = 4): array
+{
+    if ($productId <= 0 || $categoryId <= 0 || $limit <= 0) {
+        return [];
+    }
+
+    $limit = min($limit, 4);
+    $sameSubcategoryOrder = $subcategoryId > 0
+        ? 'CASE WHEN productos.id_subcategory = ? THEN 0 ELSE 1 END'
+        : '0';
+    $types = $subcategoryId > 0 ? 'iii' : 'ii';
+    $params = $subcategoryId > 0
+        ? [$categoryId, $productId, $subcategoryId]
+        : [$categoryId, $productId];
+
+    $params[] = $limit;
+    $types .= 'i';
+
+    return db_all(
+        'SELECT productos.*
+         FROM productos
+         WHERE productos.id_categoria = ?
+           AND productos.id <> ?
+         ORDER BY ' . $sameSubcategoryOrder . ', productos.id DESC
+         LIMIT ?',
+        $types,
+        $params
+    );
+}
+
 function get_product(int $id): ?array
 {
     return db_one(

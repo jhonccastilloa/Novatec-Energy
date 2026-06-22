@@ -47,6 +47,11 @@ $pageSeo = [
 ];
 $link = site_url($canonicalPath);
 $message = 'Estoy interesado en el ' . $row['nombre'] . "\n" . $link;
+$relatedProducts = get_related_products(
+    (int) $row['id'],
+    (int) $row['id_categoria'],
+    (int) $row['id_subcategory']
+);
 
 render_public_head($pageSeo);
 render_site_header();
@@ -96,6 +101,25 @@ render_breadcrumb($title . ' en ' . seo_local_market_label(), 'Ficha técnica y 
         <?php echo $row['descripcion']; ?>
     </div>
 </div>
+
+<?php if ($relatedProducts !== []) { ?>
+<div class="product-section mb-150">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="section-title">
+                    <h3>Productos <span class="orange-text">relacionados</span></h3>
+                </div>
+            </div>
+        </div>
+        <div class="row product-lists">
+            <?php foreach ($relatedProducts as $relatedProduct) {
+                render_product_card($relatedProduct);
+            } ?>
+        </div>
+    </div>
+</div>
+<?php } ?>
 
 <?php
 render_site_footer();
