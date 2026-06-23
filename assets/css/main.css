@@ -1735,7 +1735,9 @@ p.excerpt {
 .product-category-card {
   display: flex;
   flex-direction: column;
-  height: 460px;
+  /* The text column must be allowed to grow on narrow screens. */
+  height: auto;
+  min-height: 460px;
   margin-bottom: 0;
   overflow: hidden;
   width: 100%;
@@ -1745,9 +1747,9 @@ p.excerpt {
   align-items: center;
   box-sizing: border-box;
   display: flex;
+  flex: 0 0 250px;
   justify-content: center;
   padding: 30px 30px 0;
-  height: 250px;
 }
 
 .product-category-card .product-image img {
@@ -1765,10 +1767,8 @@ p.excerpt {
 }
 
 .product-category-card .news-text-box {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  min-height: 0;
+  display: block;
+  flex: 0 0 auto;
 }
 
 .product-category-card h3,
@@ -1787,7 +1787,7 @@ p.excerpt {
 }
 
 .product-category-card .read-more-btn {
-  margin-top: auto;
+  margin-top: 15px;
 }
 
 .single-artcile-bg {
