@@ -533,13 +533,13 @@ function get_products(?int $categoryId = null, ?string $search = null, ?int $sub
     return db_all($sql, $types, $params);
 }
 
-function get_related_products(int $productId, int $categoryId, int $subcategoryId, int $limit = 4): array
+function get_related_products(int $productId, int $categoryId, int $subcategoryId, int $limit = 3): array
 {
     if ($productId <= 0 || $categoryId <= 0 || $limit <= 0) {
         return [];
     }
 
-    $limit = min($limit, 4);
+    $limit = min($limit, 3);
     $sameSubcategoryOrder = $subcategoryId > 0
         ? 'CASE WHEN productos.id_subcategory = ? THEN 0 ELSE 1 END'
         : '0';
