@@ -465,37 +465,62 @@ function db_execute(string $sql, string $types = '', array $params = []): bool
 
 function get_categories(): array
 {
-    return db_all('SELECT id, category, slug FROM category ORDER BY id ASC');
+    return db_all('SELECT id, category, slug, updated_at FROM category ORDER BY id ASC');
 }
 
 function get_category(int $id): ?array
 {
-    return db_one('SELECT id, category, slug FROM category WHERE id = ? LIMIT 1', 'i', [$id]);
+    return db_one('SELECT id, category, slug, updated_at FROM category WHERE id = ? LIMIT 1', 'i', [$id]);
 }
 
 function get_category_by_slug(string $slug): ?array
 {
-    return db_one('SELECT id, category, slug FROM category WHERE slug = ? LIMIT 1', 's', [$slug]);
+    return db_one('SELECT id, category, slug, updated_at FROM category WHERE slug = ? LIMIT 1', 's', [$slug]);
 }
 
 function get_subcategories_by_category(int $categoryId): array
 {
-    return db_all('SELECT id, id_category, subcategory, slug FROM subcategory WHERE id_category = ? ORDER BY id ASC', 'i', [$categoryId]);
+    return db_all('SELECT id, id_category, subcategory, slug, updated_at FROM subcategory WHERE id_category = ? ORDER BY id ASC', 'i', [$categoryId]);
 }
 
 function get_subcategory_by_slug(int $categoryId, string $slug): ?array
 {
-    return db_one('SELECT id, id_category, subcategory, slug FROM subcategory WHERE id_category = ? AND slug = ? LIMIT 1', 'is', [$categoryId, $slug]);
+    return db_one('SELECT id, id_category, subcategory, slug, updated_at FROM subcategory WHERE id_category = ? AND slug = ? LIMIT 1', 'is', [$categoryId, $slug]);
 }
 
 function get_subcategories(): array
 {
     return db_all(
-        'SELECT subcategory.id, subcategory.id_category, subcategory.subcategory, subcategory.slug, category.category, category.slug AS category_slug
+        'SELECT subcategory.id, subcategory.id_category, subcategory.subcategory, subcategory.slug, subcategory.updated_at, category.category, category.slug AS category_slug
          FROM subcategory
          INNER JOIN category ON subcategory.id_category = category.id
          ORDER BY category.id ASC, subcategory.id ASC'
     );
+}
+
+function product_search_terms(string $search): array
+{
+    $parts = preg_split('/[^\\p{L}\\p{N}]+/u', trim($search)) ?: [];
+    $terms = [];
+
+    foreach ($parts as $part) {
+        $term = trim($part);
+        if ($term === '') {
+            continue;
+        }
+
+        $key = function_exists('mb_strtolower') ? mb_strtolower($term, 'UTF-8') : strtolower($term);
+        if (!isset($terms[$key])) {
+            $terms[$key] = $term;
+        }
+    }
+
+    return array_values($terms);
+}
+
+function product_search_like_pattern(string $value): string
+{
+    return '%' . strtr($value, ['!' => '!!', '%' => '!%', '_' => '!_']) . '%';
 }
 
 function get_products(?int $categoryId = null, ?string $search = null, ?int $subcategoryId = null): array
@@ -503,31 +528,88 @@ function get_products(?int $categoryId = null, ?string $search = null, ?int $sub
     $where = [];
     $types = '';
     $params = [];
+    $orderBy = [];
 
     if ($categoryId !== null && $categoryId > 0) {
-        $where[] = 'productos.id_categoria = ?';
+        $where[] = 'p.id_categoria = ?';
         $types .= 'i';
         $params[] = $categoryId;
     }
 
     if ($subcategoryId !== null && $subcategoryId > 0) {
-        $where[] = 'productos.id_subcategory = ?';
+        $where[] = 'p.id_subcategory = ?';
         $types .= 'i';
         $params[] = $subcategoryId;
     }
 
-    if ($search !== null && trim($search) !== '') {
-        $where[] = 'productos.nombre LIKE ?';
-        $types .= 's';
-        $params[] = '%' . trim($search) . '%';
+    $searchTerms = $search === null ? [] : product_search_terms($search);
+    if ($searchTerms !== []) {
+        $searchFields = [
+            'p.nombre',
+            'c.category',
+            's.subcategory',
+            'p.breve_descripcion',
+            'p.descripcion',
+        ];
+
+        foreach ($searchTerms as $term) {
+            $matches = [];
+            $pattern = product_search_like_pattern($term);
+
+            foreach ($searchFields as $field) {
+                $matches[] = $field . " LIKE ? ESCAPE '!'";
+                $types .= 's';
+                $params[] = $pattern;
+            }
+
+            $where[] = '(' . implode(' OR ', $matches) . ')';
+        }
+
+        $fullSearch = trim((string) $search);
+        $types .= 'ss';
+        $params[] = $fullSearch;
+        $params[] = product_search_like_pattern($fullSearch);
+        $orderBy[] = 'CASE WHEN p.nombre = ? THEN 1 ELSE 0 END DESC';
+        $orderBy[] = "CASE WHEN p.nombre LIKE ? ESCAPE '!' THEN 1 ELSE 0 END DESC";
+
+        $nameMatches = [];
+        $taxonomyMatches = [];
+        $descriptionMatches = [];
+
+        foreach ($searchTerms as $term) {
+            $pattern = product_search_like_pattern($term);
+
+            $nameMatches[] = "CASE WHEN p.nombre LIKE ? ESCAPE '!' THEN 1 ELSE 0 END";
+            $types .= 's';
+            $params[] = $pattern;
+
+            $taxonomyMatches[] = "CASE WHEN (c.category LIKE ? ESCAPE '!' OR s.subcategory LIKE ? ESCAPE '!') THEN 1 ELSE 0 END";
+            $types .= 'ss';
+            $params[] = $pattern;
+            $params[] = $pattern;
+
+            $descriptionMatches[] = "CASE WHEN (p.breve_descripcion LIKE ? ESCAPE '!' OR p.descripcion LIKE ? ESCAPE '!') THEN 1 ELSE 0 END";
+            $types .= 'ss';
+            $params[] = $pattern;
+            $params[] = $pattern;
+        }
+
+        $orderBy[] = '(' . implode(' + ', $nameMatches) . ') DESC';
+        $orderBy[] = '(' . implode(' + ', $taxonomyMatches) . ') DESC';
+        $orderBy[] = '(' . implode(' + ', $descriptionMatches) . ') DESC';
+        $orderBy[] = 'p.nombre ASC';
     }
 
-    $sql = 'SELECT productos.*, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
-            FROM productos
-            LEFT JOIN category ON productos.id_categoria = category.id
-            LEFT JOIN subcategory ON productos.id_subcategory = subcategory.id';
+    $sql = 'SELECT p.*, c.category, c.slug AS category_slug, s.subcategory, s.slug AS subcategory_slug
+            FROM productos p
+            LEFT JOIN category c ON p.id_categoria = c.id
+            LEFT JOIN subcategory s ON p.id_subcategory = s.id';
     if ($where !== []) {
         $sql .= ' WHERE ' . implode(' AND ', $where);
+    }
+
+    if ($orderBy !== []) {
+        $sql .= ' ORDER BY ' . implode(', ', $orderBy);
     }
 
     return db_all($sql, $types, $params);
@@ -568,7 +650,7 @@ function get_related_products(int $productId, int $categoryId, int $subcategoryI
 function get_product(int $id): ?array
 {
     return db_one(
-        'SELECT productos.id, productos.nombre, productos.slug, productos.descripcion, productos.precio_normal, productos.precio_rebajado, productos.cantidad, productos.breve_descripcion, productos.imagen, productos.id_categoria, productos.id_subcategory, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
+        'SELECT productos.id, productos.nombre, productos.slug, productos.descripcion, productos.precio_normal, productos.precio_rebajado, productos.cantidad, productos.breve_descripcion, productos.imagen, productos.id_categoria, productos.id_subcategory, productos.updated_at, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
          FROM productos
          LEFT JOIN category ON productos.id_categoria = category.id
          LEFT JOIN subcategory ON productos.id_subcategory = subcategory.id
@@ -582,7 +664,7 @@ function get_product(int $id): ?array
 function get_product_by_slug(string $slug): ?array
 {
     return db_one(
-        'SELECT productos.id, productos.nombre, productos.slug, productos.descripcion, productos.precio_normal, productos.precio_rebajado, productos.cantidad, productos.breve_descripcion, productos.imagen, productos.id_categoria, productos.id_subcategory, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
+        'SELECT productos.id, productos.nombre, productos.slug, productos.descripcion, productos.precio_normal, productos.precio_rebajado, productos.cantidad, productos.breve_descripcion, productos.imagen, productos.id_categoria, productos.id_subcategory, productos.updated_at, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
          FROM productos
          LEFT JOIN category ON productos.id_categoria = category.id
          LEFT JOIN subcategory ON productos.id_subcategory = subcategory.id
