@@ -505,24 +505,27 @@ function get_products(?int $categoryId = null, ?string $search = null, ?int $sub
     $params = [];
 
     if ($categoryId !== null && $categoryId > 0) {
-        $where[] = 'id_categoria = ?';
+        $where[] = 'productos.id_categoria = ?';
         $types .= 'i';
         $params[] = $categoryId;
     }
 
     if ($subcategoryId !== null && $subcategoryId > 0) {
-        $where[] = 'id_subcategory = ?';
+        $where[] = 'productos.id_subcategory = ?';
         $types .= 'i';
         $params[] = $subcategoryId;
     }
 
     if ($search !== null && trim($search) !== '') {
-        $where[] = 'nombre LIKE ?';
+        $where[] = 'productos.nombre LIKE ?';
         $types .= 's';
         $params[] = '%' . trim($search) . '%';
     }
 
-    $sql = 'SELECT * FROM productos';
+    $sql = 'SELECT productos.*, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
+            FROM productos
+            LEFT JOIN category ON productos.id_categoria = category.id
+            LEFT JOIN subcategory ON productos.id_subcategory = subcategory.id';
     if ($where !== []) {
         $sql .= ' WHERE ' . implode(' AND ', $where);
     }
@@ -549,8 +552,10 @@ function get_related_products(int $productId, int $categoryId, int $subcategoryI
     $types .= 'i';
 
     return db_all(
-        'SELECT productos.*
+        'SELECT productos.*, category.category, category.slug AS category_slug, subcategory.subcategory, subcategory.slug AS subcategory_slug
          FROM productos
+         LEFT JOIN category ON productos.id_categoria = category.id
+         LEFT JOIN subcategory ON productos.id_subcategory = subcategory.id
          WHERE productos.id_categoria = ?
            AND productos.id <> ?
          ORDER BY ' . $sameSubcategoryOrder . ', productos.id DESC
@@ -740,4 +745,14 @@ function product_path(array $product): string
     }
 
     return 'producto/' . $slug . '-' . (int) $product['id'];
+}
+
+function product_whatsapp_message(array $product): string
+{
+    $productName = trim((string) ($product['nombre'] ?? ''));
+    $productName = $productName !== '' ? $productName : 'Producto solar';
+
+    return "Hola, quiero consultar por este producto:\n"
+        . $productName . "\n"
+        . site_url(product_path($product));
 }

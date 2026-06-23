@@ -263,29 +263,36 @@ function render_feature_boxes(array $items, string $columnClass = 'col-lg-4 col-
 function render_product_card(array $product, bool $scrollToDescription = false): void
 {
     $url = product_url($product) . ($scrollToDescription ? '#text-description' : '');
+    $productName = (string) ($product['nombre'] ?? 'Producto solar');
+    $message = product_whatsapp_message($product);
     ?>
-<div class="col-lg-4 col-md-6 text-center card-content <?php echo (int) ($product['id_subcategory'] ?? 0); ?> ">
-	<div class="single-product-item">
-		<div class="product-image" width="300" height="300">
+<div class="col-lg-4 col-md-6 card-content <?php echo (int) ($product['id_subcategory'] ?? 0); ?>">
+	<article class="single-product-item product-card">
+		<div class="product-card-media">
 			<a href="<?php echo e($url); ?>" class="product-image-link">
                 <?php if (product_has_image($product)) { ?>
-			    <img src="<?php echo e(product_image_src($product)); ?>" alt="<?php echo e($product['nombre']); ?>" width="300" height="300">
+			    <img src="<?php echo e(product_image_src($product)); ?>" alt="<?php echo e($productName); ?>" loading="lazy">
                 <?php } else { ?>
-                <span class="product-image-placeholder" role="img" aria-label="Imagen pendiente">
+                <span class="product-card-placeholder" role="img" aria-label="Imagen próximamente">
                     <i class="fas fa-image" aria-hidden="true"></i>
-                    <!-- <span>Imagen pendiente</span> -->
+                    <span>Imagen próximamente</span>
                 </span>
                 <?php } ?>
             </a>
-		</div>
-		<h3><?php echo e($product['nombre']); ?></h3>
-		<?php if (product_has_price($product)) { ?>
-		<p class="product-price">S/.<?php echo e(number_format(product_effective_price($product), 2)); ?></p>
-		<?php } else { ?>
-		<p class="product-price">Precio a consultar</p>
-		<?php } ?>
-		<a href="<?php echo e($url); ?>" class="cart-btn"><i class="fas fa-shopping-cart"></i> Leer más</a>
-	</div>
+        </div>
+        <div class="product-card-content">
+		    <h3><a href="<?php echo e($url); ?>"><?php echo e($productName); ?></a></h3>
+		    <?php if (product_has_price($product)) { ?>
+		    <p class="product-price">S/.<?php echo e(number_format(product_effective_price($product), 2)); ?></p>
+		    <?php } else { ?>
+		    <p class="product-price product-price--consult">Precio a consultar</p>
+		    <?php } ?>
+            <div class="product-card-actions">
+                <a href="<?php echo e(whatsapp_url($message)); ?>" class="whatsapp-contact-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> Consultar por WhatsApp</a>
+                <a href="<?php echo e($url); ?>" class="product-card-details">Ver detalles <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
+	</article>
 </div>
 <?php
 }

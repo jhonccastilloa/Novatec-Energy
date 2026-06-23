@@ -46,7 +46,7 @@ $pageSeo = [
     'schema' => [product_schema($row)],
 ];
 $link = site_url($canonicalPath);
-$message = 'Estoy interesado en el ' . $row['nombre'] . "\n" . $link;
+$message = product_whatsapp_message($row);
 $relatedProducts = get_related_products(
     (int) $row['id'],
     (int) $row['id_categoria'],
@@ -83,7 +83,7 @@ render_breadcrumb($title . ' en ' . seo_local_market_label(), 'Ficha técnica y 
                     <div class="single-product-form">
                         <p><strong>Categoría: </strong><?php echo e(($row['category'] ?? '') . '/' . ($row['subcategory'] ?? '')); ?></p>
                         <br>
-                        <a href="<?php echo e(whatsapp_url($message)); ?>" class="cart-btn" target="_blank"><i class="fab fa-whatsapp "></i> Contactar vía WhatsApp</a>
+                        <a href="<?php echo e(whatsapp_url($message)); ?>" class="whatsapp-contact-btn" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" aria-hidden="true"></i> Consultar por WhatsApp</a>
                     </div>
                     <h4>Compartir:</h4>
                     <ul class="product-share">
