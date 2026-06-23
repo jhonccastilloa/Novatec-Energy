@@ -85,51 +85,44 @@ render_breadcrumb($title . ' en ' . seo_local_market_label(), 'Venta y asesoría
 
 <div class="product-section mt-30 mb-150">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="product-category">
-                    <h3>Categorías:</h3>
-                    <ul>
-                        <a href="<?php echo e(url_path('productos')); ?>">
-                            <li class="<?php echo !$category ? 'active' : ''; ?>">Todo</li>
-                        </a>
-                        <?php foreach ($categories as $row) { ?>
-                            <a href="<?php echo e(category_url($row)); ?>">
-                                <li class="<?php echo ($category && ((int) $row['id'] === (int) $category['id'])) ? 'active' : ''; ?>"><?php echo e($row['category']); ?></li>
-                            </a>
+        <nav class="product-catalog-nav" aria-label="Filtros de productos">
+            <div class="product-catalog-filter">
+                <p class="product-catalog-filter-label" id="product-category-label">Categorías:</p>
+                <div class="product-catalog-chip-scroll">
+                    <ul class="product-catalog-chips" aria-labelledby="product-category-label">
+                        <li>
+                            <a href="<?php echo e(url_path('productos')); ?>" class="<?php echo !$category ? 'is-active' : ''; ?>" <?php echo !$category ? ' aria-current="page"' : ''; ?>>Todo</a>
+                        </li>
+                        <?php foreach ($categories as $row) {
+                            $isActiveCategory = $category && ((int) $row['id'] === (int) $category['id']);
+                        ?>
+                            <li>
+                                <a href="<?php echo e(category_url($row)); ?>" class="<?php echo $isActiveCategory ? 'is-active' : ''; ?>" <?php echo $isActiveCategory ? ' aria-current="page"' : ''; ?>><?php echo e($row['category']); ?></a>
+                            </li>
                         <?php } ?>
                     </ul>
                 </div>
             </div>
-        </div>
 
-        <?php if ($category) { ?>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="product-filters swiper">
-                        <ul class="swiper-wrapper">
-                            <li class="<?php echo !$subcategory ? 'active ' : ''; ?>swiper-slide"><a href="<?php echo e(category_url($category)); ?>">Todo</a></li>
-                            <?php foreach ($subcategories as $row) { ?>
-                                <li class="<?php echo ($subcategory && (int) $subcategory['id'] === (int) $row['id']) ? 'active ' : ''; ?>swiper-slide"><a href="<?php echo e(subcategory_url($category, $row)); ?>"><?php echo e($row['subcategory']); ?></a></li>
+            <?php if ($category && $subcategories !== []) { ?>
+                <div class="product-catalog-filter product-catalog-subcategory-filter">
+                    <div class="product-catalog-chip-scroll">
+                        <ul class="product-catalog-chips" aria-labelledby="product-subcategory-label">
+                            <li>
+                                <a href="<?php echo e(category_url($category)); ?>" class="<?php echo !$subcategory ? 'is-active' : ''; ?>" <?php echo !$subcategory ? ' aria-current="page"' : ''; ?>>Todo</a>
+                            </li>
+                            <?php foreach ($subcategories as $row) {
+                                $isActiveSubcategory = $subcategory && ((int) $subcategory['id'] === (int) $row['id']);
+                            ?>
+                                <li>
+                                    <a href="<?php echo e(subcategory_url($category, $row)); ?>" class="<?php echo $isActiveSubcategory ? 'is-active' : ''; ?>" <?php echo $isActiveSubcategory ? ' aria-current="page"' : ''; ?>><?php echo e($row['subcategory']); ?></a>
+                                </li>
                             <?php } ?>
                         </ul>
-                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
-            </div>
-            <script>
-                const swiper = new Swiper('.swiper', {
-                    slidesPerView: "auto",
-                    spaceBetween: 10,
-                    slidesPerGroup: 3,
-                    freeMode: true,
-                    pagination: {
-                        el: ".swiper-pagination",
-                        clickable: true,
-                    },
-                });
-            </script>
-        <?php } ?>
+            <?php } ?>
+        </nav>
 
         <div class="row product-lists">
             <?php foreach ($products as $row) {
@@ -189,7 +182,7 @@ render_site_footer([
 			}
 
 			document.addEventListener('click', function (event) {
-				var link = event.target.closest('.product-category a, .product-filters a');
+				var link = event.target.closest('.product-catalog-nav a');
 
 				if (!link) {
 					return;
